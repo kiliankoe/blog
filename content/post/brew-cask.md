@@ -5,8 +5,9 @@ slug = "brew-cask"
 +++
 
 I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed [xmind](http://www.xmind.net/de/) right through his package manager (or actually [yaourt](https://wiki.archlinux.org/index.php/yaourt), but I won't make the distinction here). Now don't get me wrong, there's nothing wrong with installing applications on OS X. It's dead simple.
-
-![drag'n drop](http://i.imgur.com/oHxuD7K.png)
+<p align="center">
+  ![drag'n drop](http://i.imgur.com/oHxuD7K.png)
+</p>
 
 You download the disk image, double-click it to mount and drag the .app onto your linked Applications directory. But it's so graphical... Any self-respecting *appleleptic* nowadays already has the fantastic [Homebrew](http://brew.sh/) package manager installed on their system anyways, which is awesome stuff, without question. And there is one package I have to admit to not having heard of before a few days ago, even though it has a rather big following which helps us out here.
 
