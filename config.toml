@@ -1,0 +1,25 @@
+baseurl = "http://blog.kilian.io/"
+languageCode = "en"
+title = "blog.kilian.io"
+theme = "hemingway"
+
+[permalinks]
+post = "/:slug/"
+
+[params]
+
+[params.highlight]
+syle = "github"
+languages = ["go", "shell", "ruby", "swift"]
+
+[[params.social]]
+url = "https://github.com/kiliankoe"
+fa_icon = "fa-github"
+
+[[params.social]]
+url = "https://twitter.com/kiliankoe"
+fa_icon = "fa-twitter"
+
+[[params.social]]
+url = "/index.xml"
+fa_icon = "fa-rss"
