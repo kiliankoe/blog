@@ -427,9 +427,10 @@ I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as i
       <guid>http://blog.kilian.io/brew-cask/</guid>
       <description>
 
-&lt;p&gt;I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed &lt;a href=&#34;http://www.xmind.net/de/&#34;&gt;xmind&lt;/a&gt; right through his package manager (or actually &lt;a href=&#34;https://wiki.archlinux.org/index.php/yaourt&#34;&gt;yaourt&lt;/a&gt;, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/oHxuD7K.png&#34; alt=&#34;drag&#39;n drop&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed &lt;a href=&#34;http://www.xmind.net/de/&#34;&gt;xmind&lt;/a&gt; right through his package manager (or actually &lt;a href=&#34;https://wiki.archlinux.org/index.php/yaourt&#34;&gt;yaourt&lt;/a&gt;, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple.
+&lt;p align=&#34;center&#34;&gt;
+  &lt;img src=&#34;http://i.imgur.com/oHxuD7K.png&#34; alt=&#34;drag&#39;n drop&#34; /&gt;
+&lt;/p&gt;&lt;/p&gt;
 
 &lt;p&gt;You download the disk image, double-click it to mount and drag the .app onto your linked Applications directory. But it&amp;rsquo;s so graphical&amp;hellip; Any self-respecting &lt;em&gt;appleleptic&lt;/em&gt; nowadays already has the fantastic &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt; package manager installed on their system anyways, which is awesome stuff, without question. And there is one package I have to admit to not having heard of before a few days ago, even though it has a rather big following which helps us out here.&lt;/p&gt;
 
