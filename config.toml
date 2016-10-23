@@ -6,8 +6,6 @@ theme = "hemingway"
 [permalinks]
 post = "/:slug/"
 
-[params]
-
 [params.highlight]
 syle = "github"
 languages = ["go", "shell", "ruby", "swift"]
