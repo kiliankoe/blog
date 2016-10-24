@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing Custom Alfred Worklows | blog.kilian.io</title>
+<link rel="stylesheet" href="http://blog.kilian.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://blog.kilian.io/"><h1 class="title is-4">blog.kilian.io</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">October 23, 2016</h2>
+    <h1 class="title">Writing Custom Alfred Worklows</h1>
+    <div class="content">
+      
+
+<p>A <a href="https://twitter.com/BenchR">friend of mine</a> has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&rsquo;ve been using for years, but have never really thought about using for my own stuff before.</p>
+
+<p>Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called <em>script filters</em>.</p>
+
+<p><em>Please be aware that workflows are a paid <a href="https://www.alfredapp.com/powerpack/">powerpack</a> feature of Alfred. I can definitely recommend the upgrade though!</em></p>
+
+<h2 id="what-s-a-script-filter">What&rsquo;s a <em>Script Filter</em>?</h2>
+
+<p>On creating a new blank workflow you&rsquo;re presented with an empty page. Here you can add a bunch of stuff, but the most straight-forward thing (in my opinion at least) is a script filter.
+<p align="center">
+  <img src="/img/alfredworkflows_1.png" alt="" />
+</p></p>
+
+<p>Script filters are input actions, meaning they can be run on certain keywords and with certain arguments. The argument can then be passed on to a given script (hence the name), which does some 🎩🐰✨ and returns some items for Alfred to display.</p>
+
+<p>Alfred has a list of supported default &ldquo;languages&rdquo;, including bash or zsh, php, ruby, python, perl and applescript. Or you can just choose &ldquo;External script&rdquo; and go with whatever you want.</p>
+
+<p><strong>Caveat</strong>: If you&rsquo;re looking to distribute your workflow to others, it might make sense to go with something that they can run natively without having to install additional dependencies. My first workflow was written in Node.js, which unfortunately doesn&rsquo;t come preinstalled on macOS. And then one of the users had an older version running into all kinds of additional errors. On the other hand, if you&rsquo;re writing a wrapper for npm tooling, node will probably be on your user&rsquo;s machines and the language is their tool of choice anyways. It&rsquo;s always a question of your target audience.</p>
+
+<p>What&rsquo;s also noteworthy here is the &ldquo;Run Behaviour&rdquo;. Alfred defaults to running one instance of your script after each other. That means that if an instance is already running (maybe being rather slow due to a network call or something else), any further user input will only be processed after the first script has finished and a new instance can be started.
+My experience has been that this can easily be changed to terminate the previous instance if the users adds additional input for most cases, making things a lot snappier.</p>
+
+<h2 id="getting-started-with-a-script-filter">Getting Started with a Script Filter</h2>
+
+<p>A user&rsquo;s input is handed over to your script as argv by default, making it trivial to access this with your language of choosing.</p>
+
+<p>To show a list of items in Alfred once you&rsquo;re done you have to do nothing more than output some JSON (or XML) to STDOUT.
+Alfred has <a href="https://www.alfredapp.com/help/workflows/inputs/script-filter/json/">pretty good documentation</a> on how your outputted data has to be formatted for Alfred to pick it up.</p>
+
+<p>The basic idea is having a list of items with their respective fields. Most of them are pretty self-explanatory or well explained in the docs linked above.</p>
+
+<pre><code class="language-javascript">{&quot;items&quot;: [
+    {
+        &quot;title&quot;: &quot;An item&quot;,
+        &quot;subtitle&quot;: &quot;Some description &quot;,
+        &quot;arg&quot;: &quot;an argument&quot;,
+        &quot;icon&quot;: {
+            &quot;path&quot;: &quot;link to an image&quot;
+        }
+    },
+    //...
+]}
+</code></pre>
+
+<p>Setting an argument is especially helpful for other actions, as this is what is passed on to them. You can also specify different arguments for modifier keys, so a different actions will be passed on if the user holds ⌘ for example.</p>
+
+<p>Alfred also does a lot for you out-of-the-box if you want to list files from your harddrive.</p>
+
+<h2 id="using-a-helper-library">Using a Helper Library</h2>
+
+<p>You&rsquo;ll make your life a lot easier using one of the plentiful alfred-workflow helper libraries out there, surely also for your language of choice.</p>
+
+<p>Two I&rsquo;d like to highlight are <a href="https://github.com/sindresorhus/alfy">Alfy</a> by Sindre Sorhus (Javascript) and <a href="https://github.com/BenchR267/goalfred">goalfred</a> by Benjamin Herzog (golang).
+Both have a fantastic API making your life a lot easier by just passing along the items and setting appropriate attributes.</p>
+
+<p>Something specific to goalfred are the so called complex arguments. It turns out to be rather tricky if you want to pass along specific variables to further actions. Ben and I figured that out together as I was trying to build a workflow showing departures in our local public transport network (DVB in Dresden, Germany).</p>
+
+<p align="center">
+<iframe src='https://gfycat.com/ifr/CluelessSaneAtlasmoth' frameborder='0' scrolling='no' width='640' height='377' allowfullscreen></iframe>
+</p>
+
+<p>When hitting enter on an item I wanted to schedule a notification to be displayed several minutes before the departure. My first implementation included a small Swift app using system APIs to schedule that as it turns out you can&rsquo;t schedule future notifications via applescript 😕
+We later figured out how to implement the same functionality directly within the workflow getting rid of the rather cumbersome and awkward first implementation. Ben went ahead and built that directly into goalfred 🙂 A big recommendation goes out to that library.</p>
+
+<p>Using that we can easily throw together a small (albeit useless) workflow script in go greeting the name the user enters or no one if no input is given.</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;fmt&quot;
+
+    &quot;github.com/BenchR267/goalfred&quot;
+)
+
+func main() {
+    // Deals with the normalizing issue below.
+    query, _ := goalfred.NormalizedArguments()
+
+    defer goalfred.Print()
+
+    if query[0] == &quot;&quot; {
+        goalfred.Add(goalfred.Item{
+            Title: &quot;Hello world!&quot;,
+        })
+    } else {
+        goalfred.Add(goalfred.Item{
+            Title: fmt.Sprintf(&quot;Hello, %s 👋&quot;, query[0]),
+        })
+    }
+}
+</code></pre>
+
+<p>I would usually compile this running <code>go build &lt;file&gt;.go</code> and setting Alfred to run the binary as an external script, but you can also use a bash script filter to have Alfred run <code>go run &lt;file&gt;.go</code> or the binary, whatever you prefer.</p>
+
+<h2 id="problems">Problems</h2>
+
+<p>A pain point specific to non-ascii-compatible languages is Alfred&rsquo;s handling of special characters. It uses NSTask internally, which results in umlauts for example being split up into their parts before being passed on, meaning <code>ü</code> becomes <code>¨u</code>. <a href="http://www.alfredforum.com/topic/2015-encoding-issue/">Here</a>&rsquo;s some more info on that if you&rsquo;re interested and some help on how to re-normalize the user&rsquo;s input.</p>
+
+<p>Something essential I haven&rsquo;t found a good solution for are workflow updates. Some people publish their workflows using <a href="http://www.packal.org">Packal</a>, which provides some help with that. There&rsquo;s also a python lib with some magic.
+The best solution I&rsquo;ve seen this far is how Alfy recommends publishing workflows on npm and linking them to the correct directory on a post-install step. Still not perfect, but definitely interesting.</p>
+
+<hr />
+
+<p>If you want to check out the source to some workflows, I&rsquo;ve published three of mine on GitHub: <a href="https://github.com/kiliankoe/alfred_dvb">alfred dvb</a>, <a href="https://github.com/kiliankoe/alfred_mensa">alfred mensa</a> and <a href="https://github.com/kiliankoe/alfred_n26">alfred n26</a>.</p>
+
+<p>Got any additional input or cool workflow ideas? Hit me up on Twitter 🙃</p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/ruby.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/swift.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/javascript.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+

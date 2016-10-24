@@ -6,8 +6,125 @@
     <description>Recent content on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 02 Jul 2016 02:28:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 23 Oct 2016 12:42:16 +0200</lastBuildDate>
     <atom:link href="http://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Writing Custom Alfred Worklows</title>
+      <link>http://blog.kilian.io/alfred-workflows/</link>
+      <pubDate>Sun, 23 Oct 2016 12:42:16 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/alfred-workflows/</guid>
+      <description>
+
+&lt;p&gt;A &lt;a href=&#34;https://twitter.com/BenchR&#34;&gt;friend of mine&lt;/a&gt; has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&amp;rsquo;ve been using for years, but have never really thought about using for my own stuff before.&lt;/p&gt;
+
+&lt;p&gt;Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&amp;rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called &lt;em&gt;script filters&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Please be aware that workflows are a paid &lt;a href=&#34;https://www.alfredapp.com/powerpack/&#34;&gt;powerpack&lt;/a&gt; feature of Alfred. I can definitely recommend the upgrade though!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;what-s-a-script-filter&#34;&gt;What&amp;rsquo;s a &lt;em&gt;Script Filter&lt;/em&gt;?&lt;/h2&gt;
+
+&lt;p&gt;On creating a new blank workflow you&amp;rsquo;re presented with an empty page. Here you can add a bunch of stuff, but the most straight-forward thing (in my opinion at least) is a script filter.
+&lt;p align=&#34;center&#34;&gt;
+  &lt;img src=&#34;http://blog.kilian.io/img/alfredworkflows_1.png&#34; alt=&#34;&#34; /&gt;
+&lt;/p&gt;&lt;/p&gt;
+
+&lt;p&gt;Script filters are input actions, meaning they can be run on certain keywords and with certain arguments. The argument can then be passed on to a given script (hence the name), which does some 🎩🐰✨ and returns some items for Alfred to display.&lt;/p&gt;
+
+&lt;p&gt;Alfred has a list of supported default &amp;ldquo;languages&amp;rdquo;, including bash or zsh, php, ruby, python, perl and applescript. Or you can just choose &amp;ldquo;External script&amp;rdquo; and go with whatever you want.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Caveat&lt;/strong&gt;: If you&amp;rsquo;re looking to distribute your workflow to others, it might make sense to go with something that they can run natively without having to install additional dependencies. My first workflow was written in Node.js, which unfortunately doesn&amp;rsquo;t come preinstalled on macOS. And then one of the users had an older version running into all kinds of additional errors. On the other hand, if you&amp;rsquo;re writing a wrapper for npm tooling, node will probably be on your user&amp;rsquo;s machines and the language is their tool of choice anyways. It&amp;rsquo;s always a question of your target audience.&lt;/p&gt;
+
+&lt;p&gt;What&amp;rsquo;s also noteworthy here is the &amp;ldquo;Run Behaviour&amp;rdquo;. Alfred defaults to running one instance of your script after each other. That means that if an instance is already running (maybe being rather slow due to a network call or something else), any further user input will only be processed after the first script has finished and a new instance can be started.
+My experience has been that this can easily be changed to terminate the previous instance if the users adds additional input for most cases, making things a lot snappier.&lt;/p&gt;
+
+&lt;h2 id=&#34;getting-started-with-a-script-filter&#34;&gt;Getting Started with a Script Filter&lt;/h2&gt;
+
+&lt;p&gt;A user&amp;rsquo;s input is handed over to your script as argv by default, making it trivial to access this with your language of choosing.&lt;/p&gt;
+
+&lt;p&gt;To show a list of items in Alfred once you&amp;rsquo;re done you have to do nothing more than output some JSON (or XML) to STDOUT.
+Alfred has &lt;a href=&#34;https://www.alfredapp.com/help/workflows/inputs/script-filter/json/&#34;&gt;pretty good documentation&lt;/a&gt; on how your outputted data has to be formatted for Alfred to pick it up.&lt;/p&gt;
+
+&lt;p&gt;The basic idea is having a list of items with their respective fields. Most of them are pretty self-explanatory or well explained in the docs linked above.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;{&amp;quot;items&amp;quot;: [
+    {
+        &amp;quot;title&amp;quot;: &amp;quot;An item&amp;quot;,
+        &amp;quot;subtitle&amp;quot;: &amp;quot;Some description &amp;quot;,
+        &amp;quot;arg&amp;quot;: &amp;quot;an argument&amp;quot;,
+        &amp;quot;icon&amp;quot;: {
+            &amp;quot;path&amp;quot;: &amp;quot;link to an image&amp;quot;
+        }
+    },
+    //...
+]}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Setting an argument is especially helpful for other actions, as this is what is passed on to them. You can also specify different arguments for modifier keys, so a different actions will be passed on if the user holds ⌘ for example.&lt;/p&gt;
+
+&lt;p&gt;Alfred also does a lot for you out-of-the-box if you want to list files from your harddrive.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-a-helper-library&#34;&gt;Using a Helper Library&lt;/h2&gt;
+
+&lt;p&gt;You&amp;rsquo;ll make your life a lot easier using one of the plentiful alfred-workflow helper libraries out there, surely also for your language of choice.&lt;/p&gt;
+
+&lt;p&gt;Two I&amp;rsquo;d like to highlight are &lt;a href=&#34;https://github.com/sindresorhus/alfy&#34;&gt;Alfy&lt;/a&gt; by Sindre Sorhus (Javascript) and &lt;a href=&#34;https://github.com/BenchR267/goalfred&#34;&gt;goalfred&lt;/a&gt; by Benjamin Herzog (golang).
+Both have a fantastic API making your life a lot easier by just passing along the items and setting appropriate attributes.&lt;/p&gt;
+
+&lt;p&gt;Something specific to goalfred are the so called complex arguments. It turns out to be rather tricky if you want to pass along specific variables to further actions. Ben and I figured that out together as I was trying to build a workflow showing departures in our local public transport network (DVB in Dresden, Germany).&lt;/p&gt;
+
+&lt;p align=&#34;center&#34;&gt;
+&lt;iframe src=&#39;https://gfycat.com/ifr/CluelessSaneAtlasmoth&#39; frameborder=&#39;0&#39; scrolling=&#39;no&#39; width=&#39;640&#39; height=&#39;377&#39; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;When hitting enter on an item I wanted to schedule a notification to be displayed several minutes before the departure. My first implementation included a small Swift app using system APIs to schedule that as it turns out you can&amp;rsquo;t schedule future notifications via applescript 😕
+We later figured out how to implement the same functionality directly within the workflow getting rid of the rather cumbersome and awkward first implementation. Ben went ahead and built that directly into goalfred 🙂 A big recommendation goes out to that library.&lt;/p&gt;
+
+&lt;p&gt;Using that we can easily throw together a small (albeit useless) workflow script in go greeting the name the user enters or no one if no input is given.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
+
+import (
+    &amp;quot;fmt&amp;quot;
+
+    &amp;quot;github.com/BenchR267/goalfred&amp;quot;
+)
+
+func main() {
+    // Deals with the normalizing issue below.
+    query, _ := goalfred.NormalizedArguments()
+
+    defer goalfred.Print()
+
+    if query[0] == &amp;quot;&amp;quot; {
+        goalfred.Add(goalfred.Item{
+            Title: &amp;quot;Hello world!&amp;quot;,
+        })
+    } else {
+        goalfred.Add(goalfred.Item{
+            Title: fmt.Sprintf(&amp;quot;Hello, %s 👋&amp;quot;, query[0]),
+        })
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I would usually compile this running &lt;code&gt;go build &amp;lt;file&amp;gt;.go&lt;/code&gt; and setting Alfred to run the binary as an external script, but you can also use a bash script filter to have Alfred run &lt;code&gt;go run &amp;lt;file&amp;gt;.go&lt;/code&gt; or the binary, whatever you prefer.&lt;/p&gt;
+
+&lt;h2 id=&#34;problems&#34;&gt;Problems&lt;/h2&gt;
+
+&lt;p&gt;A pain point specific to non-ascii-compatible languages is Alfred&amp;rsquo;s handling of special characters. It uses NSTask internally, which results in umlauts for example being split up into their parts before being passed on, meaning &lt;code&gt;ü&lt;/code&gt; becomes &lt;code&gt;¨u&lt;/code&gt;. &lt;a href=&#34;http://www.alfredforum.com/topic/2015-encoding-issue/&#34;&gt;Here&lt;/a&gt;&amp;rsquo;s some more info on that if you&amp;rsquo;re interested and some help on how to re-normalize the user&amp;rsquo;s input.&lt;/p&gt;
+
+&lt;p&gt;Something essential I haven&amp;rsquo;t found a good solution for are workflow updates. Some people publish their workflows using &lt;a href=&#34;http://www.packal.org&#34;&gt;Packal&lt;/a&gt;, which provides some help with that. There&amp;rsquo;s also a python lib with some magic.
+The best solution I&amp;rsquo;ve seen this far is how Alfy recommends publishing workflows on npm and linking them to the correct directory on a post-install step. Still not perfect, but definitely interesting.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;If you want to check out the source to some workflows, I&amp;rsquo;ve published three of mine on GitHub: &lt;a href=&#34;https://github.com/kiliankoe/alfred_dvb&#34;&gt;alfred dvb&lt;/a&gt;, &lt;a href=&#34;https://github.com/kiliankoe/alfred_mensa&#34;&gt;alfred mensa&lt;/a&gt; and &lt;a href=&#34;https://github.com/kiliankoe/alfred_n26&#34;&gt;alfred n26&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Got any additional input or cool workflow ideas? Hit me up on Twitter 🙃&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>WWDC 16</title>
@@ -589,28 +706,6 @@ $ git remote add fork git@github.com:your-username/homebrew-cask.git
 &lt;p&gt;You&amp;rsquo;re now officially a contributer to cask, awesome stuff.&lt;/p&gt;
 
 &lt;p&gt;This also concludes this post. I hope it was interesting enough and you find cask to be just as useful as many others and I do.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>This is getting ridiculous</title>
-      <link>http://blog.kilian.io/bike/</link>
-      <pubDate>Mon, 21 Apr 2014 01:43:52 +0200</pubDate>
-      
-      <guid>http://blog.kilian.io/bike/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/bike.jpg&#34; alt=&#34;missing or broken bike parts&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;November 29th, 2012: Left a math lecture on a rainy day and wanted to get home as quick as possible. But it looked like I would be carrying my bike home seeing how some douche had stolen my front wheel on campus. Seeing how I moved to Dresden with &lt;em&gt;quick release skewers&lt;/em&gt; (if I can trust dict.leo.org) however, this happening was just a matter of time.
-Instead of directly buying a new wheel (and new brakes, thank you, asshole! Oh, and a &lt;a href=&#34;http://www.pitlock.de/&#34;&gt;Pitlock&lt;/a&gt; system) I went with a completely new (as in old) and cheap bicycle. Fast forward to January and a few stitches on my face, and I wanted to go back to riding &lt;em&gt;my&lt;/em&gt; bike.
-&lt;strong&gt;Total cost: ~200 €&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;December 16th, 2013: Right in front of my window, where my bike is usually locked up, some asshat stole my handlebar. At least he/she had the decency of not cutting anything off, but taking their time to nicely remove my brakes and gear levers without damaging anything. It still took me a while to fix this, seeing how winter came. And I had bought the wrong handlebars as a replacement as well. But I finally fixed it&amp;hellip; on April 16th.
-&lt;strong&gt;Total cost: ~30 €&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;April 21st, 2014: I was able to ride my bike to university once. ONCE! Just once, before wanting to do the same again today. But no, my rear gear shift was completely missing and the chain was cut. This is just perfect. The bike was again locked up right outside my window, but I noticed nothing. I love the people around here&amp;hellip;
-&lt;strong&gt;Total cost this time: 200 €&amp;hellip; Well crap&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Update January 2015: One more theft in the meantime and brakes missing tonight. Both times from inside the locked bicycle room in my basement. Yay (┛ò__ó)┛彡┻━┻&lt;/p&gt;
 </description>
     </item>
     
