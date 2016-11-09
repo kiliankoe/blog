@@ -12,4 +12,5 @@ if [ $# -eq 1 ]
 fi
 git commit -S -m "$msg"
 
+git push origin master
 git subtree push --prefix=public git@github.com:kiliankoe/blog.git gh-pages
