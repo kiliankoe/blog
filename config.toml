@@ -8,7 +8,7 @@ post = "/:slug/"
 
 [params.highlight]
 syle = "github"
-languages = ["go", "ruby", "swift", "javascript"]
+languages = ["go", "ruby", "swift", "javascript", "bash"]
 
 [[params.social]]
 url = "https://github.com/kiliankoe"
