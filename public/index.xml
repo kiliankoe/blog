@@ -6,8 +6,43 @@
     <description>Recent content on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 23 Oct 2016 12:42:16 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 09 Nov 2016 13:43:52 +0100</lastBuildDate>
     <atom:link href="http://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Automatically Increment Your Xcode Project&#39;s Build Number</title>
+      <link>http://blog.kilian.io/xcode-buildnumber/</link>
+      <pubDate>Wed, 09 Nov 2016 13:43:52 +0100</pubDate>
+      
+      <guid>http://blog.kilian.io/xcode-buildnumber/</guid>
+      <description>&lt;p&gt;Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&amp;rsquo;ve forgotten to increment the build number before trying to deploy a project.
+In my case the problem is usually iTunes Connect, which doesn&amp;rsquo;t take your app&amp;rsquo;s version (or &lt;code&gt;CFBundleShortVersionString&lt;/code&gt;) into account, but only the build number (or &lt;code&gt;CFBundleVersion&lt;/code&gt;). The former is the version we usually set (according to &lt;a href=&#34;http://semver.org&#34;&gt;semver&lt;/a&gt; if you&amp;rsquo;re a good person) to identify the version internally.
+If you fail to increment the latter before uploading, iTunes Connect doesn&amp;rsquo;t see this as a new version, which stinks.&lt;/p&gt;
+
+&lt;p&gt;A first idea might be having a build phase which just increments that number every time you hit build. The obvious downside being that you&amp;rsquo;re either going to be committing increments of this number and fixing conflicts on merges or running into outdated build numbers if you have multiple people deploying your app. That&amp;rsquo;s no fun.&lt;/p&gt;
+
+&lt;p&gt;The best solution I&amp;rsquo;ve come across is coupling your build number to the commit count of your repo (you are using a version control system to store your code, right? 😲). This leads to reproducible build numbers also allowing you to track the state of the app (presuming no uncommited changes were present during archival) based on the build. It doesn&amp;rsquo;t however solve the issue we had with automatically incremented build numbers before, so what if we also reset the build number back to a default value right after we finish compiling? That way our build gets its nice identifying build number and we have no build number changes to commit to our VCS. Sweet.&lt;/p&gt;
+
+&lt;p&gt;All we need for that are two run script build phases. One before near the top setting our &lt;em&gt;generated&lt;/em&gt; build number and one near the bottom resetting it (before and after &lt;code&gt;Copy Bundle Resources&lt;/code&gt; should probably suffice).&lt;/p&gt;
+
+&lt;p&gt;For the first one, add the following (assuming you&amp;rsquo;re using git).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;buildNumber=$(git rev-list HEAD | wc -l | tr -d &#39; &#39;)
+/usr/libexec/PlistBuddy -c &amp;quot;Set :CFBundleVersion $buildNumber&amp;quot; &amp;quot;${PROJECT_DIR}/${INFOPLIST_FILE}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here we&amp;rsquo;re utilizing &lt;code&gt;git rev-list&lt;/code&gt; to list out all parent commits of the current state, piping that through &lt;code&gt;wc&lt;/code&gt; to count the number of lines and removing leading whitespace with &lt;code&gt;tr&lt;/code&gt;. This results in our build number that we set using &lt;code&gt;plistbuddy&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The second script is rather similar.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/libexec/PlistBuddy -c &amp;quot;Set :CFBundleVersion DEV&amp;quot; &amp;quot;${PROJECT_DIR}/${INFOPLIST_FILE}&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Same idea, just a hardcoded string &lt;code&gt;DEV&lt;/code&gt; instead of a number of commits.&lt;/p&gt;
+
+&lt;p&gt;Hopefully this method will save you just that teeny amount of time updating your build number in the future 🙂&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Writing Custom Alfred Worklows</title>
@@ -533,179 +568,6 @@ I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as i
     by &lt;a href=&#34;https://sketchfab.com/kiliankoe?utm_source=oembed&amp;utm_medium=embed&amp;utm_campaign=d560abac003249b293aed39a850dee72&#34; target=&#34;_blank&#34; style=&#34;font-weight: bold; color: #1CAAD9;&#34;&gt;kiliankoe&lt;/a&gt;
     on &lt;a href=&#34;https://sketchfab.com?utm_source=oembed&amp;utm_medium=embed&amp;utm_campaign=d560abac003249b293aed39a850dee72&#34; target=&#34;_blank&#34; style=&#34;font-weight: bold; color: #1CAAD9;&#34;&gt;Sketchfab&lt;/a&gt;
 &lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Installing OS X applications through Homebrew</title>
-      <link>http://blog.kilian.io/brew-cask/</link>
-      <pubDate>Mon, 21 Jul 2014 01:47:19 +0200</pubDate>
-      
-      <guid>http://blog.kilian.io/brew-cask/</guid>
-      <description>
-
-&lt;p&gt;I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed &lt;a href=&#34;http://www.xmind.net/de/&#34;&gt;xmind&lt;/a&gt; right through his package manager (or actually &lt;a href=&#34;https://wiki.archlinux.org/index.php/yaourt&#34;&gt;yaourt&lt;/a&gt;, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple.
-&lt;p align=&#34;center&#34;&gt;
-  &lt;img src=&#34;http://i.imgur.com/oHxuD7K.png&#34; alt=&#34;drag&#39;n drop&#34; /&gt;
-&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;You download the disk image, double-click it to mount and drag the .app onto your linked Applications directory. But it&amp;rsquo;s so graphical&amp;hellip; Any self-respecting &lt;em&gt;appleleptic&lt;/em&gt; nowadays already has the fantastic &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt; package manager installed on their system anyways, which is awesome stuff, without question. And there is one package I have to admit to not having heard of before a few days ago, even though it has a rather big following which helps us out here.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s called &lt;a href=&#34;http://caskroom.io/&#34;&gt;Homebrew Cask&lt;/a&gt; (you just gotta love the naming scheme of things in the Homebrew universe: Brew, Cask, Formula, Tap, etc) and its sole purpose is allowing you to run commands like &lt;code&gt;brew cask install xmind&lt;/code&gt;. It worries about where to get the latest version from, where to put it, and for a few selected applications also how to specifically uninstall them when you run &lt;code&gt;brew cask uninstall app-name&lt;/code&gt;. It also doesn&amp;rsquo;t just do apps, but preference panes, quicklook plugins, services, widgets and a few more. It&amp;rsquo;s an allround powertool for installing stuff on your mac that homebrew itself doesn&amp;rsquo;t handle.&lt;/p&gt;
-
-&lt;h3 id=&#34;so-how-do-you-get-it&#34;&gt;So how do you get it?&lt;/h3&gt;
-
-&lt;p&gt;Unfortunately cask isn&amp;rsquo;t included in main homebrew repo, but don&amp;rsquo;t despair, that just makes us run one more command.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew tap caskroom/cask
-$ brew install brew-cask
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note: You might find others online referencing to tap phinze/cask instead, which isn&amp;rsquo;t wrong, it&amp;rsquo;s just old. Fortunately GitHub redirects phinze/cask to caskroom/cask, but this might stop working one day, so just go with caskroom/cask and you won&amp;rsquo;t have to worry.&lt;/p&gt;
-
-&lt;p&gt;Cask is now installed on your system. It&amp;rsquo;s main working directory is &lt;code&gt;/usr/local/Library/Taps/caskroom/homebrew-cask&lt;/code&gt;. This is where the git repo resides, which is one of the most awesome facts about homebrew by the way. All of it being just a bunch of ruby scripts and a git repo to manage them. You don&amp;rsquo;t actually need to do anything in this directory though, unless you want to add your own casks, which we&amp;rsquo;ll go over how to do in a sec.&lt;/p&gt;
-
-&lt;h3 id=&#34;using-cask&#34;&gt;Using cask&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask update
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is basically an alias to &lt;code&gt;git pull origin master&lt;/code&gt; in the cask repo and updates your list of available casks to the current status. Running this often is key, as new casks are created and others are updated on a daily basis. Run this if you can&amp;rsquo;t find a cask or before installing one if you haven&amp;rsquo;t updated in a little why to ensure you get the newest version of an application.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask search app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Want to know if an app you&amp;rsquo;re looking to install is available through cask? Just run this. The naming strategy is pretty straight forward with everything being lowercase and dashes for spaces. Search also finds partial results, so for example this works:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-shell&#34;&gt;kilian@Apollo:~$ brew cask search intellij
-==&amp;gt; Partial matches
-intellij-idea     intellij-idea-ce
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask install app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Installs an app. Simple. It also automatically runs through any zip files, disk images or packages. It&amp;rsquo;ll prompt you if an admin password is needed.
-One thing to note is that applications are by default &lt;em&gt;not&lt;/em&gt; installed to &lt;code&gt;/Applications&lt;/code&gt;, but to &lt;code&gt;/opt/homebrew-cask/Caskroom/app-name/version/app-name.app&lt;/code&gt; and then symlinked to &lt;code&gt;~/Applications&lt;/code&gt;. This is no problem for your mac, but in case you&amp;rsquo;d like to link it to &lt;code&gt;/Applications&lt;/code&gt; instead, run the command like this &lt;code&gt;brew cask install app-name --appdir=/Applications&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask uninstall app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This should be about as self-explanatory as it gets. As I mentioned already however this doesn&amp;rsquo;t just remove the application from your system, but for a few special apps that require their own uninstaller to be run, this is done instead.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask list
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Lists all your installed casks. If you run it together with an application name it&amp;rsquo;ll tell you which files are installed and where they reside.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask cleanup
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Cleans up downloaded files which are usually not removed after installing an application. Might free you up quite a bit of space on your harddrive.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask home app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Takes you to the homepage of an application. Be it the developer&amp;rsquo;s site, a GitHub repo or whatnot.&lt;/p&gt;
-
-&lt;p&gt;And last but not least, an essential one if you&amp;rsquo;re an &lt;a href=&#34;http://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt;-junkie like me:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask alfred link
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This adds the install directory to Alfred&amp;rsquo;s search path so you can find your installed applications with Alfred.&lt;/p&gt;
-
-&lt;p&gt;That&amp;rsquo;s actually all there is to using cask. It&amp;rsquo;s a fantastic little application and the list of applications it can install is &lt;a href=&#34;https://github.com/caskroom/homebrew-cask/tree/master/Casks&#34;&gt;pretty damn huge&lt;/a&gt; (1.723 entries as of now).&lt;/p&gt;
-
-&lt;p&gt;There are however two other points I&amp;rsquo;d like to go over.&lt;/p&gt;
-
-&lt;h3 id=&#34;using-brewfiles&#34;&gt;Using Brewfiles&lt;/h3&gt;
-
-&lt;p&gt;Homebrew includes the wonderful functionality of being able to run a number of commands from a file you specify. This is typically called a Brewfile, but you can name it whatever you want.&lt;/p&gt;
-
-&lt;p&gt;This of course finds it main purpose in installing a few packages together and &lt;em&gt;bundle&lt;/em&gt; them together.&lt;/p&gt;
-
-&lt;p&gt;Using this is extremely simple, here&amp;rsquo;s a &lt;a href=&#34;https://github.com/kiliankoe/dotfiles/blob/master/Brewfile&#34;&gt;Brewfile&lt;/a&gt; I set up so I can quickly install all the applications I use regularly on my system if I have to start from scratch (new machine, dead harddrive or ritual cleansing, who knows).&lt;/p&gt;
-
-&lt;p&gt;As you can see it just includes a command on each line without the &lt;code&gt;brew&lt;/code&gt; command itself.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;...
-install node
-install ffmpeg
-...
-# set up brew cask
-tap caskroom/cask
-install brew-cask
-...
-# cleanup
-cask alfred link
-cleanup
-cask cleanup
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Lines starting with a &lt;code&gt;#&lt;/code&gt; are comments and will be ignored by homebrew.&lt;/p&gt;
-
-&lt;p&gt;Use the command &lt;code&gt;brew bundle filename&lt;/code&gt; to let brew run through it. Already installed packages and applications will not be overwritten.&lt;/p&gt;
-
-&lt;h3 id=&#34;creating-your-own-casks&#34;&gt;Creating your own casks&lt;/h3&gt;
-
-&lt;p&gt;So you found something that&amp;rsquo;s not yet available through cask and want to become one of the 743 current contributors? That&amp;rsquo;s awesome! And it&amp;rsquo;s really quite simple as well. All you need is some basic knowledge how to use git and you&amp;rsquo;re set. Let&amp;rsquo;s take a look.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s start by setting up your fork on GitHub. Visit the &lt;a href=&#34;https://github.com/caskroom/homebrew-cask&#34;&gt;official repo&lt;/a&gt; of cask on GitHub and click on the fork button in the upper right-hand corner. Wait a few seconds and GitHub will create a clone of the repo under your account. We&amp;rsquo;ll use this to change what we want and send a pull request back to main repo.&lt;/p&gt;
-
-&lt;p&gt;Now open up a terminal and navigate to the cask repo on your harddrive.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd /usr/local/Library/Taps/caskroom/homebrew-cask
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let&amp;rsquo;s branch off into a feature branch to add the new cask.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git branch add-app-name
-$ git checkout add-app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now we can create the cask by running&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew cask create app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Please check the &lt;a href=&#34;https://github.com/caskroom/homebrew-cask/blob/master/CONTRIBUTING.md#cask-naming-details&#34;&gt;naming details&lt;/a&gt; before naming your cask. The rest of the contributing guide contains all the following details as well, but I&amp;rsquo;m going to go through them anyways.&lt;/p&gt;
-
-&lt;p&gt;This should immediately open up your default editor where you can go ahead and fill out the details like version number, &lt;a href=&#34;http://notepad2.blogspot.de/2012/07/mac-os-x-how-to-generate-md5-sha1.html&#34;&gt;hash&lt;/a&gt; of the download, link to the download, homepage and name of the to be linked file. After saving this you can already go ahead and try it out by installing it yourself. Use &lt;code&gt;brew cask edit app-name&lt;/code&gt; to quickly jump back to editing the file again. If you&amp;rsquo;re sure everything works also run &lt;code&gt;brew cask audit app-name --download&lt;/code&gt; for some additional checks.&lt;/p&gt;
-
-&lt;p&gt;Time to commit. Add your cask and commit it with a sensible message containing the name and version number.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git add Casks/app-name.rb
-$ git commit -m &#39;Add app-name v0.1&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now let&amp;rsquo;s add our fork as a remote so we can push the changes to GitHub with one of the following two commands depending on if you interact with GitHub over SSH (second command) or not (first one).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git remote add fork https://github.com/your-username/homebrew-cask.git
-$ git remote add fork git@github.com:your-username/homebrew-cask.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And push it.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git push fork add-app-name -u
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can now visit the &lt;a href=&#34;https://github.com/caskroom/homebrew-cask&#34;&gt;main cask repo&lt;/a&gt; where a green button to submit your pull request should be greeting you. Click that, check the changed files just to be sure you did what you wanted and submit it. The repo is very active and presuming everything is awesome it shouldn&amp;rsquo;t be long for it to be merged.&lt;/p&gt;
-
-&lt;p&gt;Just don&amp;rsquo;t forget to switch back to the master branch in your local cask repo, otherwise you won&amp;rsquo;t be getting future updates ;)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git checkout master
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can also delete your local feature branch if everything is done.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git branch -d add-app-name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You&amp;rsquo;re now officially a contributer to cask, awesome stuff.&lt;/p&gt;
-
-&lt;p&gt;This also concludes this post. I hope it was interesting enough and you find cask to be just as useful as many others and I do.&lt;/p&gt;
 </description>
     </item>
     

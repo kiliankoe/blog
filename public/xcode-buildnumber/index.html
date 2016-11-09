@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automatically Increment Your Xcode Project&#39;s Build Number | blog.kilian.io</title>
+<link rel="stylesheet" href="http://blog.kilian.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://blog.kilian.io/"><h1 class="title is-4">blog.kilian.io</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">November 9, 2016</h2>
+    <h1 class="title">Automatically Increment Your Xcode Project&#39;s Build Number</h1>
+    <div class="content">
+      <p>Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&rsquo;ve forgotten to increment the build number before trying to deploy a project.
+In my case the problem is usually iTunes Connect, which doesn&rsquo;t take your app&rsquo;s version (or <code>CFBundleShortVersionString</code>) into account, but only the build number (or <code>CFBundleVersion</code>). The former is the version we usually set (according to <a href="http://semver.org">semver</a> if you&rsquo;re a good person) to identify the version internally.
+If you fail to increment the latter before uploading, iTunes Connect doesn&rsquo;t see this as a new version, which stinks.</p>
+
+<p>A first idea might be having a build phase which just increments that number every time you hit build. The obvious downside being that you&rsquo;re either going to be committing increments of this number and fixing conflicts on merges or running into outdated build numbers if you have multiple people deploying your app. That&rsquo;s no fun.</p>
+
+<p>The best solution I&rsquo;ve come across is coupling your build number to the commit count of your repo (you are using a version control system to store your code, right? 😲). This leads to reproducible build numbers also allowing you to track the state of the app (presuming no uncommited changes were present during archival) based on the build. It doesn&rsquo;t however solve the issue we had with automatically incremented build numbers before, so what if we also reset the build number back to a default value right after we finish compiling? That way our build gets its nice identifying build number and we have no build number changes to commit to our VCS. Sweet.</p>
+
+<p>All we need for that are two run script build phases. One before near the top setting our <em>generated</em> build number and one near the bottom resetting it (before and after <code>Copy Bundle Resources</code> should probably suffice).</p>
+
+<p>For the first one, add the following (assuming you&rsquo;re using git).</p>
+
+<pre><code class="language-bash">buildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')
+/usr/libexec/PlistBuddy -c &quot;Set :CFBundleVersion $buildNumber&quot; &quot;${PROJECT_DIR}/${INFOPLIST_FILE}&quot;
+</code></pre>
+
+<p>Here we&rsquo;re utilizing <code>git rev-list</code> to list out all parent commits of the current state, piping that through <code>wc</code> to count the number of lines and removing leading whitespace with <code>tr</code>. This results in our build number that we set using <code>plistbuddy</code>.</p>
+
+<p>The second script is rather similar.</p>
+
+<pre><code class="language-bash">/usr/libexec/PlistBuddy -c &quot;Set :CFBundleVersion DEV&quot; &quot;${PROJECT_DIR}/${INFOPLIST_FILE}&quot;
+</code></pre>
+
+<p>Same idea, just a hardcoded string <code>DEV</code> instead of a number of commits.</p>
+
+<p>Hopefully this method will save you just that teeny amount of time updating your build number in the future 🙂</p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/ruby.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/swift.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/javascript.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/bash.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
