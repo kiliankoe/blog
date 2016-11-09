@@ -1,5 +1,4 @@
 +++
-draft = true
 date = "2016-11-09T13:43:52+01:00"
 title = "Automatically Increment Your Xcode Project's Build Number"
 slug = "xcode-buildnumber"
