@@ -7,7 +7,7 @@ theme = "hemingway"
 post = "/:slug/"
 
 [params.highlight]
-syle = "github"
+style = "github"
 languages = ["go", "ruby", "swift", "javascript", "bash"]
 
 [[params.social]]
