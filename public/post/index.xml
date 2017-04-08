@@ -6,8 +6,29 @@
     <description>Recent content in Posts on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 09 Nov 2016 13:43:52 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 08 Apr 2017 22:06:26 +0200</lastBuildDate>
     <atom:link href="http://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Akronymsierbar</title>
+      <link>http://blog.kilian.io/akronymisierbar/</link>
+      <pubDate>Sat, 08 Apr 2017 22:06:26 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/akronymisierbar/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m a podcast addict. I have been for a few years now and I can&amp;rsquo;t seem to stop. &lt;a href=&#34;https://podcastprofile.com/kiliankoe&#34;&gt;Podcastprofile.com&lt;/a&gt; has a not very current list of all the feeds I&amp;rsquo;m subscribed to.&lt;/p&gt;
+
+&lt;p&gt;With all the content I consume it only seems logical to produce something at some point as well, or at least try. &lt;a href=&#34;https://twitter.com/hoodie_de&#34;&gt;Hendrik&lt;/a&gt; and me have had that plan for quite a while if I recall correctly, and two months ago we finally decided to do something about it. So we sat down and hit record. What came out of that is &lt;em&gt;Akronymisierbar&lt;/em&gt; (German for &lt;em&gt;acronyminizable&lt;/em&gt;, &amp;lsquo;cause all good podcast names are acronyminizable 😜), a podcast about everything that comes to our minds, from programming languages (there&amp;rsquo;s a lot about programming languages) to how frog&amp;rsquo;s swallow by using their eyeballs to push food down, although it&amp;rsquo;s generally more technical as both of us have vested interests in all things computer science.&lt;/p&gt;
+
+&lt;p&gt;The fourth episode (#003, we&amp;rsquo;re zero-indexed) was uploaded yesterday as of this posting. You can listen to it right here if you want.&lt;/p&gt;
+
+&lt;p&gt;&lt;iframe width=&#34;100%&#34; height=&#34;166&#34; scrolling=&#34;no&#34; frameborder=&#34;no&#34; src=&#34;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/316479289&amp;amp;color=ff5500&amp;amp;auto_play=false&amp;amp;hide_related=true&amp;amp;show_comments=false&amp;amp;show_user=true&amp;amp;show_reposts=false&#34;&gt;&lt;/iframe&gt;
+(We&amp;rsquo;re probably going to move away from SoundCloud for future episodes, but we&amp;rsquo;ll definitely publish a new last episode with a new feed link on SoundCloud when that happens.)&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s definitely quite fun and if you&amp;rsquo;re based in Dresden, we&amp;rsquo;ve got to have you on the show! 😊&lt;/p&gt;
+
+&lt;p&gt;Interested? We&amp;rsquo;re listed on iTunes, Fyyd, Bitlove and probably other podcast directories as well. Give us a listen! We&amp;rsquo;re also very much interested in feedback of any kind, preferably via Twitter &lt;a href=&#34;https://twitter.com/akronymisierbar&#34;&gt;@akronymisierbar&lt;/a&gt; ✌️&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Automatically Increment Your Xcode Project&#39;s Build Number</title>
@@ -546,28 +567,6 @@ I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as i
 &lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/pycharm.png&#34; alt=&#34;screenshot&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Interestingly enough this will also make your Darcula theme a little darker (very pretty) and the font rendering gets a lot better as well. Perfect fix!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Simple Robot</title>
-      <link>http://blog.kilian.io/simple-robot/</link>
-      <pubDate>Fri, 31 Oct 2014 01:53:35 +0200</pubDate>
-      
-      <guid>http://blog.kilian.io/simple-robot/</guid>
-      <description>&lt;p&gt;It&amp;rsquo;s been a while since I&amp;rsquo;ve touched Blender. A lot has changed, everything is awesome. There&amp;rsquo;s not all too much to say, but I&amp;rsquo;m a real sucker for pretty clay renders, so here&amp;rsquo;s a simple little robot.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/clay_posed_2400p.png&#34; alt=&#34;clay render&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Note that this render is in 2400p, the native resolution of the new MacBook Pro. I didn&amp;rsquo;t want said device to go up in flames though, so a shoutout goes to &lt;a href=&#34;https://render.st&#34;&gt;render.st&lt;/a&gt; (and especially their signup bonus).&lt;/p&gt;
-
-&lt;iframe width=&#34;640&#34; height=&#34;480&#34; src=&#34;https://sketchfab.com/models/d560abac003249b293aed39a850dee72/embed&#34; frameborder=&#34;0&#34; allowfullscreen mozallowfullscreen=&#34;true&#34; webkitallowfullscreen=&#34;true&#34; onmousewheel=&#34;&#34;&gt;&lt;/iframe&gt;
-
-&lt;p style=&#34;font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;&#34;&gt;
-    &lt;a href=&#34;https://sketchfab.com/models/d560abac003249b293aed39a850dee72?utm_source=oembed&amp;utm_medium=embed&amp;utm_campaign=d560abac003249b293aed39a850dee72&#34; target=&#34;_blank&#34; style=&#34;font-weight: bold; color: #1CAAD9;&#34;&gt;Simple Robot&lt;/a&gt;
-    by &lt;a href=&#34;https://sketchfab.com/kiliankoe?utm_source=oembed&amp;utm_medium=embed&amp;utm_campaign=d560abac003249b293aed39a850dee72&#34; target=&#34;_blank&#34; style=&#34;font-weight: bold; color: #1CAAD9;&#34;&gt;kiliankoe&lt;/a&gt;
-    on &lt;a href=&#34;https://sketchfab.com?utm_source=oembed&amp;utm_medium=embed&amp;utm_campaign=d560abac003249b293aed39a850dee72&#34; target=&#34;_blank&#34; style=&#34;font-weight: bold; color: #1CAAD9;&#34;&gt;Sketchfab&lt;/a&gt;
-&lt;/p&gt;
 </description>
     </item>
     
