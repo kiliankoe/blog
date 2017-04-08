@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\033[0;32mDeploying current version to gh-pages...\033[0m"
+echo -e "\033[0;32mBuilding current version\033[0m"
 
 hugo
 
@@ -11,6 +11,8 @@ if [ $# -eq 1 ]
   then msg="$1"
 fi
 git commit -S -m "$msg"
+
+echo -e "\033[0;32mPushing to GitHub\033[0m"
 
 git push origin master
 
