@@ -2,7 +2,6 @@
 slug = "github-images"
 title = "Keeping Static Images out of your GitHub Repo"
 date = "2017-04-10T14:12:35+02:00"
-draft = true
 +++
 
 People love images *[citation needed]*. Or at least I know I do. And I've previously stated elsewhere that I hate downloading or installing software that doesn't show me any obvious references to its visuals beforehand. I mean come on, it's just a  screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn't mean you should skimp on man pages and/or good `--help` documentation, but a link to a "*video*" powered by [asciinema](https://asciinema.org) speaks volumes compared to a textual description of usage patterns!
