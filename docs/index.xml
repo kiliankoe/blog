@@ -6,8 +6,35 @@
     <description>Recent content on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 08 Apr 2017 22:06:26 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 10 Apr 2017 14:12:35 +0200</lastBuildDate>
     <atom:link href="http://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Keeping Static Images out of your GitHub Repo</title>
+      <link>http://blog.kilian.io/github-images/</link>
+      <pubDate>Mon, 10 Apr 2017 14:12:35 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/github-images/</guid>
+      <description>&lt;p&gt;People love images &lt;em&gt;[citation needed]&lt;/em&gt;. Or at least I know I do. And I&amp;rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&amp;rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&amp;rsquo;s just a  screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&amp;rsquo;t mean you should skimp on man pages and/or good &lt;code&gt;--help&lt;/code&gt; documentation, but a link to a &amp;ldquo;&lt;em&gt;video&lt;/em&gt;&amp;rdquo; powered by &lt;a href=&#34;https://asciinema.org&#34;&gt;asciinema&lt;/a&gt; speaks volumes compared to a textual description of usage patterns!&lt;/p&gt;
+
+&lt;p&gt;A lot of the tools we use and download nowadays are primarily hosted publicly on GitHub, which is why a good README has become the defacto standard homepage for your project. &lt;strong&gt;This&lt;/strong&gt; is exactly where your screenshots, GIFs or videos should go. And it&amp;rsquo;s what most people do, which is awesome.&lt;/p&gt;
+
+&lt;p&gt;The problem with inline images and GIFs however is that they have to come from &lt;em&gt;somewhere&lt;/em&gt; and that &lt;em&gt;somewhere&lt;/em&gt; is usually from within the repo (a &lt;code&gt;./screenshots&lt;/code&gt; dir for example). Especially for GIFs though this can quickly bloat your repo by several megabytes 😕&lt;/p&gt;
+
+&lt;p&gt;The solution is rather simple, just let GitHub host the static assets instead 🤷‍♀️ There&amp;rsquo;s no obvious direct upload form anywhere, but we can just abuse GitHub&amp;rsquo;s hosting of images for issues for this. The process is fairly simple:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Open a new issue in a repo of your choice (doesn&amp;rsquo;t matter since it won&amp;rsquo;t be part of the URL and we&amp;rsquo;re not going to actually open the issue).&lt;/li&gt;
+&lt;li&gt;Drag and drop the image into the issue body.&lt;/li&gt;
+&lt;li&gt;Your browser will upload the image to GitHub&amp;rsquo;s static hosting server and you&amp;rsquo;ll be provided with a public link similar to this one: &lt;a href=&#34;https://cloud.githubusercontent.com/assets/2625584/24861665/d962d642-1df9-11e7-9bd5-cb4f02c5d0c1.png&#34;&gt;&lt;code&gt;https://cloud.githubusercontent.com/assets/2625584/24861665/d962d642-1df9-11e7-9bd5-cb4f02c5d0c1.png&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Copypasta that link into your project&amp;rsquo;s README and discard the issue 🙌&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is no different than hosting the image somewhere else like imgur, but it just seems logical to let GitHub handle the public remote hosting for the repo including the static assets without forcing them on everybody wanting to clone the repo 👌&lt;/p&gt;
+
+&lt;p&gt;Also, I sincerely apologize for a post that&amp;rsquo;s several times longer than it needs to be for a topic so simple 😜&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Akronymsierbar</title>
@@ -549,24 +576,6 @@ I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as i
 &lt;p&gt;It&amp;rsquo;s actually been a lot of fun and the only thing to change now is the domain for this blog. Unfortunately I can&amp;rsquo;t run this under two domains simultaneously, so I&amp;rsquo;m going to be making this switch Monday evening (as in today, depending on how current this is when you read it). So if you&amp;rsquo;re one of the few people I know to be subscribed to the feed, please update it to check blog.kilian.io from now on. Thanks :)&lt;/p&gt;
 
 &lt;p&gt;Edit: Done :)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Pycharm and Java 8</title>
-      <link>http://blog.kilian.io/pycharm-and-java8/</link>
-      <pubDate>Fri, 19 Dec 2014 01:57:50 +0200</pubDate>
-      
-      <guid>http://blog.kilian.io/pycharm-and-java8/</guid>
-      <description>&lt;p&gt;There&amp;rsquo;s been a &lt;a href=&#34;https://youtrack.jetbrains.com/issue/IDEA-131632&#34;&gt;bug&lt;/a&gt; with current versions of Jetbrains products (not just Pycharm, but also IntelliJ IDEA, Android Studio, AppCode and surely the others as well) on OS X 10.10 Yosemite where the editor screen flickers uncontrollably when you scroll the view. It&amp;rsquo;s been making my workflow increasingly difficult and was generally unpleasing, but there is a way around this!&lt;/p&gt;
-
-&lt;p&gt;Kudos goes to &lt;a href=&#34;http://justusadam.com&#34;&gt;Justus&lt;/a&gt; for pointing this one out.&lt;/p&gt;
-
-&lt;p&gt;All you have to do is set your favorite Jetbrains IDE to use the JVM version 1.8 instead of the default 1.6. This is easily done on OS X by editing the &lt;code&gt;Info.plist&lt;/code&gt; found at &lt;code&gt;/Applications/&amp;lt;PyCharm.app or something else&amp;gt;/Contents/Info.plist&lt;/code&gt; like this.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/pycharm.png&#34; alt=&#34;screenshot&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Interestingly enough this will also make your Darcula theme a little darker (very pretty) and the font rendering gets a lot better as well. Perfect fix!&lt;/p&gt;
 </description>
     </item>
     

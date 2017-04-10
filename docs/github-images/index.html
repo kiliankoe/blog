@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keeping Static Images out of your GitHub Repo | blog.kilian.io</title>
+<link rel="stylesheet" href="http://blog.kilian.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="http://blog.kilian.io/"><h1 class="title is-4">blog.kilian.io</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">April 10, 2017</h2>
+    <h1 class="title">Keeping Static Images out of your GitHub Repo</h1>
+    <div class="content">
+      <p>People love images <em>[citation needed]</em>. Or at least I know I do. And I&rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&rsquo;s just a  screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&rsquo;t mean you should skimp on man pages and/or good <code>--help</code> documentation, but a link to a &ldquo;<em>video</em>&rdquo; powered by <a href="https://asciinema.org">asciinema</a> speaks volumes compared to a textual description of usage patterns!</p>
+
+<p>A lot of the tools we use and download nowadays are primarily hosted publicly on GitHub, which is why a good README has become the defacto standard homepage for your project. <strong>This</strong> is exactly where your screenshots, GIFs or videos should go. And it&rsquo;s what most people do, which is awesome.</p>
+
+<p>The problem with inline images and GIFs however is that they have to come from <em>somewhere</em> and that <em>somewhere</em> is usually from within the repo (a <code>./screenshots</code> dir for example). Especially for GIFs though this can quickly bloat your repo by several megabytes 😕</p>
+
+<p>The solution is rather simple, just let GitHub host the static assets instead 🤷‍♀️ There&rsquo;s no obvious direct upload form anywhere, but we can just abuse GitHub&rsquo;s hosting of images for issues for this. The process is fairly simple:</p>
+
+<ol>
+<li>Open a new issue in a repo of your choice (doesn&rsquo;t matter since it won&rsquo;t be part of the URL and we&rsquo;re not going to actually open the issue).</li>
+<li>Drag and drop the image into the issue body.</li>
+<li>Your browser will upload the image to GitHub&rsquo;s static hosting server and you&rsquo;ll be provided with a public link similar to this one: <a href="https://cloud.githubusercontent.com/assets/2625584/24861665/d962d642-1df9-11e7-9bd5-cb4f02c5d0c1.png"><code>https://cloud.githubusercontent.com/assets/2625584/24861665/d962d642-1df9-11e7-9bd5-cb4f02c5d0c1.png</code></a></li>
+<li>Copypasta that link into your project&rsquo;s README and discard the issue 🙌</li>
+</ol>
+
+<p>This is no different than hosting the image somewhere else like imgur, but it just seems logical to let GitHub handle the public remote hosting for the repo including the static assets without forcing them on everybody wanting to clone the repo 👌</p>
+
+<p>Also, I sincerely apologize for a post that&rsquo;s several times longer than it needs to be for a topic so simple 😜</p>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/ruby.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/swift.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/javascript.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/bash.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
