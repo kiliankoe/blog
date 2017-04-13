@@ -1,6 +1,6 @@
 +++
 slug = "akronymisierbar"
-title = "Akronymsierbar"
+title = "Akronymisierbar"
 date = "2017-04-08T22:06:26+02:00"
 +++
 
