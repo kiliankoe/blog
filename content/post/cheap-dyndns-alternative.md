@@ -10,7 +10,50 @@ After moving though easy access like that unfortunately fell away. I looked into
 
 Here’s a simple ruby script for just that.
 
-<script src="https://gist.github.com/kiliankoe/268c13efa87c510bf8ad.js"></script>
+```ruby
+#! /usr/bin/env ruby
+
+require 'net/http'
+require 'cloudflare'
+
+# Email used for login
+CLOUDFLARE_EMAIL = ENV["CLOUDFLARE_EMAIL"]
+
+# API Key, can be found here => https://www.cloudflare.com/a/account/my-account
+CLOUDFLARE_API_KEY = ENV["CLOUDFLARE_API_KEY"]
+
+# The zone (aka domain) this is for, e.g. 'example.com'
+CLOUDFLARE_ZONE = ENV["CLOUDFLARE_ZONE"]
+
+# The specific record name to edit, e.g. 'record.example.com'
+CLOUDFLARE_RECORD_NAME = ENV["CLOUDFLARE_RECORD_NAME"]
+
+def get_ip
+  Net::HTTP.get(URI.parse('http://canihazip.com/s'))
+end
+
+def update_cloudflare(ip)
+  cf = CloudFlare::connection(CLOUDFLARE_API_KEY, CLOUDFLARE_EMAIL)
+  begin
+    rec_id = ''
+    records = cf.rec_load_all(CLOUDFLARE_ZONE)
+    records['response']['recs']['objs'].each do |record|
+      if record['name'] == CLOUDFLARE_RECORD_NAME
+        rec_id = record['rec_id']
+        break
+      end
+    end
+    # Sending '1' for the TTL = 'automatic' meaning approx. 300 (5 minutes)
+    cf.rec_edit(CLOUDFLARE_ZONE, 'A', rec_id, CLOUDFLARE_RECORD_NAME, ip, 1)
+  rescue => e
+    puts e.message
+  else
+    puts "Successfully updated A record for #{CLOUDFLARE_RECORD_NAME} to #{ip}"
+  end
+end
+
+update_cloudflare(get_ip)
+```
 
 The script relies on two things to work correctly:
 
