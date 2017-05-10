@@ -53,7 +53,7 @@
 
 <p>I&rsquo;m using a tool called <a href="https://www.charlesproxy.com">Charles</a> for this. I can also recommend the very popular <a href="https://mitmproxy.org">mitmproxy</a>. The idea is the same for both of them, but I&rsquo;ll reference Charles here.</p>
 
-<p>Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don&rsquo;t want the current version you can cancel the download right after that. Now check Charles for a request to <code>*-buy.itunes.apple.com</code>. Since this request is TLS encrypted we&rsquo;re going to enable Charles&rsquo; SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in it&rsquo;s unencrypted form.</p>
+<p>Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don&rsquo;t want the current version you can cancel the download right after that. Now check Charles for a request to <code>*-buy.itunes.apple.com</code>. Since this request is TLS encrypted we&rsquo;re going to enable Charles&rsquo; SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in its unencrypted form.</p>
 
 <p>If you view the server&rsquo;s response you&rsquo;ll see a plist file (Apple&rsquo;s XML based &ldquo;property list&rdquo; file format). You&rsquo;re looking for a section that looks like the following.</p>
 
