@@ -6,7 +6,7 @@ title = "Downloading older iOS app versions with iTunes"
 
 I recently held a talk about reverse engineering iOS apps at [Mobile Camp 2017](https://mobilecamp.de). There will be another post about said talk soon, since I'll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.
 
-One of my topics was taking a look into an app's bundle, for which I had an app in mind that bundled an interesting SQLite database [^1]. I remembered stumbling across this a little while ago and thought it'd be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you're at least somewhat familiar with *man-in-the-middle* attacking yourself, something I also went over in my talk.
+One of my topics was taking a look into an app's bundle, for which I had an app in mind that bundled an interesting SQLite database[^1]. I remembered stumbling across this a little while ago and thought it'd be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you're at least somewhat familiar with *man-in-the-middle* attacking yourself, something I also went over in my talk.
 
 I'm using a tool called [Charles](https://www.charlesproxy.com) for this. I can also recommend the very popular [mitmproxy](https://mitmproxy.org). The idea is the same for both of them, but I'll reference Charles here.
 
@@ -42,6 +42,6 @@ The easiest way in Charles is to now set a breakpoint on this request (right-cli
 
 <img style="display: block; margin: 0 auto;" src="https://cloud.githubusercontent.com/assets/2625584/25902476/e85fca08-3599-11e7-9643-78d41095f4c1.png" />
 
-If it is a version that works for you, great! That's it 🎉👌 iTunes is downloading the app as we speak and you can then do whatever you want with it. Be aware that any current versions of the app need to be removed from your device if you want to sync it to one.
+If it is a version that works for you, great! That's it 🎉. iTunes is downloading the app as we speak and you can then do whatever you want with it. Be aware that any current versions of the app need to be removed from your device if you want to sync it to one.
 
-[^1]: I'm referring to the app [FahrInfo](https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8) for Dresden. The SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, I'm a [sucker](https://github.com/kiliankoe/vvo) for local public transport data.
+[^1]: I'm referring to the app [FahrInfo](https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8) for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, I'm a [sucker](https://github.com/kiliankoe/vvo) for local public transport data.
