@@ -10,7 +10,7 @@ One of my topics was taking a look into an app's bundle, for which I had an app 
 
 I'm using a tool called [Charles](https://www.charlesproxy.com) for this. I can also recommend the very popular [mitmproxy](https://mitmproxy.org). The idea is the same for both of them, but I'll reference Charles here.
 
-Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don't want the current version you can cancel the download right after that. Now check Charles for a request to `*-buy.itunes.apple.com`. Since this request is TLS encrypted we're going to enable Charles' SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in it's unencrypted form.
+Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don't want the current version you can cancel the download right after that. Now check Charles for a request to `*-buy.itunes.apple.com`. Since this request is TLS encrypted we're going to enable Charles' SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in its unencrypted form.
 
 If you view the server's response you'll see a plist file (Apple's XML based "property list" file format). You're looking for a section that looks like the following.
 
