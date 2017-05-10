@@ -18,7 +18,7 @@
       
       <guid>http://blog.kilian.io/itunes-mitm/</guid>
       <description>I recently held a talk about reverse engineering iOS apps at Mobile Camp 2017. There will be another post about said talk soon, since I&amp;rsquo;ll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.
-One of my topics was taking a look into an app&amp;rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database 1.</description>
+One of my topics was taking a look into an app&amp;rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database1.</description>
     </item>
     
     <item>
