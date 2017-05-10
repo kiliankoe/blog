@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://blog.kilian.io/itunes-mitm/</loc>
+    <lastmod>2017-05-10T15:04:18+02:00</lastmod>
+  </url>
   
   <url>
     <loc>http://blog.kilian.io/github-images/</loc>
@@ -122,14 +128,24 @@
   </url>
   
   <url>
+    <loc>http://blog.kilian.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.kilian.io/post/</loc>
-    <lastmod>2017-04-10T14:12:35+02:00</lastmod>
+    <lastmod>2017-05-10T15:04:18+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.kilian.io/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://blog.kilian.io/</loc>
-    <lastmod>2017-04-10T14:12:35+02:00</lastmod>
+    <lastmod>2017-05-10T15:04:18+02:00</lastmod>
     <priority>0</priority>
   </url>
   

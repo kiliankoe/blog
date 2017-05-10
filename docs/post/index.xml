@@ -2,12 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on blog.kilian.io</title>
-    <link>http://blog.kilian.io/post/index.xml</link>
+    <link>http://blog.kilian.io/post/</link>
     <description>Recent content in Posts on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Apr 2017 14:12:35 +0200</lastBuildDate>
-    <atom:link href="http://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 May 2017 15:04:18 +0200</lastBuildDate>
+    
+	<atom:link href="http://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Downloading older iOS app versions with iTunes</title>
+      <link>http://blog.kilian.io/itunes-mitm/</link>
+      <pubDate>Wed, 10 May 2017 15:04:18 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/itunes-mitm/</guid>
+      <description>I recently held a talk about reverse engineering iOS apps at Mobile Camp 2017. There will be another post about said talk soon, since I&amp;rsquo;ll be holding it again at our local Cocoaheads meetup in a few days time, this time with a video recording 😊.
+One of my topics was taking a look into an app&amp;rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database.</description>
+    </item>
     
     <item>
       <title>Keeping Static Images out of your GitHub Repo</title>
@@ -15,25 +27,7 @@
       <pubDate>Mon, 10 Apr 2017 14:12:35 +0200</pubDate>
       
       <guid>http://blog.kilian.io/github-images/</guid>
-      <description>&lt;p&gt;People love images &lt;em&gt;[citation needed]&lt;/em&gt;. Or at least I know I do. And I&amp;rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&amp;rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&amp;rsquo;s just a  screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&amp;rsquo;t mean you should skimp on man pages and/or good &lt;code&gt;--help&lt;/code&gt; documentation, but a link to a &amp;ldquo;&lt;em&gt;video&lt;/em&gt;&amp;rdquo; powered by &lt;a href=&#34;https://asciinema.org&#34;&gt;asciinema&lt;/a&gt; speaks volumes compared to a textual description of usage patterns!&lt;/p&gt;
-
-&lt;p&gt;A lot of the tools we use and download nowadays are primarily hosted publicly on GitHub, which is why a good README has become the defacto standard homepage for your project. &lt;strong&gt;This&lt;/strong&gt; is exactly where your screenshots, GIFs or videos should go. And it&amp;rsquo;s what most people do, which is awesome.&lt;/p&gt;
-
-&lt;p&gt;The problem with inline images and GIFs however is that they have to come from &lt;em&gt;somewhere&lt;/em&gt; and that &lt;em&gt;somewhere&lt;/em&gt; is usually from within the repo (a &lt;code&gt;./screenshots&lt;/code&gt; dir for example). Especially for GIFs though this can quickly bloat your repo by several megabytes 😕&lt;/p&gt;
-
-&lt;p&gt;The solution is rather simple, just let GitHub host the static assets instead 🤷‍♀️ There&amp;rsquo;s no obvious direct upload form anywhere, but we can just abuse GitHub&amp;rsquo;s hosting of images for issues for this. The process is fairly simple:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Open a new issue in a repo of your choice (doesn&amp;rsquo;t matter since it won&amp;rsquo;t be part of the URL and we&amp;rsquo;re not going to actually open the issue).&lt;/li&gt;
-&lt;li&gt;Drag and drop the image into the issue body.&lt;/li&gt;
-&lt;li&gt;Your browser will upload the image to GitHub&amp;rsquo;s static hosting server and you&amp;rsquo;ll be provided with a public link similar to this one: &lt;a href=&#34;https://cloud.githubusercontent.com/assets/2625584/24861665/d962d642-1df9-11e7-9bd5-cb4f02c5d0c1.png&#34;&gt;&lt;code&gt;https://cloud.githubusercontent.com/assets/2625584/24861665/d962d642-1df9-11e7-9bd5-cb4f02c5d0c1.png&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Copypasta that link into your project&amp;rsquo;s README and discard the issue 🙌&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;This is no different than hosting the image somewhere else like imgur, but it just seems logical to let GitHub handle the public remote hosting for the repo including the static assets without forcing them on everybody wanting to clone the repo 👌&lt;/p&gt;
-
-&lt;p&gt;Also, I sincerely apologize for a post that&amp;rsquo;s several times longer than it needs to be for a topic so simple 😜&lt;/p&gt;
-</description>
+      <description>People love images [citation needed]. Or at least I know I do. And I&amp;rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&amp;rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&amp;rsquo;s just a screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&amp;rsquo;t mean you should skimp on man pages and/or good --help documentation, but a link to a &amp;ldquo;video&amp;rdquo; powered by asciinema speaks volumes compared to a textual description of usage patterns!</description>
     </item>
     
     <item>
@@ -42,19 +36,8 @@
       <pubDate>Sat, 08 Apr 2017 22:06:26 +0200</pubDate>
       
       <guid>http://blog.kilian.io/akronymisierbar/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m a podcast addict. I have been for a few years now and I can&amp;rsquo;t seem to stop. &lt;a href=&#34;https://podcastprofile.com/kiliankoe&#34;&gt;Podcastprofile&lt;/a&gt; has a not very current list of all the feeds I&amp;rsquo;m subscribed to.&lt;/p&gt;
-
-&lt;p&gt;With all the content I consume it only seems logical to produce something at some point as well, or at least try. &lt;a href=&#34;https://twitter.com/hoodie_de&#34;&gt;Hendrik&lt;/a&gt; and me have had that plan for quite a while if I recall correctly, and two months ago we finally decided to do something about it. So we sat down and hit record. What came out of that is &lt;em&gt;Akronymisierbar&lt;/em&gt; (German for &lt;em&gt;acronyminizable&lt;/em&gt;, &amp;lsquo;cause all good podcast names are acronyminizable 😜), a podcast about everything that comes to our minds, from programming languages (there&amp;rsquo;s a lot about programming languages) to how frog&amp;rsquo;s swallow by using their eyeballs to push food down, although it&amp;rsquo;s generally more technical as both of us have vested interests in all things computer science.&lt;/p&gt;
-
-&lt;p&gt;The fourth episode (#003, we&amp;rsquo;re zero-indexed) was uploaded yesterday as of this posting. You can listen to it right here if you want.&lt;/p&gt;
-
-&lt;p&gt;&lt;iframe width=&#34;100%&#34; height=&#34;166&#34; scrolling=&#34;no&#34; frameborder=&#34;no&#34; src=&#34;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/316479289&amp;amp;color=ff5500&amp;amp;auto_play=false&amp;amp;hide_related=true&amp;amp;show_comments=false&amp;amp;show_user=true&amp;amp;show_reposts=false&#34;&gt;&lt;/iframe&gt;
-(We&amp;rsquo;re probably going to move away from SoundCloud for future episodes, but we&amp;rsquo;ll definitely publish a new last episode with a new feed link on SoundCloud when that happens.)&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s definitely quite fun and if you&amp;rsquo;re based in Dresden, we&amp;rsquo;ve got to have you on the show! 😊&lt;/p&gt;
-
-&lt;p&gt;Interested? We&amp;rsquo;re listed on iTunes, Fyyd, Bitlove and probably other podcast directories as well. Give us a listen! We&amp;rsquo;re also very much interested in feedback of any kind, preferably via Twitter &lt;a href=&#34;https://twitter.com/akronymisierbar&#34;&gt;@akronymisierbar&lt;/a&gt; ✌️&lt;/p&gt;
-</description>
+      <description>I&amp;rsquo;m a podcast addict. I have been for a few years now and I can&amp;rsquo;t seem to stop. Podcastprofile has a not very current list of all the feeds I&amp;rsquo;m subscribed to.
+With all the content I consume it only seems logical to produce something at some point as well, or at least try. Hendrik and me have had that plan for quite a while if I recall correctly, and two months ago we finally decided to do something about it.</description>
     </item>
     
     <item>
@@ -63,33 +46,7 @@
       <pubDate>Wed, 09 Nov 2016 13:43:52 +0100</pubDate>
       
       <guid>http://blog.kilian.io/xcode-buildnumber/</guid>
-      <description>&lt;p&gt;Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&amp;rsquo;ve forgotten to increment the build number before trying to deploy a project.
-In my case the problem is usually iTunes Connect, which doesn&amp;rsquo;t take your app&amp;rsquo;s version (or &lt;code&gt;CFBundleShortVersionString&lt;/code&gt;) into account, but only the build number (or &lt;code&gt;CFBundleVersion&lt;/code&gt;). The former is the version we usually set (according to &lt;a href=&#34;http://semver.org&#34;&gt;semver&lt;/a&gt; if you&amp;rsquo;re a good person, although it really doesn&amp;rsquo;t make much of a difference for user-facing versions) to identify the version internally.
-If you fail to increment the latter before uploading, iTunes Connect doesn&amp;rsquo;t see this as a new version, which stinks.&lt;/p&gt;
-
-&lt;p&gt;A first idea might be having a build phase which just increments that number every time you hit build. The obvious downside being that you&amp;rsquo;re either going to be committing increments of this number and fixing conflicts on merges or running into outdated build numbers if you have multiple people deploying your app. That&amp;rsquo;s no fun.&lt;/p&gt;
-
-&lt;p&gt;The best solution I&amp;rsquo;ve come across is coupling your build number to the commit count of your project&amp;rsquo;s git repo. This leads to reproducible build numbers also allowing you to track the state of the app (presuming no uncommited changes were present during archival) based on the build. It doesn&amp;rsquo;t however solve the issue we had with automatically incremented build numbers before, so what if we also reset the build number back to a default value right after we finish compiling? That way our build gets its nice identifying build number and we have no build number changes to commit. Sweet.&lt;/p&gt;
-
-&lt;p&gt;All we need for that are two run script build phases. One before near the top setting our &lt;em&gt;generated&lt;/em&gt; build number and one near the bottom resetting it (before and after &lt;code&gt;Copy Bundle Resources&lt;/code&gt; should probably suffice).&lt;/p&gt;
-
-&lt;p&gt;For the first one, add the following.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;buildNumber=$(git rev-list HEAD | wc -l | tr -d &#39; &#39;)
-/usr/libexec/PlistBuddy -c &amp;quot;Set :CFBundleVersion $buildNumber&amp;quot; &amp;quot;${PROJECT_DIR}/${INFOPLIST_FILE}&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here we&amp;rsquo;re utilizing &lt;code&gt;git rev-list&lt;/code&gt; to list out all parent commits of the current state, piping that through &lt;code&gt;wc&lt;/code&gt; to count the number of lines and removing leading whitespace with &lt;code&gt;tr&lt;/code&gt;. This results in our build number that we set using &lt;code&gt;plistbuddy&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The second script is rather similar.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/usr/libexec/PlistBuddy -c &amp;quot;Set :CFBundleVersion DEV&amp;quot; &amp;quot;${PROJECT_DIR}/${INFOPLIST_FILE}&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Same idea, just a hardcoded string &lt;code&gt;DEV&lt;/code&gt; instead of a number of commits.&lt;/p&gt;
-
-&lt;p&gt;Hopefully this method will save you just that teeny amount of time updating your build number in the future 🙂&lt;/p&gt;
-</description>
+      <description>Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&amp;rsquo;ve forgotten to increment the build number before trying to deploy a project. In my case the problem is usually iTunes Connect, which doesn&amp;rsquo;t take your app&amp;rsquo;s version (or CFBundleShortVersionString) into account, but only the build number (or CFBundleVersion). The former is the version we usually set (according to semver if you&amp;rsquo;re a good person, although it really doesn&amp;rsquo;t make much of a difference for user-facing versions) to identify the version internally.</description>
     </item>
     
     <item>
@@ -98,115 +55,8 @@ If you fail to increment the latter before uploading, iTunes Connect doesn&amp;r
       <pubDate>Sun, 23 Oct 2016 12:42:16 +0200</pubDate>
       
       <guid>http://blog.kilian.io/alfred-workflows/</guid>
-      <description>
-
-&lt;p&gt;A &lt;a href=&#34;https://twitter.com/BenchR&#34;&gt;friend of mine&lt;/a&gt; has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&amp;rsquo;ve been using for years, but have never really thought about using for my own stuff before.&lt;/p&gt;
-
-&lt;p&gt;Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&amp;rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called &lt;em&gt;script filters&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Please be aware that workflows are a paid &lt;a href=&#34;https://www.alfredapp.com/powerpack/&#34;&gt;powerpack&lt;/a&gt; feature of Alfred. I can definitely recommend the upgrade though!&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;what-s-a-script-filter&#34;&gt;What&amp;rsquo;s a &lt;em&gt;Script Filter&lt;/em&gt;?&lt;/h2&gt;
-
-&lt;p&gt;On creating a new blank workflow you&amp;rsquo;re presented with an empty page. Here you can add a bunch of stuff, but the most straight-forward thing (in my opinion at least) is a script filter.
-&lt;p align=&#34;center&#34;&gt;
-  &lt;img src=&#34;http://blog.kilian.io/img/alfredworkflows_1.png&#34; alt=&#34;&#34; /&gt;
-&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;Script filters are input actions, meaning they can be run on certain keywords and with certain arguments. The argument can then be passed on to a given script (hence the name), which does some 🎩🐰✨ and returns some items for Alfred to display.&lt;/p&gt;
-
-&lt;p&gt;Alfred has a list of supported default &amp;ldquo;languages&amp;rdquo;, including bash or zsh, php, ruby, python, perl and applescript. Or you can just choose &amp;ldquo;External script&amp;rdquo; and go with whatever you want.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Caveat&lt;/strong&gt;: If you&amp;rsquo;re looking to distribute your workflow to others, it might make sense to go with something that they can run natively without having to install additional dependencies. My first workflow was written in Node.js, which unfortunately doesn&amp;rsquo;t come preinstalled on macOS. And then one of the users had an older version running into all kinds of additional errors. On the other hand, if you&amp;rsquo;re writing a wrapper for npm tooling, node will probably be on your user&amp;rsquo;s machines and the language is their tool of choice anyways. It&amp;rsquo;s always a question of your target audience.&lt;/p&gt;
-
-&lt;p&gt;What&amp;rsquo;s also noteworthy here is the &amp;ldquo;Run Behaviour&amp;rdquo;. Alfred defaults to running one instance of your script after each other. That means that if an instance is already running (maybe being rather slow due to a network call or something else), any further user input will only be processed after the first script has finished and a new instance can be started.
-My experience has been that this can easily be changed to terminate the previous instance if the users adds additional input for most cases, making things a lot snappier.&lt;/p&gt;
-
-&lt;h2 id=&#34;getting-started-with-a-script-filter&#34;&gt;Getting Started with a Script Filter&lt;/h2&gt;
-
-&lt;p&gt;A user&amp;rsquo;s input is handed over to your script as argv by default, making it trivial to access this with your language of choosing.&lt;/p&gt;
-
-&lt;p&gt;To show a list of items in Alfred once you&amp;rsquo;re done you have to do nothing more than output some JSON (or XML) to STDOUT.
-Alfred has &lt;a href=&#34;https://www.alfredapp.com/help/workflows/inputs/script-filter/json/&#34;&gt;pretty good documentation&lt;/a&gt; on how your outputted data has to be formatted for Alfred to pick it up.&lt;/p&gt;
-
-&lt;p&gt;The basic idea is having a list of items with their respective fields. Most of them are pretty self-explanatory or well explained in the docs linked above.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;{&amp;quot;items&amp;quot;: [
-    {
-        &amp;quot;title&amp;quot;: &amp;quot;An item&amp;quot;,
-        &amp;quot;subtitle&amp;quot;: &amp;quot;Some description &amp;quot;,
-        &amp;quot;arg&amp;quot;: &amp;quot;an argument&amp;quot;,
-        &amp;quot;icon&amp;quot;: {
-            &amp;quot;path&amp;quot;: &amp;quot;link to an image&amp;quot;
-        }
-    },
-    //...
-]}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Setting an argument is especially helpful for other actions, as this is what is passed on to them. You can also specify different arguments for modifier keys, so a different actions will be passed on if the user holds ⌘ for example.&lt;/p&gt;
-
-&lt;p&gt;Alfred also does a lot for you out-of-the-box if you want to list files from your harddrive.&lt;/p&gt;
-
-&lt;h2 id=&#34;using-a-helper-library&#34;&gt;Using a Helper Library&lt;/h2&gt;
-
-&lt;p&gt;You&amp;rsquo;ll make your life a lot easier using one of the plentiful alfred-workflow helper libraries out there, surely also for your language of choice.&lt;/p&gt;
-
-&lt;p&gt;Two I&amp;rsquo;d like to highlight are &lt;a href=&#34;https://github.com/sindresorhus/alfy&#34;&gt;Alfy&lt;/a&gt; by Sindre Sorhus (Javascript) and &lt;a href=&#34;https://github.com/BenchR267/goalfred&#34;&gt;goalfred&lt;/a&gt; by Benjamin Herzog (golang).
-Both have a fantastic API making your life a lot easier by just passing along the items and setting appropriate attributes.&lt;/p&gt;
-
-&lt;p&gt;Something specific to goalfred are the so called complex arguments. It turns out to be rather tricky if you want to pass along specific variables to further actions. Ben and I figured that out together as I was trying to build a workflow showing departures in our local public transport network (DVB in Dresden, Germany).&lt;/p&gt;
-
-&lt;p align=&#34;center&#34;&gt;
-&lt;iframe src=&#39;https://gfycat.com/ifr/CluelessSaneAtlasmoth&#39; frameborder=&#39;0&#39; scrolling=&#39;no&#39; width=&#39;640&#39; height=&#39;377&#39; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/p&gt;
-
-&lt;p&gt;When hitting enter on an item I wanted to schedule a notification to be displayed several minutes before the departure. My first implementation included a small Swift app using system APIs to schedule that as it turns out you can&amp;rsquo;t schedule future notifications via applescript 😕
-We later figured out how to implement the same functionality directly within the workflow getting rid of the rather cumbersome and awkward first implementation. Ben went ahead and built that directly into goalfred 🙂 A big recommendation goes out to that library.&lt;/p&gt;
-
-&lt;p&gt;Using that we can easily throw together a small (albeit useless) workflow script in go greeting the name the user enters or no one if no input is given.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;package main
-
-import (
-    &amp;quot;fmt&amp;quot;
-
-    &amp;quot;github.com/BenchR267/goalfred&amp;quot;
-)
-
-func main() {
-    // Deals with the normalizing issue below.
-    query, _ := goalfred.NormalizedArguments()
-
-    defer goalfred.Print()
-
-    if query[0] == &amp;quot;&amp;quot; {
-        goalfred.Add(goalfred.Item{
-            Title: &amp;quot;Hello world!&amp;quot;,
-        })
-    } else {
-        goalfred.Add(goalfred.Item{
-            Title: fmt.Sprintf(&amp;quot;Hello, %s 👋&amp;quot;, query[0]),
-        })
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I would usually compile this running &lt;code&gt;go build &amp;lt;file&amp;gt;.go&lt;/code&gt; and setting Alfred to run the binary as an external script, but you can also use a bash script filter to have Alfred run &lt;code&gt;go run &amp;lt;file&amp;gt;.go&lt;/code&gt; or the binary, whatever you prefer.&lt;/p&gt;
-
-&lt;h2 id=&#34;problems&#34;&gt;Problems&lt;/h2&gt;
-
-&lt;p&gt;A pain point specific to non-ascii-compatible languages is Alfred&amp;rsquo;s handling of special characters. It uses NSTask internally, which results in umlauts for example being split up into their parts before being passed on, meaning &lt;code&gt;ü&lt;/code&gt; becomes &lt;code&gt;¨u&lt;/code&gt;. &lt;a href=&#34;http://www.alfredforum.com/topic/2015-encoding-issue/&#34;&gt;Here&lt;/a&gt;&amp;rsquo;s some more info on that if you&amp;rsquo;re interested and some help on how to re-normalize the user&amp;rsquo;s input.&lt;/p&gt;
-
-&lt;p&gt;Something essential I haven&amp;rsquo;t found a good solution for are workflow updates. Some people publish their workflows using &lt;a href=&#34;http://www.packal.org&#34;&gt;Packal&lt;/a&gt;, which provides some help with that. There&amp;rsquo;s also a python lib with some magic.
-The best solution I&amp;rsquo;ve seen this far is how Alfy recommends publishing workflows on npm and linking them to the correct directory on a post-install step. Still not perfect, but definitely interesting.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;If you want to check out the source to some workflows, I&amp;rsquo;ve published three of mine on GitHub: &lt;a href=&#34;https://github.com/kiliankoe/alfred_dvb&#34;&gt;alfred dvb&lt;/a&gt;, &lt;a href=&#34;https://github.com/kiliankoe/alfred_mensa&#34;&gt;alfred mensa&lt;/a&gt; and &lt;a href=&#34;https://github.com/kiliankoe/alfred_n26&#34;&gt;alfred n26&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Got any additional input or cool workflow ideas? Hit me up on Twitter 🙃&lt;/p&gt;
-</description>
+      <description>A friend of mine has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&amp;rsquo;ve been using for years, but have never really thought about using for my own stuff before.
+Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&amp;rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called script filters.</description>
     </item>
     
     <item>
@@ -215,68 +65,8 @@ The best solution I&amp;rsquo;ve seen this far is how Alfy recommends publishing
       <pubDate>Sat, 02 Jul 2016 02:28:11 +0200</pubDate>
       
       <guid>http://blog.kilian.io/wwdc-16/</guid>
-      <description>&lt;p&gt;Had a fantastic time about two weeks ago at dubdubdeesee in San Francisco. First time at the West Coast and I&amp;rsquo;m completely blown away by the amount of amazing people and great time we had. This post is going to be a quick recap of my experiences along the way.&lt;/p&gt;
-
-&lt;p&gt;After not expecting to receive the scholarship by Apple at all, I unfortunately did not seem to qualify for Apple&amp;rsquo;s Travel Assistance, which meant I had to gather around ~1.5k€ for an unexpected and very sudden trip to San Francisco. Everything worked out though and I can&amp;rsquo;t say I&amp;rsquo;d regret even a moment of it all!&lt;/p&gt;
-
-&lt;p&gt;My flight went on the Saturday before and because I booked the cheapest flight possible at such a late time I only had a 10-hour layover in Munich 😅 Wasn&amp;rsquo;t quite as bad though, my parents live close by and we went for coffee and lunch in the city.&lt;/p&gt;
-
-&lt;p&gt;Arriving in San Francisco at 6 pm local time I was picked up by two friends, Ben and Micha, who also came to town for WWDC from Dresden. They had far better flights though without layovers like mine, so they left later, but arrived earlier 😄&lt;/p&gt;
-
-&lt;p&gt;We three spent the next day exploring the most known parts of the city. Had a look at Golden Gate from pretty much every angle, went to Fisherman&amp;rsquo;s Wharf and Coit Tower&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; to name a few.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/wwdc_16_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Ending the day we headed over to Twin Peaks for the sunset, where the view of the city was amazing! Only downside: It was freakin&amp;rsquo; freezing! We all had no idea that California even got this cold&amp;hellip; No wonder Apple hands out jackets to WWDC attendees.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/wwdc_16_2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I spent most of Sunday at the scholarship orientation that Apple had planned. There were a few interesting talks, lots of time to socialize with other scholars and some Apple employees and for those interested some dedicated selfie time with Tim Cook. I chose to skip that, the crowd was far too intimidating.&lt;/p&gt;
-
-&lt;p&gt;The best part was definitely meeting the other scholars and chatting about their backgrounds, projects and other shared interests. The apps some people built for the scholarship were seriously mind-blowing! I definitely had a great time there!&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a pic Apple photographers apparently took of Maria, Gustavo and me taking a selfie 😁 The image is straight out of the current version of the official WWDC app. The other pictures in the galleries there are also worth a look!
-&lt;p align=&#34;center&#34;&gt;
-  &lt;img src=&#34;http://blog.kilian.io/img/wwdc_16_3.jpg&#34; alt=&#34;&#34; /&gt;
-&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;Monday was keynote day. Woke up and walked to Bill Graham with Micha at around 5 am. We didn&amp;rsquo;t want to get up too early since the venue was far bigger than Moscone West the previous years. We were confident that 5 was early enough to get fairly good seats.
-Turns out though that some Apple employees did their best to round up all scholars though and we got in a bit early and had fantastic seats right up in the in the first three rows at the front left and right.
-Micha also had a great seat though, Apple&amp;rsquo;s decision to go with Bill Graham seemed like a very wise choice, it&amp;rsquo;s a huge place.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/wwdc_16_4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;I don&amp;rsquo;t have a lot to say about the Keynote or Platforms State of the Union though. Their content is pretty known around the globe by now 😉 I&amp;rsquo;m just extremely excited to be using the announced features in my OS&amp;rsquo; as soon as possible and can&amp;rsquo;t wait to build stuff against the new APIs.&lt;/p&gt;
-
-&lt;p&gt;The rest of the week at Moscone West was just as great. We definitely had a blast in the sessions and just as much in the labs talking to some Apple engineers about the frameworks we&amp;rsquo;re using and some best practices. Just the atmosphere of having hundreds of developers around me interested in the same topics and building similar things was fantastic! There&amp;rsquo;s not much similar to how much that gets you motivated! 🤗&lt;/p&gt;
-
-&lt;p&gt;Our evenings were mostly spent at parties hosted by the great people at Twitter, Microsoft/Xamarin, Mapbox, Lyft and Realm amongst a few others. I especially enjoyed the 1.0 launch party @ Realm HQ! Didn&amp;rsquo;t stay all too long though, since we at least wanted to check out the WWDC bash at Bill Graham as well. Didn&amp;rsquo;t expect such a big concert and I loved the food there!&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a few of us at Realm HQ. From right to left: Bilal, Fabian, Ben and me.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/wwdc_16_5.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;We (Ben, Micha, Fabian and I) took off on Friday afternoon driving a few miles south visiting Facebook HQ (with a great tour from Max!&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;). Somewhat blown away by their campus to be honest! I was expecting a bigger building but not around 20 of them with all kinds of activities strewn throughout. As much as I despise the platform itself, it seems like an awesome place to work!&lt;/p&gt;
-
-&lt;p&gt;Also went by Apple HQ @ 1 Infinite Loop and Google HQ. Unfortunately no tours at both of them, but it was fun walking by nonetheless. Maybe next time? 😁&lt;/p&gt;
-
-&lt;p&gt;My last day in the area (Saturday - the others were staying until Tuesday) we (this time it was Ben, Micha, Matt, Max (not the one from FB) and me) spent in Yosemite, a seriously beautiful national park! Great weather and gorgeous views! Had a bit of bad luck though, because Obama and family were also here hiking, so there were a lot of people and we didn&amp;rsquo;t quite get to see everything we came for. Nevertheless definitely worth the 3-hour car ride though!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/wwdc_16_6.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And that&amp;rsquo;s pretty much it for my rather short overview of the week. As said before, we had a great time and I&amp;rsquo;d like nothing more than to be right back here in a year. Let&amp;rsquo;s see if I can make that work!&lt;/p&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;We didn&amp;rsquo;t want to go up though, as we had no intention of waiting there for roughly 45 minutes. The entire &lt;em&gt;culture of waiting&lt;/em&gt; in the US is an aspect that really bothers me by the way. Enter a restaurant and be told that your table will be ready in half an hour? Wat? Not to mention more famous highlights like the DMV 😄
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34;&gt;And another guy whose name I unfortunately did not catch. We had a great time with you guys though! Maybe we&amp;rsquo;ll catch up at 33c3 end of the year?
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
+      <description>Had a fantastic time about two weeks ago at dubdubdeesee in San Francisco. First time at the West Coast and I&amp;rsquo;m completely blown away by the amount of amazing people and great time we had. This post is going to be a quick recap of my experiences along the way.
+After not expecting to receive the scholarship by Apple at all, I unfortunately did not seem to qualify for Apple&amp;rsquo;s Travel Assistance, which meant I had to gather around ~1.</description>
     </item>
     
     <item>
@@ -285,37 +75,8 @@ Micha also had a great seat though, Apple&amp;rsquo;s decision to go with Bill G
       <pubDate>Thu, 30 Jun 2016 02:24:08 +0200</pubDate>
       
       <guid>http://blog.kilian.io/on-quitting-facebook/</guid>
-      <description>&lt;p&gt;I’ve been seriously disliking the idea of maintaining a Facebook profile for quite a while now. It adds close to nothing to my life. After having loaded the page it seems I am always being presented with the same content over and over. The newsfeed is completely and utterly useless.&lt;/p&gt;
-
-&lt;p&gt;A few months back I chose to delete my personal timeline. Facebook started to show me content from a few years back (from a much younger self) and I was presented with things that I really did not wish to display publicly online. It was nothing bad or deeply embarrassing, but I urge you to scroll all the way to the bottom of your FB profile and just start reading upwards. You&amp;rsquo;ll get what I mean 😉&lt;/p&gt;
-
-&lt;p&gt;I couldn&amp;rsquo;t and still can&amp;rsquo;t quite delete the entire profile though. I like the idea of having a social hub out there, a place where someone can enter my name into a search box and then contact me (via Messenger&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;). And even though I maintain contact with most people via E-Mail and Twitter, there&amp;rsquo;s loads of others out there using FB and nothing else&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. And I kinda want to be able to stay in contact with them as well.
-In practice my &lt;em&gt;current&lt;/em&gt; conversations in there are strewn across the last few months. One from March, one from April, two from June.
-So it actually turns out that I have moved most of my conversations away from Messenger, that&amp;rsquo;s nice.&lt;/p&gt;
-
-&lt;p&gt;Another aspect I thought I&amp;rsquo;d miss out on when completely leaving the platform are events. A lot of my contacts plan parties and other events this way. Up until recently I&amp;rsquo;ve been using OS X&amp;rsquo;s FB integration (disgusting btw) to throw those into my calendar automatically. Which works to a certain degree. You can&amp;rsquo;t edit or delete events (or invitations), as this apparently is a read-only feed from FB. And when some contacts (you know who you are! 👀) started planning events spanning several months and thus completely spamming my entire calendar, I threw that out.
-I have to say&amp;hellip; I&amp;rsquo;m not entirely sure what I&amp;rsquo;ve missed in the months since, but I don&amp;rsquo;t think it has been all too much. Every now and then I receive a &amp;ldquo;&lt;em&gt;Did you see the FB event and invitation?&lt;/em&gt;&amp;rdquo; message, which of course is a little more work on the side of the event organizers (which I regret), but I can&amp;rsquo;t say that it hasn&amp;rsquo;t been working out.&lt;/p&gt;
-
-&lt;p&gt;Summing up, neither Messenger nor events have been particularly good reasons to keep the dreaded profile around.&lt;/p&gt;
-
-&lt;p&gt;There is however one thing I just can&amp;rsquo;t seem to migrate well. And that&amp;rsquo;s FB groups.
-For obvious reasons these are &lt;strong&gt;incredibly&lt;/strong&gt; popular in my social circles. The ones I check regularly&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; are a group related to my studies at my university (with tons of inside info, which kinda sucks to miss out on), our local Cocoaheads chapter (Would really welcome to see this someplace else! 😁) and a few others.&lt;/p&gt;
-
-&lt;p&gt;After having had this post as a draft for more than a year now, I&amp;rsquo;ve still gotten no closer to deleting my profile than deleting timeline contents and disabling posts there by others. But at least my FB usage has come down to a minimum, which is at least a small success. Maybe I will be able to get rid off it entirely at some point in the near future.&lt;/p&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;I want to give a quick shoutout to &lt;a href=&#34;https://messenger.com&#34;&gt;messenger.com&lt;/a&gt;, a site built by Facebook that contains only the messenger and nothing else. It&amp;rsquo;s actually quite nice!
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34;&gt;Came into contact with this again after attending WWDC as a scholarship recipient. Most of the other scholars I talked to were expecting Messenger as a default way of communication.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:3&#34;&gt;I can recommend the &lt;a href=&#34;https://itunes.apple.com/app/facebook-groups/id931735837&#34;&gt;Groups&lt;/a&gt; app for iOS at least. Works rather well. And also has well designed UI gestures.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
+      <description>I’ve been seriously disliking the idea of maintaining a Facebook profile for quite a while now. It adds close to nothing to my life. After having loaded the page it seems I am always being presented with the same content over and over. The newsfeed is completely and utterly useless.
+A few months back I chose to delete my personal timeline. Facebook started to show me content from a few years back (from a much younger self) and I was presented with things that I really did not wish to display publicly online.</description>
     </item>
     
     <item>
@@ -324,15 +85,8 @@ For obvious reasons these are &lt;strong&gt;incredibly&lt;/strong&gt; popular in
       <pubDate>Wed, 18 May 2016 02:21:05 +0200</pubDate>
       
       <guid>http://blog.kilian.io/wwdc-16-scholarship/</guid>
-      <description>&lt;p&gt;Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away!
-&lt;p align=&#34;center&#34;&gt;
-  &lt;img src=&#34;http://blog.kilian.io/img/wwdcscholarship.png&#34; alt=&#34;print(&amp;quot;Hello, Scholar!&amp;quot;)&#34; /&gt;
-&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.&lt;/p&gt;
-
-&lt;p&gt;Stay posted for more, especially once it’s June 😁&lt;/p&gt;
-</description>
+      <description>Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away! The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.
+Stay posted for more, especially once it’s June 😁</description>
     </item>
     
     <item>
@@ -341,27 +95,8 @@ For obvious reasons these are &lt;strong&gt;incredibly&lt;/strong&gt; popular in
       <pubDate>Mon, 07 Mar 2016 02:19:48 +0200</pubDate>
       
       <guid>http://blog.kilian.io/cheap-dyndns-alternative/</guid>
-      <description>&lt;p&gt;Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.&lt;/p&gt;
-
-&lt;p&gt;After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare. Why not just get my current IP every $TIME_INTERVAL or so and send that to CloudFlare via their API updating an existing DNS record.&lt;/p&gt;
-
-&lt;p&gt;Here’s a simple ruby script for just that.&lt;/p&gt;
-
-&lt;script src=&#34;https://gist.github.com/kiliankoe/268c13efa87c510bf8ad.js&#34;&gt;&lt;/script&gt;
-
-&lt;p&gt;The script relies on two things to work correctly:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Make sure to set the record to be updated beforehand, this script will look at all records and update the IP of the correct one.&lt;/li&gt;
-&lt;li&gt;You need to pass a few environment variables as specified at the top of the script, namely &lt;code&gt;CLOUDFLARE_EMAIL&lt;/code&gt;, &lt;code&gt;CLOUDFLARE_API_KEY&lt;/code&gt;, &lt;code&gt;CLOUDFLARE_ZONE&lt;/code&gt; and &lt;code&gt;CLOUDFLARE_RECORD_NAME&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Now just periodically run it via cron or however you like 🙂&lt;/p&gt;
-
-&lt;p&gt;Setting up the record beforehand also gives you the freedom of specifying if you want CloudFlare tunneling for the record or not. Whatever you set will not be changed by this script.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt;: Thanks to &lt;a href=&#34;https://twitter.com/stefanmajewsky&#34;&gt;@stefanmajewsky&lt;/a&gt; &lt;a href=&#34;https://github.com/jasontbradshaw/gandi-dyndns&#34;&gt;here&lt;/a&gt;’s a Python script for doing the same directly via Gandi.net. Awesome!&lt;/p&gt;
-</description>
+      <description>Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.
+After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare.</description>
     </item>
     
     <item>
@@ -370,17 +105,8 @@ For obvious reasons these are &lt;strong&gt;incredibly&lt;/strong&gt; popular in
       <pubDate>Sat, 13 Feb 2016 02:17:52 +0200</pubDate>
       
       <guid>http://blog.kilian.io/firewatch/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/firewatch_1.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Finished it two days ago and was left in some emotional turmoil. I believed the ending to be spoiled for me after accidentally having read a sentence on Reddit, but it turns out that was bullshit. Unfortunately that made it even worse.&lt;/p&gt;
-
-&lt;p&gt;It’s a gorgeous game, albeit relatively short (~4 hours). The gameplay mechanics work great (a bit unexpected at times) and the story is definitely captivating. Can’t say too much about it though without giving stuff away.
-Definitely recommended! It’s &lt;strong&gt;not&lt;/strong&gt; a horror game either, just thrilling at times and beautiful at others. Give it a shot! 😊&lt;/p&gt;
-
-&lt;p&gt;It’s available for Mac, Windows and PS4. Grab it on Steam &lt;a href=&#34;http://store.steampowered.com/app/383870/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/firewatch_2.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Finished it two days ago and was left in some emotional turmoil. I believed the ending to be spoiled for me after accidentally having read a sentence on Reddit, but it turns out that was bullshit. Unfortunately that made it even worse.
+It’s a gorgeous game, albeit relatively short (~4 hours). The gameplay mechanics work great (a bit unexpected at times) and the story is definitely captivating. Can’t say too much about it though without giving stuff away.</description>
     </item>
     
     <item>
@@ -389,8 +115,7 @@ Definitely recommended! It’s &lt;strong&gt;not&lt;/strong&gt; a horror game ei
       <pubDate>Wed, 13 Jan 2016 02:16:54 +0200</pubDate>
       
       <guid>http://blog.kilian.io/blackmirror/</guid>
-      <description>&lt;p&gt;Blindly following a recommendation on Reddit I just finished watching the first season of &lt;a href=&#34;http://www.imdb.com/title/tt2085059&#34;&gt;Black Mirror&lt;/a&gt;. Not quite sure what I was expecting, only had the SciFi label in my head. Didn’t quite find that, more of a feeling of deep disgust with the different shown realities. Interesting nonetheless. And definitely a recommendation!&lt;/p&gt;
-</description>
+      <description>Blindly following a recommendation on Reddit I just finished watching the first season of Black Mirror. Not quite sure what I was expecting, only had the SciFi label in my head. Didn’t quite find that, more of a feeling of deep disgust with the different shown realities. Interesting nonetheless. And definitely a recommendation!</description>
     </item>
     
     <item>
@@ -399,15 +124,8 @@ Definitely recommended! It’s &lt;strong&gt;not&lt;/strong&gt; a horror game ei
       <pubDate>Fri, 01 Jan 2016 02:14:31 +0200</pubDate>
       
       <guid>http://blog.kilian.io/32c3/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/32c3_1.jpg&#34; alt=&#34;CCH outside&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;That was seriously awesome! My first congress and I couldn’t be happier with it. Definitely coming back next year, for sure!&lt;/p&gt;
-
-&lt;p&gt;There’s so much I could write about here, but I’m going to keep it to a minimum.
-I kinda regret watching quite a few talks live and not using the time at CCH to have a look at most assemblies and workshops. Will improve on that @ 33c3. All talks have since been published online at &lt;a href=&#34;media.ccc.de&#34;&gt;https://media.ccc.de&lt;/a&gt;. Have a look, and come next year! 😊&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/32c3_2.jpg&#34; alt=&#34;the lounge&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>That was seriously awesome! My first congress and I couldn’t be happier with it. Definitely coming back next year, for sure!
+There’s so much I could write about here, but I’m going to keep it to a minimum. I kinda regret watching quite a few talks live and not using the time at CCH to have a look at most assemblies and workshops. Will improve on that @ 33c3. All talks have since been published online at https://media.</description>
     </item>
     
     <item>
@@ -416,24 +134,8 @@ I kinda regret watching quite a few talks live and not using the time at CCH to 
       <pubDate>Fri, 20 Nov 2015 02:07:50 +0200</pubDate>
       
       <guid>http://blog.kilian.io/heartbattery/</guid>
-      <description>&lt;p&gt;A friend recently had the fun idea to write a small script for his machine running Arch displaying his current battery state as a series of hearts instead of the traditional boring percentage. He did so via a short python script and the magic of Font Awesome to integrate with Conky.&lt;/p&gt;
-
-&lt;p&gt;I have to admit that writing a quick script in your language of choice makes customization like this a lot easier than on OS X, but I liked the idea and wanted to follow along with something native as well. So today I wrote a little app in Swift titled HeartBattery.
-&lt;p align=&#34;center&#34;&gt;
-  &lt;img src=&#34;http://blog.kilian.io/img/heartbattery.gif&#34; alt=&#34;&#34; /&gt;
-&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;It doesn’t really do a whole lot besides pulling the state of your battery every five minutes and telling you a few things about it. The hardest part was actually getting the data and generating the image. Getting the data unfortunately isn’t as easy as reading it from a file somewhere like others systems do it, but you have to interface with some rather confusing C APIs. Not really wanting to do that I eventually stumbled across &lt;a href=&#34;https://github.com/beltex/SystemKit&#34;&gt;SystemKit&lt;/a&gt;, a Swift lib that abstracts all that away and offers an API that couldn’t be much simpler. It’s from the same person behind &lt;a href=&#34;https://github.com/beltex/dshb&#34;&gt;dshb&lt;/a&gt;, that amazingly pretty ncurses powered system monitor for OS X.&lt;/p&gt;
-
-&lt;p&gt;Unfortunately it doesn’t seem possible to set a custom font for a status item and multiple images are also not an option (afaik), so I had to resort to compositing a few icons together on every refresh of the app to generate a single wide image for the menubar representing the current battery state. Really doesn’t feel like the cleanest option, but another thing learned can’t be bad either I guess.&lt;/p&gt;
-
-&lt;p&gt;If you want to have a look you can find the source and download link on the GitHub repo &lt;a href=&#34;https://github.com/kiliankoe/HeartBattery&#34;&gt;here&lt;/a&gt;. And as usual, if you have any ideas, suggestions or think my code can be improved upon and want to tell me how to pull it off, why not head straight for the issue/pull request 😊
-&lt;p align=&#34;center&#34;&gt;
-  &lt;img src=&#34;http://blog.kilian.io/img/heartbattery.png&#34; alt=&#34;&#34; /&gt;
-&lt;/p&gt;&lt;/p&gt;
-
-&lt;p&gt;Now all that’s missing is a bling sound whenever you lose a heart 😄&lt;/p&gt;
-</description>
+      <description>A friend recently had the fun idea to write a small script for his machine running Arch displaying his current battery state as a series of hearts instead of the traditional boring percentage. He did so via a short python script and the magic of Font Awesome to integrate with Conky.
+I have to admit that writing a quick script in your language of choice makes customization like this a lot easier than on OS X, but I liked the idea and wanted to follow along with something native as well.</description>
     </item>
     
     <item>
@@ -442,95 +144,8 @@ I kinda regret watching quite a few talks live and not using the time at CCH to 
       <pubDate>Thu, 07 May 2015 02:04:26 +0200</pubDate>
       
       <guid>http://blog.kilian.io/applewatch/</guid>
-      <description>
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/applewatch.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;:
-I changed the post title from &lt;em&gt;Why I won&amp;rsquo;t be keeping my Apple Watch&lt;/em&gt; to the current one. Let me explain why.&lt;/p&gt;
-
-&lt;p&gt;My biggest gripe with the watch was the in my opinion &lt;em&gt;abysmal&lt;/em&gt; battery performance of my iPhone when connected to the watch. I&amp;rsquo;m not entirely sure what changed, but I believe the watch is actually affecting how I use my phone during the day. Specifically how often I do so. I&amp;rsquo;m currently ending ~16 hour days with around 70% of a charge left in the watch and my iPhone somewhere around 50%. That&amp;rsquo;s actually &lt;em&gt;better&lt;/em&gt; than what I&amp;rsquo;m used to without the watch!&lt;/p&gt;
-
-&lt;p&gt;Let me somewhat reiterate on the other cons listed below as well:&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;low usability&lt;/em&gt; is still something I struggle with. Although it&amp;rsquo;s gotten better. The only apps really not playing all too nice with the watch are those that send notifications, but don&amp;rsquo;t tell you what they&amp;rsquo;re about. In my case those would be Threema and Signal. The problem is that this is actually somewhat the point of these apps, so I guess I&amp;rsquo;ll just have to live with that 😉
-The &lt;em&gt;social stigma&lt;/em&gt; is also still there. Using the watch daily you just get better at not pissing other people off when looking at it discreetly. Or you do it so much that others just don&amp;rsquo;t care anymore.
-And for Siri&amp;hellip; Well, I&amp;rsquo;ve just gotten used to activating Siri by pressing the digital crown. Voice activation still seems to hate me.&lt;/p&gt;
-
-&lt;p&gt;So much for the update. Read below for the original post written a few days after I originally got the watch.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;This post is basically one big personal opinion. Some things I&amp;rsquo;ve noticed about the Apple Watch while using it for a short time. Maybe others will see them the same way and maybe these points don&amp;rsquo;t apply to you at all, that&amp;rsquo;s ok, I&amp;rsquo;m not trying to make any definitive statement. This is just what I&amp;rsquo;ve observed.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s make this one big pro/contra list and start it out with the positive points. The stuff the Apple Watch gets right.&lt;/p&gt;
-
-&lt;h5 id=&#34;pros&#34;&gt;Pros&lt;/h5&gt;
-
-&lt;h6 id=&#34;taptic-engine&#34;&gt;Taptic Engine&lt;/h6&gt;
-
-&lt;p&gt;This is hands-down &lt;em&gt;the&lt;/em&gt; best Watch feature. The way the Watch notifies you about pretty much anything is something I fell in love with right away. It&amp;rsquo;s extremely subtle yet still impossible to miss.
-We&amp;rsquo;re all used to having our phones vibrate in our pockets to tell us stuff is going on. And even though this works, it&amp;rsquo;s tedious pulling your phone out of your pocket only to see you just received mail you don&amp;rsquo;t care about. Worst part about this though is that the people around you probably &lt;em&gt;heard&lt;/em&gt; the vibration go off and saw you take a look at your phone. So even if you chose not to have a look at it, everybody around you got notified about it.
-The Watch&amp;rsquo;s taptic engine is something you just don&amp;rsquo;t hear at all&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. And if you do choose to look at it, you just raise your wrist and see what it&amp;rsquo;s all about. This is fantastic.
-It&amp;rsquo;s also great how the iPhone - when it&amp;rsquo;s trying to send you a notification - checks to see if it&amp;rsquo;s connected to a watch first and if you&amp;rsquo;re currently wearing it so that it can send the notification in the best way possible. I know a guy who owns a Moto 360 and whenever he gets a notification I can hear his phone vibrate and seconds later I hear his watch vibrate as well. That&amp;rsquo;s not how it should be.&lt;/p&gt;
-
-&lt;h6 id=&#34;activity-and-heart-rate&#34;&gt;Activity and heart rate&lt;/h6&gt;
-
-&lt;p&gt;The Apple Watch is all about health tracking. Not only does it track how often you stand up and walk about, but it uses it&amp;rsquo;s huge optical sensor on the back to check your heart rate every 20 minutes. I&amp;rsquo;ve used a Fitbit and Misfit tracker for a little while and am infected by the gamification virus&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; so I&amp;rsquo;m happy to see that you can also gather different achievements based on how often you achieve the activity tracker goals.
-I&amp;rsquo;m also a huge fan of all kinds of statistics about myself. I absolutely love having stats and visualized graphs about as much of my life as I can and this whole quantified self movement plays right up that alley. So being able to view a graph of my heart rate in the Health Kit app and everything the Activity app does is something I enjoy a lot. The only thing I&amp;rsquo;d enjoy even more here would be a finer-grained heart rate measurement. Probably something not possible with the watch&amp;rsquo;s battery life at the moment, but only every 20 minutes is kinda rough.&lt;/p&gt;
-
-&lt;h6 id=&#34;time-and-temperature&#34;&gt;Time and temperature&lt;/h6&gt;
-
-&lt;p&gt;I might not have been a big watch user the last few years. But every time I do wear one on my wrist, I very much enjoy the convenience of quickly being able to tell the time. It seems like such a minor thing, but it definitely is worth a lot. I also check my iPhone multiple times a day for the current temperature outside. Doing this with the same simplicity of checking the time is also very comfortable. Definitely a plus.&lt;/p&gt;
-
-&lt;h6 id=&#34;digital-crown&#34;&gt;Digital Crown&lt;/h6&gt;
-
-&lt;p&gt;Remember how excited Jonny Ive seemed about the digital crown when the Apple Watch was announced? It seemed kinda ridiculous at the time, but now I have to say that this input device really is something. Scrolling through content with the digital crown just feels so much easier than swiping on this little screen. I&amp;rsquo;m very happy Apple chose this route and did not just give us a little iPhone screen on our wrists where we have to swipe on the screen obstructing the view almost entirely.&lt;/p&gt;
-
-&lt;h5 id=&#34;cons&#34;&gt;Cons&lt;/h5&gt;
-
-&lt;p&gt;So much for the positive points, let&amp;rsquo;s get to why I&amp;rsquo;m actually writing this. The things I unfortunately don&amp;rsquo;t like about the watch.&lt;/p&gt;
-
-&lt;h6 id=&#34;battery&#34;&gt;Battery&lt;/h6&gt;
-
-&lt;p&gt;The watch&amp;rsquo;s battery is something a lot of people have already criticized before it even came out. Seemed a bit unfair at the time and it turns out the criticism doesn&amp;rsquo;t really apply. The watch&amp;rsquo;s internal battery seems to be able to easily run for at least two days without a problem. The actual problem here is the battery of the iPhone it&amp;rsquo;s paired to. My iPhone used to be able to run for more than 48 hours with moderate usage. Using the same set of apps and adding minimal playing around on the watch I got 9 hours of battery life from my phone before it died on me. I played around with the iPhone settings, revoked background activity rights from a lot of apps which didn&amp;rsquo;t need this for their core functionality and even kicked quite a few apps from my phone that I didn&amp;rsquo;t really use. Add this to strictly only using the watch for notifications and even not using the phone besides answering a few messages and I got it to 14 hours. That&amp;rsquo;s still ridiculously low. I usually use my phone a lot more than that and can&amp;rsquo;t have it running out of juice every single evening. Sorry, but this is a &lt;strong&gt;huge&lt;/strong&gt; deal breaker.
-My iPhone is also constantly warm, which just adds to the fact that the watch is stressing it even when I&amp;rsquo;m not using it.&lt;/p&gt;
-
-&lt;h6 id=&#34;low-usability&#34;&gt;Low usability&lt;/h6&gt;
-
-&lt;p&gt;To be fair the watch really isn&amp;rsquo;t meant as a replacement device for my phone. The whole idea is having something on your wrist that taps you on incoming notifications and gives you quick overviews for stuff that prompts you to pull your phone out of your pocket the most. I haven&amp;rsquo;t really gotten used to using glances on the watch&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, but this is what that small device on your wrist is for. Doing much more than that like trying to productively answer messages and read e-mail is just absurd.
-Yet this is what I most struggle with. I receive a notification about an incoming message. I see that on the watch. I can then either (if it&amp;rsquo;s something like iMessage that even lets me interactively answer it on the watch) choose to answer it with a predefined message or talk to my watch (nope). If the predefined message doesn&amp;rsquo;t fit I&amp;rsquo;m back to pulling out my phone. Most messages throughout the day aren&amp;rsquo;t received through iMessage though, but through Threema, Signal, Facebook Chat or sadly even WhatsApp besides others. None of these even offer me the option of using an ill-fitting predefined message or dictation (again: nope). So all I get by wearing the watch is the neat notification that I can then either ignore or take out my phone to answer.&lt;/p&gt;
-
-&lt;h6 id=&#34;social-stigma&#34;&gt;Social stigma&lt;/h6&gt;
-
-&lt;p&gt;This one&amp;rsquo;s a doozy. It has been very awkward in the past to be at some kind of event or gathering and pulling out your phone to check what a vibration was about. You usually just don&amp;rsquo;t do it&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;. But while it&amp;rsquo;s much easier sneaking a peak at your watch, it turns out that it&amp;rsquo;s even less acceptable and sends far more of a negative message doing this. It sends a signal to other people that you&amp;rsquo;re bored and want to be somewhere else when you&amp;rsquo;re maybe just checking a tweet you were mentioned in. And this&amp;rsquo;ll stay a problem as long as smartwatches or fancy wearables aren&amp;rsquo;t yet ubiquitous.
-Maybe I am overthinking it, but even if the uncomfortable feeling is just in my head, it&amp;rsquo;s still there.&lt;/p&gt;
-
-&lt;h6 id=&#34;siri&#34;&gt;Siri&lt;/h6&gt;
-
-&lt;p&gt;When Apple first announced Siri I never thought I&amp;rsquo;d use it. And even though I still hate using the dictation feature, Siri has come to be something I use often. What the weather is going to be like or to set timers and reminders are the functions I use most of the time and several times daily. It still astounds me how well this works on the iPhone.
-On the watch however it&amp;rsquo;s a different picture. I&amp;rsquo;m not sure what the cause for this is, but I can&amp;rsquo;t get the &lt;em&gt;Hey Siri&lt;/em&gt; command to function 50% of the time and when it does it usually already jumps to &lt;em&gt;How can I help you?&lt;/em&gt; once it displays itself ignoring my additional input. This has me losing trust in a feature I&amp;rsquo;ve reliably been using on my phone which means I sadly just won&amp;rsquo;t be using it on the watch.&lt;/p&gt;
-
-&lt;p&gt;There are a few other minor points as well, but they feel like nitpicking. Things like the size (I maybe should&amp;rsquo;ve gone for the 38mm version, but I didn&amp;rsquo;t) or a bug where iMessage notifications still let the iPhone vibrate first before the notification hits the watch a few seconds later. And others like being uncomfortable wearing the watch even in light rain, although I&amp;rsquo;ve now seen multiple videos of people taking theirs swimming without any complications. Worst of all is probably the fact that I can check my watch for the current time, get sidetracked by a displayed upcoming event, put my wrist back down and forgot the time, something that&amp;rsquo;s already happening all the time on the phone.&lt;/p&gt;
-
-&lt;p&gt;######To conclude,
-I really like what Apple has built here. The Apple Watch is a fantastic little device that&amp;rsquo;s mostly fun to use and combines nicely with an iPhone for most of the time, but it gets into the way when it doesn&amp;rsquo;t. Some of the issues I have with the watch can probably be fixed by software updates and optimizations, but I&amp;rsquo;m already on the verge of developing an even worse case of battery paranoia every day which pushes me towards just not using the watch or even leaving it at home, so this device probably just isn&amp;rsquo;t for me. Being an earlier adopter was fun for the iPhone and iPad, but not for the watch. I&amp;rsquo;m excited for what&amp;rsquo;s to come and will probably buy a future version of this device. Let&amp;rsquo;s also see what Apple has planned for the watch at WWDC. &lt;em&gt;The epicenter of change&lt;/em&gt; has to be promising &lt;em&gt;something&lt;/em&gt; great.&lt;/p&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-
-&lt;hr /&gt;
-
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;I know you can if you&amp;rsquo;re really quiet, but come on.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34;&gt;quoting John Siracusa in the &lt;a href=&#34;http://atp.fm/episodes/117&#34;&gt;most recent episode of ATP&lt;/a&gt;
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:3&#34;&gt;I have &lt;em&gt;now playing&lt;/em&gt;, &lt;em&gt;weather&lt;/em&gt; and &lt;em&gt;calendar&lt;/em&gt; activated. I haven&amp;rsquo;t found a useful third party glance yet, although I&amp;rsquo;m not really looking either as third party watch apps are kept to a minimum for battery reasons.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:4&#34;&gt;Ever heard of the &lt;a href=&#34;http://www.digitaltrends.com/mobile/phone-stack-restaurant-game-prevents-meal-time-interruptions-and-could-cost-you-a-lot-of-money/&#34;&gt;phone stack game&lt;/a&gt;?
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
+      <description>Update: I changed the post title from Why I won&amp;rsquo;t be keeping my Apple Watch to the current one. Let me explain why.
+My biggest gripe with the watch was the in my opinion abysmal battery performance of my iPhone when connected to the watch. I&amp;rsquo;m not entirely sure what changed, but I believe the watch is actually affecting how I use my phone during the day. Specifically how often I do so.</description>
     </item>
     
     <item>
@@ -539,19 +154,8 @@ I really like what Apple has built here. The Apple Watch is a fantastic little d
       <pubDate>Thu, 26 Feb 2015 02:01:49 +0200</pubDate>
       
       <guid>http://blog.kilian.io/parkendd/</guid>
-      <description>&lt;p&gt;A few months ago &lt;a href=&#34;http://codefor.de&#34;&gt;Code for Germany&lt;/a&gt; launched. An &lt;em&gt;OK Lab&lt;/em&gt; (&lt;em&gt;Open Knowledge Lab&lt;/em&gt;) was founded in Dresden soon after, although similar projects (&lt;a href=&#34;http://offenesdresden.de&#34;&gt;offenesdresden.de&lt;/a&gt;) were already in place. Everything merged and Dresden has had quite an active community interested in bringing Open Data to the next level. It&amp;rsquo;s awesome.&lt;/p&gt;
-
-&lt;p&gt;My first real contribution to this comes in form of an iPhone app using a &lt;a href=&#34;https://github.com/RobTranquillo/parkplaetzeDD&#34;&gt;PHP scraper backend&lt;/a&gt; scraping the data at &lt;a href=&#34;http://www.dresden.de/freie-parkplaetze/&#34;&gt;dresden.de/freie-parplaetze&lt;/a&gt;. An Android application for this purpose came to life fairly quickly (find it &lt;a href=&#34;http://jkliemann.de/parkendd/&#34;&gt;here&lt;/a&gt;), so a clone for iOS just had to follow!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://blog.kilian.io/img/parkendd.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It shows you whether a public parking lot is closed or not, how many spots are available and where it is on a map.
-It&amp;rsquo;s currently waiting for review and will hopefully be on the App Store within a few days. Definitely fun to build and I learned quite a bit more about developing for iOS. Future projects will be even better and more fun to build ;)&lt;/p&gt;
-
-&lt;p&gt;The source for this application is available on Github. See &lt;a href=&#34;https://github.com/kiliankoe/parkendd&#34;&gt;https://github.com/kiliankoe/parkendd&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: Apple has just approved the first version of the app. It&amp;rsquo;s available here: &lt;a href=&#34;https://itunes.apple.com/de/app/parkendd/id957165041&#34;&gt;https://itunes.apple.com/de/app/parkendd/id957165041&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>A few months ago Code for Germany launched. An OK Lab (Open Knowledge Lab) was founded in Dresden soon after, although similar projects (offenesdresden.de) were already in place. Everything merged and Dresden has had quite an active community interested in bringing Open Data to the next level. It&amp;rsquo;s awesome.
+My first real contribution to this comes in form of an iPhone app using a PHP scraper backend scraping the data at dresden.</description>
     </item>
     
     <item>
@@ -560,23 +164,93 @@ It&amp;rsquo;s currently waiting for review and will hopefully be on the App Sto
       <pubDate>Mon, 05 Jan 2015 01:59:59 +0200</pubDate>
       
       <guid>http://blog.kilian.io/kilian-io/</guid>
-      <description>&lt;p&gt;I spent most of today moving around my e-mail &lt;em&gt;infrastructure&lt;/em&gt;. The way I had it configured would probably bring tears to most people&amp;rsquo;s eyes, so I&amp;rsquo;ll spare you the gruesome details. Let&amp;rsquo;s just say that nothing is forwarding to Google Mail any longer and I&amp;rsquo;ll be using a different address as my main contact address from here on out. Namely &lt;strong&gt;me@kilian.io&lt;/strong&gt;. The domain kilian.io has been pointing to my server at &lt;a href=&#34;https://uberspace.de&#34;&gt;Uberspace&lt;/a&gt; for a little while now, but it hasn&amp;rsquo;t been much more than a little gimmick, just like &lt;a href=&#34;http://kilian.sexy&#34;&gt;kilian.sexy&lt;/a&gt; ;)
-I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as it carries more personality, more &lt;em&gt;me&lt;/em&gt; than just my last name. And since kilian@kilian.io just looks ridiculous I&amp;rsquo;m choosing to go with the very informal me@kilian.io instead.&lt;/p&gt;
-
-&lt;p&gt;The &lt;em&gt;old&lt;/em&gt; domain koeltzs.ch isn&amp;rsquo;t going anywhere any time soon. I&amp;rsquo;ll probably be renewing it as well for the years to come, mails and redirects will still work. Transitioning basically my life&amp;rsquo;s worth of emails is no easy task either, but consider my Google Mail address officially deprecated from here on out.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve also used this chance to deactivate the catchall for all my domains. Mail bounces aren&amp;rsquo;t necessarily a bad thing and this should also greatly help reduce the amount of spam that hits my mailserver day and night.&lt;/p&gt;
-
-&lt;p&gt;My PGP key has also been updated with the new address and I&amp;rsquo;ll soon be transitioning to me@kilian.io for some of my xmpp/jabber conversations as well. Even though my site already states this, that particular change will still take a bit.&lt;/p&gt;
-
-&lt;p&gt;I really do have to endorse &lt;a href=&#34;https://fastmail.com&#34;&gt;Fastmail.com&lt;/a&gt; somewhere throughout this post. Hosting my own mail server is something I definitely &lt;strong&gt;do not&lt;/strong&gt; want to do be doing.  I have a tendency not to trust software that I maintain myself (I know that sounds sad) and even more so when I don&amp;rsquo;t understand it all. So even though I&amp;rsquo;d be able to keep it running, I&amp;rsquo;m not sure it would be doing so safely or for a very long time. I&amp;rsquo;m trusting this one with people that make this their living. The recommendation for Fastmail comes from &lt;a href=&#34;http://marco.org&#34;&gt;Marco Arment&lt;/a&gt;. They&amp;rsquo;ve been around for a little while and are doing some &lt;a href=&#34;http://blog.fastmail.com/2014/12/23/jmap-a-better-way-to-email/&#34;&gt;really cool things&lt;/a&gt; as well, they definitely know what they&amp;rsquo;re doing and are doing it well. And I enjoy paying for something of use to me, highlighting the fact that I&amp;rsquo;m probably not the product here.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m definitely going to run into a few gotchas with this move, I&amp;rsquo;m sure of that. But I have to be doing this someday. So &lt;a href=&#34;http://longestjokeintheworld.com&#34;&gt;better nate than lever&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s actually been a lot of fun and the only thing to change now is the domain for this blog. Unfortunately I can&amp;rsquo;t run this under two domains simultaneously, so I&amp;rsquo;m going to be making this switch Monday evening (as in today, depending on how current this is when you read it). So if you&amp;rsquo;re one of the few people I know to be subscribed to the feed, please update it to check blog.kilian.io from now on. Thanks :)&lt;/p&gt;
-
-&lt;p&gt;Edit: Done :)&lt;/p&gt;
-</description>
+      <description>I spent most of today moving around my e-mail infrastructure. The way I had it configured would probably bring tears to most people&amp;rsquo;s eyes, so I&amp;rsquo;ll spare you the gruesome details. Let&amp;rsquo;s just say that nothing is forwarding to Google Mail any longer and I&amp;rsquo;ll be using a different address as my main contact address from here on out. Namely me@kilian.io. The domain kilian.io has been pointing to my server at Uberspace for a little while now, but it hasn&amp;rsquo;t been much more than a little gimmick, just like kilian.</description>
+    </item>
+    
+    <item>
+      <title>Pycharm and Java 8</title>
+      <link>http://blog.kilian.io/pycharm-and-java8/</link>
+      <pubDate>Fri, 19 Dec 2014 01:57:50 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/pycharm-and-java8/</guid>
+      <description>There&amp;rsquo;s been a bug with current versions of Jetbrains products (not just Pycharm, but also IntelliJ IDEA, Android Studio, AppCode and surely the others as well) on OS X 10.10 Yosemite where the editor screen flickers uncontrollably when you scroll the view. It&amp;rsquo;s been making my workflow increasingly difficult and was generally unpleasing, but there is a way around this!
+Kudos goes to Justus for pointing this one out.
+All you have to do is set your favorite Jetbrains IDE to use the JVM version 1.</description>
+    </item>
+    
+    <item>
+      <title>Simple Robot</title>
+      <link>http://blog.kilian.io/simple-robot/</link>
+      <pubDate>Fri, 31 Oct 2014 01:53:35 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/simple-robot/</guid>
+      <description>It&amp;rsquo;s been a while since I&amp;rsquo;ve touched Blender. A lot has changed, everything is awesome. There&amp;rsquo;s not all too much to say, but I&amp;rsquo;m a real sucker for pretty clay renders, so here&amp;rsquo;s a simple little robot.
+Note that this render is in 2400p, the native resolution of the new MacBook Pro. I didn&amp;rsquo;t want said device to go up in flames though, so a shoutout goes to render.st (and especially their signup bonus).</description>
+    </item>
+    
+    <item>
+      <title>Installing OS X applications through Homebrew</title>
+      <link>http://blog.kilian.io/brew-cask/</link>
+      <pubDate>Mon, 21 Jul 2014 01:47:19 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/brew-cask/</guid>
+      <description>I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed xmind right through his package manager (or actually yaourt, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple. You download the disk image, double-click it to mount and drag the .</description>
+    </item>
+    
+    <item>
+      <title>This is getting ridiculous</title>
+      <link>http://blog.kilian.io/bike/</link>
+      <pubDate>Mon, 21 Apr 2014 01:43:52 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/bike/</guid>
+      <description>November 29th, 2012: Left a math lecture on a rainy day and wanted to get home as quick as possible. But it looked like I would be carrying my bike home seeing how some douche had stolen my front wheel on campus. Seeing how I moved to Dresden with quick release skewers (if I can trust dict.leo.org) however, this happening was just a matter of time. Instead of directly buying a new wheel (and new brakes, thank you, asshole!</description>
+    </item>
+    
+    <item>
+      <title>Optimizing my Life - Part One: Decluttering</title>
+      <link>http://blog.kilian.io/optimizing-part-one/</link>
+      <pubDate>Fri, 21 Feb 2014 20:56:22 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/optimizing-part-one/</guid>
+      <description>Optimizing every single aspect of my digital live is something I&amp;rsquo;ve been enjoying for years. It&amp;rsquo;s the little things, being able to define a new shortcut for a task that I do all day, streamlining a complex process that has had me looking up howtos everytime I had to do it, but the same has never really held true for my life away from the keyboard. I&amp;rsquo;m definitely not what you would call messy, but the organization of my desk, room or now my apartment has never been one of my strengths.</description>
+    </item>
+    
+    <item>
+      <title>A New Start</title>
+      <link>http://blog.kilian.io/anustart/</link>
+      <pubDate>Sat, 15 Feb 2014 20:55:12 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/anustart/</guid>
+      <description>(Making the Arrested Development reference in the title there was damn tempting, but nope, didn&amp;rsquo;t go for it.)
+I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing and running away from I guess around 10 to 20 blogs in the last few years (I can at least find one of the remnants to still be online, probably due to the fact that this is the only instance I didn&amp;rsquo;t host myself) and have had a lot more fun playing around with the software itself than writing, although I always aim to change that.</description>
+    </item>
+    
+    <item>
+      <title>Valentina Kalashnikova - Last Dangerous Racoons</title>
+      <link>http://blog.kilian.io/valentina-kalashnikova/</link>
+      <pubDate>Thu, 07 Nov 2013 20:53:48 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/valentina-kalashnikova/</guid>
+      <description>Just got back from an awesome gig from a small local band a friend of mine plays in. They&amp;rsquo;re called the Last Dangerous Racoons and this title of theirs is definitely worth a listen!
+ Also check out their site and bandcamp if you&amp;rsquo;re interested.</description>
+    </item>
+    
+    <item>
+      <title>Launching Alfred with Caps Lock on OS X</title>
+      <link>http://blog.kilian.io/alfred-caps-lock/</link>
+      <pubDate>Tue, 05 Nov 2013 20:50:33 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/alfred-caps-lock/</guid>
+      <description>In great contrast to Alfred being one of those apps I love more than anything on OS X, the caps lock key is something utterly useless nowadays (or ever for that matter). And if you do happen to find yourself in an argument on the internet, even Homer Simpson agrees that you put a lot more weight into your statement if you take your time to press the shift key.</description>
+    </item>
+    
+    <item>
+      <title>Autodesk being awesome</title>
+      <link>http://blog.kilian.io/awesome-autodesk/</link>
+      <pubDate>Sat, 09 Apr 2011 20:48:33 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/awesome-autodesk/</guid>
+      <description>I remember being severely dissapointed about two years ago when I wanted to download the free students version of Maya, the so called PLE (Personal Learning Edition), but since Maya had already been acquired by Autodesk (before: Alias), this was no longer offered. I also wasn’t able to find any mirrors for that online, but today that PLE would be a far outdated version, so it wouldn’t be that useful anyways.</description>
     </item>
     
   </channel>
