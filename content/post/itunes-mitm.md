@@ -44,4 +44,4 @@ The easiest way in Charles is to now set a breakpoint on this request (right-cli
 
 If it is a version that works for you, great! That's it 🎉. iTunes is downloading the app as we speak and you can then do whatever you want with it. Be aware that any current versions of the app need to be removed from your device if you want to sync it to one.
 
-[^1]: I'm referring to the app [FahrInfo](https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8) for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, I'm a [sucker](https://github.com/kiliankoe/vvo) for local public transport data.
+[^1]: I'm referring to the app [FahrInfo](https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8) for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, you know that I'm a [sucker](https://github.com/kiliankoe/vvo) for local public transport data.
