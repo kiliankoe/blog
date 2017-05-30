@@ -6,10 +6,20 @@
     <description>Recent content in Posts on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 10 May 2017 15:04:18 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 30 May 2017 12:30:38 +0200</lastBuildDate>
     
 	<atom:link href="http://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reverse Engineering iOS Apps</title>
+      <link>http://blog.kilian.io/reverse-engineering-ios/</link>
+      <pubDate>Tue, 30 May 2017 12:30:38 +0200</pubDate>
+      
+      <guid>http://blog.kilian.io/reverse-engineering-ios/</guid>
+      <description>As promised in my last post I wanted to write a post about a talk I recently held at Mobile Camp 2017. I also held the talk again at our local Cocoaheads Meetup on May 24th 2017, this time being recorded on video (Thanks, Ben!). But since the talk is in German, I promised to publish an English summary here as well, so here we go 😊
+The slides are online as well and can be found on GitHub Pages.</description>
+    </item>
     
     <item>
       <title>Downloading older iOS app versions with iTunes</title>
