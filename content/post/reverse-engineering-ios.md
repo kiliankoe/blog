@@ -49,7 +49,7 @@ Apps usually bundle more than just their executable. So why not have a look, eve
 
 Go ahead and download whatever app you're interested in via iTunes. If you're looking for a specific (older) version, check out my [last post](/itunes-mitm) on how to do just that. Right click the app in iTunes and select "Show in Finder". Here we can just rename the .ipa file to end in .zip and unpack it. Then we can have a look inside \o/ (Right click an .app and select "Show package contents" to open it).
 
-For most app there's not all too much we can discover here. You'll most likely be seeing icons and maybe some other media files. Possibly fonts and sounds as well. Obviously depends on the app.
+For most apps there's not all too much we can discover here. You'll most likely be seeing icons and maybe some other media files. Possibly fonts and sounds as well. Obviously depends on the app.
 
 The two apps I looked into in my talk were both related to public transport in Dresden, 'cause I love myself some good public transport data. The first one, [Fahrinfo Dresden](https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8) bundles an SQLite db containing a list of all stops in Dresden (for autocompletion) including their coordinates. This was definitely a cool resource to stumble across (especially since these coordinates were somewhat hard to gather elsewhere).
 
