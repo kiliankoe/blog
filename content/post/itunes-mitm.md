@@ -4,6 +4,18 @@ slug = "itunes-mitm"
 title = "Downloading older iOS app versions with iTunes"
 +++
 
+**Update** (2017-09-23):
+Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of [Apple Configurator 2](https://itunes.apple.com/de/app/apple-configurator-2/id1037126344?l=en&mt=12). 
+
+1. Buy and download the app via your iOS device
+2. Open Apple Configurator and login under "Account"
+3. Connect your device, then go to "Add" > "Application" and choose the app in question from your purchase history
+4. A dialog will open asking you if you want to overwrite the app or continue in another fashion. As long as this dialog is open, the IPA file will be cached in `~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/`. 
+
+This process at least helps with downloading current IPA files. The act of downloading older versions is left as an exercise to the reader. I have to add that I haven't checked if it's still possible, I'm just guessing that it doesn't differ too much from the process outlined below.
+
+---
+
 I recently held a talk about reverse engineering iOS apps at [Mobile Camp 2017](https://mobilecamp.de). There will be another post about said talk soon, since I'll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.
 
 One of my topics was taking a look into an app's bundle, for which I had an app in mind that bundled an interesting SQLite database[^1]. I remembered stumbling across this a little while ago and thought it'd be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you're at least somewhat familiar with *man-in-the-middle* attacking yourself, something I also went over in my talk.
