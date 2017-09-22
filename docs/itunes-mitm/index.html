@@ -47,7 +47,21 @@
     <h2 class="subtitle is-6">May 10, 2017</h2>
     <h1 class="title">Downloading older iOS app versions with iTunes</h1>
     <div class="content">
-      <p>I recently held a talk about reverse engineering iOS apps at <a href="https://mobilecamp.de">Mobile Camp 2017</a>. There will be another post about said talk soon, since I&rsquo;ll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.</p>
+      <p><strong>Update</strong> (2017-09-23):
+Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of <a href="https://itunes.apple.com/de/app/apple-configurator-2/id1037126344?l=en&amp;mt=12">Apple Configurator 2</a>.</p>
+
+<ol>
+<li>Buy and download the app via your iOS device</li>
+<li>Open Apple Configurator and login under &ldquo;Account&rdquo;</li>
+<li>Connect your device, then go to &ldquo;Add&rdquo; &gt; &ldquo;Application&rdquo; and choose the app in question from your purchase history</li>
+<li>A dialog will open asking you if you want to overwrite the app or continue in another fashion. As long as this dialog is open, the IPA file will be cached in <code>~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/</code>.</li>
+</ol>
+
+<p>This process at least helps with downloading current IPA files. The act of downloading older versions is left as an exercise to the reader. I have to add that I haven&rsquo;t checked if it&rsquo;s still possible, I&rsquo;m just guessing that it doesn&rsquo;t differ too much from the process outlined below.</p>
+
+<hr />
+
+<p>I recently held a talk about reverse engineering iOS apps at <a href="https://mobilecamp.de">Mobile Camp 2017</a>. There will be another post about said talk soon, since I&rsquo;ll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.</p>
 
 <p>One of my topics was taking a look into an app&rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. I remembered stumbling across this a little while ago and thought it&rsquo;d be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you&rsquo;re at least somewhat familiar with <em>man-in-the-middle</em> attacking yourself, something I also went over in my talk.</p>
 

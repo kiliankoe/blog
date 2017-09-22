@@ -27,8 +27,8 @@ The slides are online as well and can be found on GitHub Pages.</description>
       <pubDate>Wed, 10 May 2017 15:04:18 +0200</pubDate>
       
       <guid>http://blog.kilian.io/itunes-mitm/</guid>
-      <description>I recently held a talk about reverse engineering iOS apps at Mobile Camp 2017. There will be another post about said talk soon, since I&amp;rsquo;ll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.
-One of my topics was taking a look into an app&amp;rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database1.</description>
+      <description>Update (2017-09-23): Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of Apple Configurator 2.
+ Buy and download the app via your iOS device Open Apple Configurator and login under &amp;ldquo;Account&amp;rdquo; Connect your device, then go to &amp;ldquo;Add&amp;rdquo; &amp;gt; &amp;ldquo;Application&amp;rdquo; and choose the app in question from your purchase history A dialog will open asking you if you want to overwrite the app or continue in another fashion.</description>
     </item>
     
     <item>
