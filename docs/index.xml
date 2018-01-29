@@ -6,10 +6,20 @@
     <description>Recent content on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 30 May 2017 12:30:38 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jan 2018 12:25:00 +0100</lastBuildDate>
     
 	<atom:link href="http://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker Swift Runtime</title>
+      <link>http://blog.kilian.io/docker-swift-runtime/</link>
+      <pubDate>Mon, 29 Jan 2018 12:25:00 +0100</pubDate>
+      
+      <guid>http://blog.kilian.io/docker-swift-runtime/</guid>
+      <description>I recently wrote a small Vapor web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.
+FROM swift:4 COPY . . EXPOSE 8080 RUN swift build --configuration release ENTRYPOINT [&amp;quot;.build/release/Run&amp;quot;] CMD [&amp;quot;serve&amp;quot;, &amp;quot;--env=production&amp;quot;]  Whilst this worked perfectly fine, the image size turned out to be a whopping 1.</description>
+    </item>
     
     <item>
       <title>Reverse Engineering iOS Apps</title>

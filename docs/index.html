@@ -46,6 +46,23 @@
   <div class="container">
     
     <article>
+      <h2 class="subtitle is-6">January 29, 2018</h2>
+      <h1 class="title"><a href="http://blog.kilian.io/docker-swift-runtime/">Docker Swift Runtime</a></h1>
+      <div class="content">
+        I recently wrote a small Vapor web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.
+FROM swift:4 COPY . . EXPOSE 8080 RUN swift build --configuration release ENTRYPOINT [&quot;.build/release/Run&quot;] CMD [&quot;serve&quot;, &quot;--env=production&quot;]  Whilst this worked perfectly fine, the image size turned out to be a whopping 1.
+        
+        ...<a class="button is-link" href="http://blog.kilian.io/docker-swift-runtime/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
       <h2 class="subtitle is-6">May 30, 2017</h2>
       <h1 class="title"><a href="http://blog.kilian.io/reverse-engineering-ios/">Reverse Engineering iOS Apps</a></h1>
       <div class="content">
@@ -185,23 +202,6 @@ A few months back I chose to delete my personal timeline. Facebook started to sh
       <div class="content">
         Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away! The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.
 Stay posted for more, especially once it’s June 😁
-        
-      </div>
-    </article>
-    
-    <article>
-      <h2 class="subtitle is-6">March 7, 2016</h2>
-      <h1 class="title"><a href="http://blog.kilian.io/cheap-dyndns-alternative/">Cheap DynDNS Alternative</a></h1>
-      <div class="content">
-        Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.
-After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare.
-        
-        ...<a class="button is-link" href="http://blog.kilian.io/cheap-dyndns-alternative/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
         
       </div>
     </article>
