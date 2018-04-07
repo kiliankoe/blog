@@ -63,7 +63,7 @@ Apple recently removed the App Store entirely from iTunes (a welcome move), whic
 
 <p>I recently held a talk about reverse engineering iOS apps at <a href="https://mobilecamp.de">Mobile Camp 2017</a>. There will be another post about said talk soon, since I&rsquo;ll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.</p>
 
-<p>One of my topics was taking a look into an app&rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. I remembered stumbling across this a little while ago and thought it&rsquo;d be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you&rsquo;re at least somewhat familiar with <em>man-in-the-middle</em> attacking yourself, something I also went over in my talk.</p>
+<p>One of my topics was taking a look into an app&rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. I remembered stumbling across this a little while ago and thought it&rsquo;d be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you&rsquo;re at least somewhat familiar with <em>man-in-the-middle</em> attacking yourself, something I also went over in my talk.</p>
 
 <p>I&rsquo;m using a tool called <a href="https://www.charlesproxy.com">Charles</a> for this. I can also recommend the very popular <a href="https://mitmproxy.org">mitmproxy</a>. The idea is the same for both of them, but I&rsquo;ll reference Charles here.</p>
 
@@ -110,9 +110,11 @@ Unfortunately there&rsquo;s no direct way to correlate all of these version iden
 
     </div>
     <hr>
-    <div class="comments">
-      Comments for this post can be found on <a href="https://github.com/kiliankoe/blog/issues">GitHub</a>. If there's no issue for this post already, just go ahead and open one 👌
-    </div>
+    <script src="https://utteranc.es/client.js"
+        repo="kiliankoe/blog"
+        issue-term="pathname"
+        async>
+    </script>
   </div>
 </section>
 
