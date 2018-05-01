@@ -1,4 +1,4 @@
-baseurl = "http://blog.kilian.io/"
+baseurl = "https://blog.kilian.io/"
 languageCode = "en"
 title = "blog.kilian.io"
 theme = "hemingway"
