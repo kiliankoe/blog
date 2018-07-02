@@ -66,7 +66,7 @@
 
 <p>I recently stumbled across yet another <em>statistics from my chat with my girlfriend</em> post on <a href="https://reddit.com/r/dataisbeautiful">/r/dataisbeautiful</a> so today I wanted to evaluate some simple data myself. Unfortunately I&rsquo;m quite far from being an <a href="https://lucaswoltmann.com/forecasting/2018/02/05/Where-do-you-go-to.html">actual datascientist</a> (below you&rsquo;ll see some of the first matplotlib plots I&rsquo;ve ever made), so I&rsquo;m going to focus a bit more on data acquisition and some very simple findings and visualizations.</p>
 
-<p>Since I probably don&rsquo;t have any chats quite as active as the one with my girlfriend that seemed to be the obvious choice to analyze as well. Unfortunately it&rsquo;s not just <em>one</em> chat, but split across four different messaging platforms since the inception of our relationship ~2.5 years ago. We started out using <em>WhatsApp</em>, then switched to <em>Telegram</em>, then to <em>iMessage</em> and back to <em>Telegram</em> interspersing everything with a bit of random images and answers to those on <em>Instagram</em>. I&rsquo;d love to turn this into a discussion on the pros and cons of various messaging platforms, but this is neiter the time nor the place. You can hit me up via Matrix (@kiliankoe@matrix.org) if you&rsquo;re interested in going down that route with me.</p>
+<p>Since I probably don&rsquo;t have any chats quite as active as the one with my girlfriend that seemed to be the obvious choice to analyze as well. Unfortunately it&rsquo;s not just <em>one</em> chat, but split across four different messaging platforms since the inception of our relationship ~2.5 years ago. We started out using <em>WhatsApp</em>, then switched to <em>Telegram</em>, then to <em>iMessage</em> and back to <em>Telegram</em> interspersing everything with a bit of random images and answers to those on <em>Instagram</em>. I&rsquo;d love to turn this into a discussion on the pros and cons of various messaging platforms, but this is neiter the time nor the place. You can hit me up via Matrix (@kiliankoe:matrix.org) if you&rsquo;re interested in going down that route with me.</p>
 
 <h2 id="accessing-the-data">Accessing the Data</h2>
 
@@ -137,11 +137,11 @@ all_words = defaultdict(lambda: 0)
 for msg in msgs:
     for word in re.findall(r'\w+', msg['text']):
         all_words[word.lower()] += 1
-        
+
 for word in sorted(all_words, key=all_words.get, reverse=True)[:20]:
     count = all_words[word]
     print(f'{word}: {count}')
-    
+
 # ich: 16674
 # das: 9469
 # nicht: 7650
@@ -174,7 +174,7 @@ for word in sorted(all_words, key=all_words.get, reverse=True)[:20]:
 for msg in msgs:
     date = msg['date'].strftime('%Y-%m-%d')
     all_days.add(date)
-    
+
 print(len(all_days))
 
 current_day_count = 997 # days we've been together as of today
@@ -241,9 +241,9 @@ plt.show()
 <p>Different platforms have different colors and it&rsquo;s overall grouped by week, not single days, which was far too noisy.</p>
 
 <pre><code class="language-python">messages_per_date = defaultdict(lambda: {
-    'whatsapp': 0, 
-    'instagram': 0, 
-    'telegram': 0, 
+    'whatsapp': 0,
+    'instagram': 0,
+    'telegram': 0,
     'imessage': 0
 })
 
@@ -251,7 +251,7 @@ for msg in msgs:
     date = msg['date'].strftime('%Y-%U')
     platform = msg['platform']
     messages_per_date[date][platform] += 1
-    
+
 with open('activity_platforms_week.csv', 'w') as file:
     w = csv.writer(file, delimiter=',')
     w.writerow(['date', 'whatsapp', 'instagram', 'telegram', 'imessage'])
