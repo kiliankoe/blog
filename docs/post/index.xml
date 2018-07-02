@@ -6,10 +6,20 @@
     <description>Recent content in Posts on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Jan 2018 12:25:00 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 02 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Chat Statistics</title>
+      <link>https://blog.kilian.io/chat-statistics/</link>
+      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.kilian.io/chat-statistics/</guid>
+      <description>I recently stumbled across yet another statistics from my chat with my girlfriend post on /r/dataisbeautiful so today I wanted to evaluate some simple data myself. Unfortunately I&amp;rsquo;m quite far from being an actual datascientist (below you&amp;rsquo;ll see some of the first matplotlib plots I&amp;rsquo;ve ever made), so I&amp;rsquo;m going to focus a bit more on data acquisition and some very simple findings and visualizations.
+Since I probably don&amp;rsquo;t have any chats quite as active as the one with my girlfriend that seemed to be the obvious choice to analyze as well.</description>
+    </item>
     
     <item>
       <title>Docker Swift Runtime</title>
