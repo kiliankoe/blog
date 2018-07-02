@@ -10,13 +10,13 @@ Since I probably don't have any chats quite as active as the one with my girlfri
 
 ## Accessing the Data
 
-First things first, we need to actually get our hands on the chat data. This used to be rather tricky depending on the platform, but recently you might've heard some stir about the GDPR. A big upside to that is that I can go around to everybody that stores data on me and my behalf and ask nicely for a machine-readable export of said data. Instagram and Telegram recently implemented export features (Telegram finally doing so just a few days ago, perfect timing). WhatsApp seems to have featured an export for single chats for quite some time, which is nice. iMessage on the other hand is a bit more tricky. The chat data wasn't included in my downloadable copy from [Apple's privacy portal](https://privacy.apple.com), which I assume is due to the fact that all messages are end-to-end encrypted and only accessible from my local devices. Thankfully all message data is available in `~/Library/Messages/chat.d` on my Mac, which is just another normal SQLite db. 
+First things first, we need to actually get our hands on the chat data. This used to be rather tricky depending on the platform, but recently you might've heard some stir about the GDPR. A big upside to that is that I can go around to everybody that stores data on me and my behalf and ask nicely for a machine-readable export of said data. Instagram and Telegram recently implemented export features (Telegram finally doing so just a few days ago, perfect timing). WhatsApp seems to have featured an export for single chats for quite some time, which is nice. iMessage on the other hand is a bit more tricky. The chat data wasn't included in my downloadable copy from [Apple's privacy portal](https://privacy.apple.com), which I assume is due to the fact that all messages are end-to-end encrypted and only accessible from my local devices. Thankfully all message data is available in `~/Library/Messages/chat.d` on my Mac, which is just another normal SQLite db.
 
 Time to fire up a Jupyter notebook[^1] and consolidate everything 🎉
 
-I was expecting to run into a few (albeit minor) problems doing this, so it came as no surprise when WhatsApp included quite a bit of random unicode chars to stumble over in it's exported CSV. Interestingly enough Instagram was the least problematic with a well-formatted JSON file, you just have to find the correct conversation. Same goes for Telegram, which throws *all* conversations into a single file, but it's not like a 15MB file will stop us.  Interestingly enough Telegram also doesn't use UTC timestamps for the message dates, but your local timezone, so watch out and adjust accordingly[^2]. Timestamps are also an issue on the iMessage end, since they seem to be a unix timestamp accurate to nanoseconds but offset 31 years into the past. I have no clue why, but would love to know. 
+I was expecting to run into a few (albeit minor) problems doing this, so it came as no surprise when WhatsApp included quite a bit of random unicode chars to stumble over in it's exported CSV. Interestingly enough Instagram was the least problematic with a well-formatted JSON file, you just have to find the correct conversation. Same goes for Telegram, which throws *all* conversations into a single file, but it's not like a 15MB file will stop us.  Interestingly enough Telegram also doesn't use UTC timestamps for the message dates, but your local timezone, so watch out and adjust accordingly[^2]. Timestamps are also an issue on the iMessage end, since they seem to be a unix timestamp accurate to nanoseconds but offset 31 years into the past. I have no clue why, but would love to know.
 
-Having worked around all those issues I aggregated data on the message date, author, text, platform and type (message, attachment, sticker, voice/video) and created one big CSV sorted chronologically containing the entirety of our digital conversation since we've met. 62k messages that fit nicely into 5.7MB. 
+Having worked around all those issues I aggregated data on the message date, author, text, platform and type (message, attachment, sticker, voice/video) and created one big CSV sorted chronologically containing the entirety of our digital conversation since we've met. 62k messages that fit nicely into 5.7MB.
 
 ## What Can We Learn
 
@@ -86,11 +86,11 @@ all_words = defaultdict(lambda: 0)
 for msg in msgs:
     for word in re.findall(r'\w+', msg['text']):
         all_words[word.lower()] += 1
-        
+
 for word in sorted(all_words, key=all_words.get, reverse=True)[:20]:
     count = all_words[word]
     print(f'{word}: {count}')
-    
+
 # ich: 16674
 # das: 9469
 # nicht: 7650
@@ -126,7 +126,7 @@ all_days = set()
 for msg in msgs:
     date = msg['date'].strftime('%Y-%m-%d')
     all_days.add(date)
-    
+
 print(len(all_days))
 
 current_day_count = 997 # days we've been together as of today
@@ -202,9 +202,9 @@ Different platforms have different colors and it's overall grouped by week, not 
 
 ```python
 messages_per_date = defaultdict(lambda: {
-    'whatsapp': 0, 
-    'instagram': 0, 
-    'telegram': 0, 
+    'whatsapp': 0,
+    'instagram': 0,
+    'telegram': 0,
     'imessage': 0
 })
 
@@ -212,7 +212,7 @@ for msg in msgs:
     date = msg['date'].strftime('%Y-%U')
     platform = msg['platform']
     messages_per_date[date][platform] += 1
-    
+
 with open('activity_platforms_week.csv', 'w') as file:
     w = csv.writer(file, delimiter=',')
     w.writerow(['date', 'whatsapp', 'instagram', 'telegram', 'imessage'])
@@ -230,9 +230,9 @@ with open('activity_platforms_week.csv', 'w') as file:
 
 ## Conclusion
 
-Pulling some stats from chats can be a lot of fun! This is also just scratching the surface, there's a lot left to explore. I didn't try and pull any conclusions from the gathered information, but I know that a lot can be gathered from this, and we're basically just accessing the metadata, which each platform has access to, no matter if the data is end-to-end encrypted[^4] or not. 
+Pulling some stats from chats can be a lot of fun! This is also just scratching the surface, there's a lot left to explore. I didn't try and pull any conclusions from the gathered information, but I know that a lot can be gathered from this, and we're basically just accessing the metadata, which each platform has access to, no matter if the data is end-to-end encrypted[^4] or not.
 
-It might also be super interesting to use sentiment analysis to gain more insight into the nature of messages, maybe not explicitly for these shown here, but other chats as well. Or maybe just something as simple as our most used emoji 😜 
+It might also be super interesting to use sentiment analysis to gain more insight into the nature of messages, maybe not explicitly for these shown here, but other chats as well. Or maybe just something as simple as our most used emoji 😜
 
 
 
