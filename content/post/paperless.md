@@ -6,7 +6,7 @@ slug = "paperless"
 
 For the past few years I've been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.
 
-Both of these issues are easily resolveable by having digital copies. They can be accessed remotely and are searchable. OCR software has gotten pretty fantastic as well, making it possible to search for certain keywords even in pretty bad scans.
+Both of these issues are easily resolvable by having digital copies. They can be accessed remotely and are searchable. OCR software has gotten pretty fantastic as well, making it possible to search for certain keywords even in pretty bad scans.
 
 Having used Evernote as a backing store for this database for years now, I've become rather dissatisfied with that platform. It's slow, it's primarily suited for different use cases and it's gotten expensive as well. So I decided to migrate to something else, using the very cool software [paperless](https://github.com/danielquinn/paperless). Here's a short overview of my workflow using paperless.
 
@@ -43,7 +43,7 @@ services:
     command: ["document_consumer"]
 ```
 
-Here I instantiate two services based on the same image, one running the paperless webserver, one running the paperless consumer service, which watches for new files in it's consume directory. Paperless has three options of adding new files.
+Here I instantiate two services based on the same image, one running the paperless webserver, one running the paperless consumer service, which watches for new files in its consume directory. Paperless has three options of adding new files.
 
 * The consumer watches a directory and adds new files from there, removing them afterwards.
 * The consumer watches your mail account and adds files from specific emails.
