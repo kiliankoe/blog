@@ -6,10 +6,20 @@
     <description>Recent content in Posts on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 02 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Jul 2018 12:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Paperless</title>
+      <link>https://blog.kilian.io/paperless/</link>
+      <pubDate>Fri, 20 Jul 2018 12:00:00 +0200</pubDate>
+      
+      <guid>https://blog.kilian.io/paperless/</guid>
+      <description>For the past few years I&amp;rsquo;ve been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.
+Both of these issues are easily resolveable by having digital copies. They can be accessed remotely and are searchable.</description>
+    </item>
     
     <item>
       <title>Chat Statistics</title>
