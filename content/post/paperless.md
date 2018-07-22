@@ -53,7 +53,7 @@ I'm also not a huge fan of docker volumes, although they might have a few advant
 
 # Workflow
 
-So now we have paperless running and keeping watch over the consume directory, automatically adding new files when you add them. At this point you should take a moment and get acquainted with paperless itself. If you've ever seen a Django admin interface, this will feel very familiar, because that's exactly what it is. That does feel a bit hacky, but it seems to work good enough. You might also want to have a look at [this electron desktop app](https://github.com/thomasbrueggemann/paperless-desktop) which uses paperless' API to show all scanned documents in a prettier fashion. Unfortunately it seems to only run on macOS at the moment and it is an alpha, but it's definitely a great start! It also allows drag and drop of PDF files to upload them.
+So now we have paperless running and keeping watch over the consume directory, automatically adding new files when you add them. At this point you should take a moment and get acquainted with paperless itself. If you've ever seen a Django admin interface, this will feel very familiar, because that's exactly what it is. That does feel a bit hacky, but it seems to work good enough. You might also want to have a look at [this electron desktop app](https://github.com/thomasbrueggemann/paperless-desktop) which uses paperless' API to show all scanned documents in a prettier fashion. ~~Unfortunately it seems to only run on macOS at the moment~~ [^1] and it is an alpha, but it's definitely a great start! It also allows drag and drop of PDF files to upload them.
 
 ![paperless desktop](https://camo.githubusercontent.com/faee244b57e1b91b7d613952faa3cc9923347ad1/687474703a2f2f692e696d6775722e636f6d2f467267417074452e706e67)
 
@@ -62,3 +62,5 @@ The current setup might now already work out great for you, depending on how you
 What I ended up with is the Nextcloud docker container having the consume directory mounted. Then I enabled the fantastic Nextcloud app allowing external storage, added said directory directly to Nextcloud and then configured Scanbot to upload scans via WebDAV directly to the paperless consume directory. An added bonus is that the Nextcloud desktop client also syncs the consume directory to my computer, so I also have a directory there where I can drop PDF files to be added to paperless 👌
 
 Everything now works rather seamlessly and I have better control of my files than with Evernote. The only thing missing would be a dedicated mobile app to search for scans. Maybe I'll have a go at that 😊
+
+[^1]: I've been told that this is no longer the case. Thanks Julius!
