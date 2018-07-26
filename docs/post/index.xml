@@ -6,10 +6,20 @@
     <description>Recent content in Posts on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 20 Jul 2018 12:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Server Setup with traefik and docker-compose</title>
+      <link>https://blog.kilian.io/server-setup/</link>
+      <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.kilian.io/server-setup/</guid>
+      <description>In the last post I hinted towards how I used docker-compose to run all the services I need on my server. Since someone asked me to describe it in a little more detail I&amp;rsquo;ll do just that in this post. It would probably also make sense to document it a bit for myself as I know that I&amp;rsquo;m going to forget parts of it at some point 🙈
+The basic gist is that everything runs in a docker container and exposes only what&amp;rsquo;s necessary to the public web (and not directly by itself).</description>
+    </item>
     
     <item>
       <title>Paperless</title>
