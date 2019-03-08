@@ -93,9 +93,9 @@ services:
     image: traefik
     restart: always
     ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
+      - &quot;80:80&quot;
+      - &quot;443:443&quot;
+      - &quot;8080:8080&quot;
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/traefik.toml
@@ -181,7 +181,7 @@ services:
     volumes:
       - ~/data/gitea:/data
     ports:
-      - 2221:22
+      - &quot;2221:22&quot;
     labels:
       - &quot;traefik.enable=true&quot;
       - &quot;traefik.backend=gitea&quot;
