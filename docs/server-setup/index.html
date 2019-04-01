@@ -97,7 +97,7 @@ services:
       - &quot;443:443&quot;
       - &quot;8080:8080&quot;
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.toml:/traefik.toml
       - ~/data/traefik/acme.json:/acme.json
     networks:
@@ -112,7 +112,7 @@ networks:
 
 <p>Ports 80 and 443 are pretty self explanatory, but 8080 is where traefik hosts its own dashboard by default. You can also choose to go about that differently, but that&rsquo;s the traefik default. I actually configured the dashboard to be shown on port 443 of a subdomain of my choosing behind a basic auth challenge, so that it&rsquo;s not entirely open to the public, but you can do whatever you like.</p>
 
-<p>By mounting <code>/var/run/docker.sock</code> into the container we give traefik access to information on all running containers on the host as I mentioned previously. In <code>acme.json</code> traefik stores the Let&rsquo;s Encrypt certificate date. We also mount an additional config file, <code>traefik.toml</code>, the contents of which are also relatively simple.</p>
+<p>By mounting <code>/var/run/docker.sock:ro</code> into the container we give traefik access to information on all running containers on the host as I mentioned previously, read-only however. In <code>acme.json</code> traefik stores the Let&rsquo;s Encrypt certificate date. We also mount an additional config file, <code>traefik.toml</code>, the contents of which are also relatively simple.</p>
 
 <pre><code class="language-toml">debug = false
 logLevel = &quot;ERROR&quot;
