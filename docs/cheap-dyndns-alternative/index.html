@@ -8,20 +8,7 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
 
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-   
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//analytics.kilian.io/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
+<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
 
 
 <section class="section">
@@ -63,66 +50,57 @@
     <h1 class="title">Cheap DynDNS Alternative</h1>
     <div class="content">
       <p>Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.</p>
-
 <p>After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare. Why not just get my current IP every $TIME_INTERVAL or so and send that to CloudFlare via their API updating an existing DNS record.</p>
-
 <p>Here’s a simple ruby script for just that.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#! /usr/bin/env ruby</span>
 
-<pre><code class="language-ruby">#! /usr/bin/env ruby
+require <span style="color:#e6db74">&#39;net/http&#39;</span>
+require <span style="color:#e6db74">&#39;cloudflare&#39;</span>
 
-require 'net/http'
-require 'cloudflare'
+<span style="color:#75715e"># Email used for login</span>
+<span style="color:#66d9ef">CLOUDFLARE_EMAIL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_EMAIL&#34;</span><span style="color:#f92672">]</span>
 
-# Email used for login
-CLOUDFLARE_EMAIL = ENV[&quot;CLOUDFLARE_EMAIL&quot;]
+<span style="color:#75715e"># API Key, can be found here =&gt; https://www.cloudflare.com/a/account/my-account</span>
+<span style="color:#66d9ef">CLOUDFLARE_API_KEY</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_API_KEY&#34;</span><span style="color:#f92672">]</span>
 
-# API Key, can be found here =&gt; https://www.cloudflare.com/a/account/my-account
-CLOUDFLARE_API_KEY = ENV[&quot;CLOUDFLARE_API_KEY&quot;]
+<span style="color:#75715e"># The zone (aka domain) this is for, e.g. &#39;example.com&#39;</span>
+<span style="color:#66d9ef">CLOUDFLARE_ZONE</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_ZONE&#34;</span><span style="color:#f92672">]</span>
 
-# The zone (aka domain) this is for, e.g. 'example.com'
-CLOUDFLARE_ZONE = ENV[&quot;CLOUDFLARE_ZONE&quot;]
+<span style="color:#75715e"># The specific record name to edit, e.g. &#39;record.example.com&#39;</span>
+<span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_RECORD_NAME&#34;</span><span style="color:#f92672">]</span>
 
-# The specific record name to edit, e.g. 'record.example.com'
-CLOUDFLARE_RECORD_NAME = ENV[&quot;CLOUDFLARE_RECORD_NAME&quot;]
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_ip</span>
+  <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>get(<span style="color:#66d9ef">URI</span><span style="color:#f92672">.</span>parse(<span style="color:#e6db74">&#39;http://canihazip.com/s&#39;</span>))
+<span style="color:#66d9ef">end</span>
 
-def get_ip
-  Net::HTTP.get(URI.parse('http://canihazip.com/s'))
-end
-
-def update_cloudflare(ip)
-  cf = CloudFlare::connection(CLOUDFLARE_API_KEY, CLOUDFLARE_EMAIL)
-  begin
-    rec_id = ''
-    records = cf.rec_load_all(CLOUDFLARE_ZONE)
-    records['response']['recs']['objs'].each do |record|
-      if record['name'] == CLOUDFLARE_RECORD_NAME
-        rec_id = record['rec_id']
-        break
-      end
-    end
-    # Sending '1' for the TTL = 'automatic' meaning approx. 300 (5 minutes)
-    cf.rec_edit(CLOUDFLARE_ZONE, 'A', rec_id, CLOUDFLARE_RECORD_NAME, ip, 1)
-  rescue =&gt; e
-    puts e.message
-  else
-    puts &quot;Successfully updated A record for #{CLOUDFLARE_RECORD_NAME} to #{ip}&quot;
-  end
-end
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_cloudflare</span>(ip)
+  cf <span style="color:#f92672">=</span> <span style="color:#66d9ef">CloudFlare</span><span style="color:#f92672">::</span>connection(<span style="color:#66d9ef">CLOUDFLARE_API_KEY</span>, <span style="color:#66d9ef">CLOUDFLARE_EMAIL</span>)
+  <span style="color:#66d9ef">begin</span>
+    rec_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+    records <span style="color:#f92672">=</span> cf<span style="color:#f92672">.</span>rec_load_all(<span style="color:#66d9ef">CLOUDFLARE_ZONE</span>)
+    records<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;response&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;recs&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;objs&#39;</span><span style="color:#f92672">].</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>record<span style="color:#f92672">|</span>
+      <span style="color:#66d9ef">if</span> record<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span>
+        rec_id <span style="color:#f92672">=</span> record<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;rec_id&#39;</span><span style="color:#f92672">]</span>
+        <span style="color:#66d9ef">break</span>
+      <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">end</span>
+    <span style="color:#75715e"># Sending &#39;1&#39; for the TTL = &#39;automatic&#39; meaning approx. 300 (5 minutes)</span>
+    cf<span style="color:#f92672">.</span>rec_edit(<span style="color:#66d9ef">CLOUDFLARE_ZONE</span>, <span style="color:#e6db74">&#39;A&#39;</span>, rec_id, <span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span>, ip, <span style="color:#ae81ff">1</span>)
+  <span style="color:#66d9ef">rescue</span> <span style="color:#f92672">=&gt;</span> e
+    puts e<span style="color:#f92672">.</span>message
+  <span style="color:#66d9ef">else</span>
+    puts <span style="color:#e6db74">&#34;Successfully updated A record for </span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">#{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
 
 update_cloudflare(get_ip)
-</code></pre>
-
-<p>The script relies on two things to work correctly:</p>
-
+</code></pre></div><p>The script relies on two things to work correctly:</p>
 <ul>
 <li>Make sure to set the record to be updated beforehand, this script will look at all records and update the IP of the correct one.</li>
 <li>You need to pass a few environment variables as specified at the top of the script, namely <code>CLOUDFLARE_EMAIL</code>, <code>CLOUDFLARE_API_KEY</code>, <code>CLOUDFLARE_ZONE</code> and <code>CLOUDFLARE_RECORD_NAME</code>.</li>
 </ul>
-
 <p>Now just periodically run it via cron or however you like 🙂</p>
-
 <p>Setting up the record beforehand also gives you the freedom of specifying if you want CloudFlare tunneling for the record or not. Whatever you set will not be changed by this script.</p>
-
 <p><strong>UPDATE</strong>: Thanks to <a href="https://twitter.com/stefanmajewsky">@stefanmajewsky</a> <a href="https://github.com/jasontbradshaw/gandi-dyndns">here</a>’s a Python script for doing the same directly via Gandi.net. Awesome!</p>
 
     </div>

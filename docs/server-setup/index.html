@@ -8,20 +8,7 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
 
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-   
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//analytics.kilian.io/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
+<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
 
 
 <section class="section">
@@ -62,207 +49,161 @@
     <h2 class="subtitle is-6">July 26, 2018</h2>
     <h1 class="title">Server Setup with traefik and docker-compose</h1>
     <div class="content">
-      
-
-<p>In the <a href="/paperless">last post</a> I hinted towards how I used docker-compose to run all the services I need on my server. Since someone asked me to describe it in a little more detail I&rsquo;ll do just that in this post. It would probably also make sense to document it a bit for myself as I know that I&rsquo;m going to forget parts of it at some point 🙈</p>
-
+      <p>In the <a href="/paperless">last post</a> I hinted towards how I used docker-compose to run all the services I need on my server. Since someone asked me to describe it in a little more detail I&rsquo;ll do just that in this post. It would probably also make sense to document it a bit for myself as I know that I&rsquo;m going to forget parts of it at some point 🙈</p>
 <p>The basic gist is that everything runs in a docker container and exposes only what&rsquo;s necessary to the public web (and not directly by itself). Using docker to orchestrate everything has the benefit of not having to worry about dependencies or unsupported systems (to a certain degree at least) and leads to minimal overhead when trying out new stuff or updating existing services.</p>
-
 <p>On a sidenote: I host my stuff on a VM provisioned from <a href="https://www.hetzner.com/cloud">Hetzner</a>. I used to host all my stuff on Digital Ocean, but I recently ran into hardware limitations for the price class I was willing to pay and had a look around. Hetzner&rsquo;s pricing is by far the best I could find, their servers are located in Germany (EU is a must for me) and their relatively new VM offering has a pretty site as well that looks just like a DO ripoff 😅</p>
-
 <h1 id="traefik">traefik</h1>
-
 <p>Holding most of it together is the fantastic <a href="https://traefik.io">traefik</a>, a simple reverse-proxy with everything built-in that I need here. It runs in it&rsquo;s own docker container and comes with a minimal config that I&rsquo;ll go into in a second. The reason I run it at all is because it comes with two amazing features that make it perfect for the job:</p>
-
 <ul>
 <li>For one it connects directly to the docker socket on the host machine and therefore discovers new services instantly and by itself.</li>
 <li>It automatically handles registering TLS certificates with Let&rsquo;s Encrypt with literally <em>zero</em> overhead on my end.</li>
 </ul>
-
 <p>What we&rsquo;re going to do is configure a docker network - let&rsquo;s call it <em>web</em> - that every service will be placed into that&rsquo;s actually connected to the internet. Since this network will be service agnostic we&rsquo;ll create it as an external network directly with the docker cli.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker network create web
+</code></pre></div><p>Now we can create a new docker-compose file for traefik that looks something like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
-<pre><code class="language-bash">$ docker network create web
-</code></pre>
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">app</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">traefik</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#e6db74">&#34;80:80&#34;</span>
+      - <span style="color:#e6db74">&#34;443:443&#34;</span>
+      - <span style="color:#e6db74">&#34;8080:8080&#34;</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock:ro</span>
+      - <span style="color:#ae81ff">./traefik.toml:/traefik.toml</span>
+      - <span style="color:#ae81ff">~/data/traefik/acme.json:/acme.json</span>
+    <span style="color:#f92672">networks</span>:
+      - <span style="color:#ae81ff">web</span>
 
-<p>Now we can create a new docker-compose file for traefik that looks something like this.</p>
-
-<pre><code class="language-yaml">version: '3'
-
-services:
-  app:
-    image: traefik
-    restart: always
-    ports:
-      - &quot;80:80&quot;
-      - &quot;443:443&quot;
-      - &quot;8080:8080&quot;
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik.toml:/traefik.toml
-      - ~/data/traefik/acme.json:/acme.json
-    networks:
-      - web
-
-networks:
-  web:
-    external: true
-</code></pre>
-
-<p>This describes a new service based on the official traefik image, which is restarted automatically if it stops, exposes ports 80 (HTTP), 443 (HTTPS) and 8080 (dashboard) directly, has a few mounted volumes and is part of the <em>web</em> network. For the network to be picked up by docker-compose we need to explicitly list it in a networks section below.</p>
-
+<span style="color:#f92672">networks</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">external</span>: <span style="color:#66d9ef">true</span>
+</code></pre></div><p>This describes a new service based on the official traefik image, which is restarted automatically if it stops, exposes ports 80 (HTTP), 443 (HTTPS) and 8080 (dashboard) directly, has a few mounted volumes and is part of the <em>web</em> network. For the network to be picked up by docker-compose we need to explicitly list it in a networks section below.</p>
 <p>Ports 80 and 443 are pretty self explanatory, but 8080 is where traefik hosts its own dashboard by default. You can also choose to go about that differently, but that&rsquo;s the traefik default. I actually configured the dashboard to be shown on port 443 of a subdomain of my choosing behind a basic auth challenge, so that it&rsquo;s not entirely open to the public, but you can do whatever you like.</p>
-
 <p>By mounting <code>/var/run/docker.sock:ro</code> into the container we give traefik access to information on all running containers on the host as I mentioned previously, read-only however. In <code>acme.json</code> traefik stores the Let&rsquo;s Encrypt certificate date. We also mount an additional config file, <code>traefik.toml</code>, the contents of which are also relatively simple.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">debug</span> = <span style="color:#66d9ef">false</span>
+<span style="color:#a6e22e">logLevel</span> = <span style="color:#e6db74">&#34;ERROR&#34;</span>
 
-<pre><code class="language-toml">debug = false
-logLevel = &quot;ERROR&quot;
+<span style="color:#a6e22e">defaultEntryPoints</span> = [<span style="color:#e6db74">&#34;http&#34;</span>, <span style="color:#e6db74">&#34;https&#34;</span>]
 
-defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+[<span style="color:#a6e22e">web</span>]
+<span style="color:#75715e"># Port for the status/dashboard page</span>
+<span style="color:#a6e22e">address</span> = <span style="color:#e6db74">&#34;:8080&#34;</span>
 
-[web]
-# Port for the status/dashboard page
-address = &quot;:8080&quot;
+[<span style="color:#a6e22e">entryPoints</span>]
+    [<span style="color:#a6e22e">entryPoints</span>.<span style="color:#a6e22e">http</span>]
+    <span style="color:#a6e22e">address</span> = <span style="color:#e6db74">&#34;:80&#34;</span>
+        [<span style="color:#a6e22e">entryPoints</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">redirect</span>]
+        <span style="color:#a6e22e">entryPoint</span> = <span style="color:#e6db74">&#34;https&#34;</span>
 
-[entryPoints]
-    [entryPoints.http]
-    address = &quot;:80&quot;
-        [entryPoints.http.redirect]
-        entryPoint = &quot;https&quot;
+    [<span style="color:#a6e22e">entryPoints</span>.<span style="color:#a6e22e">https</span>]
+    <span style="color:#a6e22e">address</span> = <span style="color:#e6db74">&#34;:443&#34;</span>
+    [<span style="color:#a6e22e">entryPoints</span>.<span style="color:#a6e22e">https</span>.<span style="color:#a6e22e">tls</span>]
 
-    [entryPoints.https]
-    address = &quot;:443&quot;
-    [entryPoints.https.tls]
+[<span style="color:#a6e22e">retry</span>]
 
-[retry]
+[<span style="color:#a6e22e">docker</span>]
+<span style="color:#a6e22e">endpoint</span> = <span style="color:#e6db74">&#34;unix:///var/run/docker.sock&#34;</span>
+<span style="color:#a6e22e">domain</span> = <span style="color:#e6db74">&#34;kilian.io&#34;</span>
+<span style="color:#a6e22e">watch</span> = <span style="color:#66d9ef">true</span>
+<span style="color:#a6e22e">exposedByDefault</span> = <span style="color:#66d9ef">false</span>
 
-[docker]
-endpoint = &quot;unix:///var/run/docker.sock&quot;
-domain = &quot;kilian.io&quot;
-watch = true
-exposedByDefault = false
-
-[acme]
-email = &quot;me@kilian.io&quot;
-storage = &quot;acme.json&quot;
-entryPoint = &quot;https&quot;
-onHostRule = true
-    [acme.httpChallenge]
-    entryPoint = &quot;http&quot;
-</code></pre>
-
-<p>There&rsquo;s not a lot to say about this. We configure the log level, the default entry points and a redirect to always use TLS. Additionally we tell traefik about the base domain and also about how to handle TLS and and which challenge to use.</p>
-
+[<span style="color:#a6e22e">acme</span>]
+<span style="color:#a6e22e">email</span> = <span style="color:#e6db74">&#34;me@kilian.io&#34;</span>
+<span style="color:#a6e22e">storage</span> = <span style="color:#e6db74">&#34;acme.json&#34;</span>
+<span style="color:#a6e22e">entryPoint</span> = <span style="color:#e6db74">&#34;https&#34;</span>
+<span style="color:#a6e22e">onHostRule</span> = <span style="color:#66d9ef">true</span>
+    [<span style="color:#a6e22e">acme</span>.<span style="color:#a6e22e">httpChallenge</span>]
+    <span style="color:#a6e22e">entryPoint</span> = <span style="color:#e6db74">&#34;http&#34;</span>
+</code></pre></div><p>There&rsquo;s not a lot to say about this. We configure the log level, the default entry points and a redirect to always use TLS. Additionally we tell traefik about the base domain and also about how to handle TLS and and which challenge to use.</p>
 <p>The only thing left to do now is to setup your domains DNS records to point to your server&rsquo;s IP address and ideally set up a wildcard subdomain, e.g. <code>*.kilian.io</code> in my case to point to the server as well. This allows you to specify any necessary subdomains directly (blog.kilian.io runs on GitHub pages for example, not my server) and let everything else fall back to the server and therefore into traefik&rsquo;s hands.</p>
-
 <p>Don&rsquo;t forget to boot up traefik via docker-compose from within it&rsquo;s directory and we&rsquo;re good to go ✨</p>
-
-<pre><code class="language-bash">$ docker-compose up -d
-</code></pre>
-
-<h1 id="running-other-services">Running Other Services</h1>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose up -d
+</code></pre></div><h1 id="running-other-services">Running Other Services</h1>
 <p>As examples we&rsquo;re going to configure two web-facing services. Instances of <a href="https://gitea.io">gitea</a> and <a href="https://github.com/huginn/huginn">huginn</a>.</p>
-
 <h2 id="gitea">Gitea</h2>
-
 <p>Gitea is rather easy to set up, since it requires no other services besides itself. Let&rsquo;s go straight for the docker-compose file.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
-<pre><code class="language-yaml">version: '3'
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">app</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">gitea/gitea:latest</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">environment</span>:
+      - <span style="color:#ae81ff">USER_UID=1000</span>
+      - <span style="color:#ae81ff">USER_GID=1000</span>
+    <span style="color:#f92672">networks</span>:
+      - <span style="color:#ae81ff">web</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">~/data/gitea:/data</span>
+    <span style="color:#f92672">ports</span>:
+      - <span style="color:#e6db74">&#34;2221:22&#34;</span>
+    <span style="color:#f92672">labels</span>:
+      - <span style="color:#e6db74">&#34;traefik.enable=true&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.backend=gitea&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.docker.network=web&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.frontend.rule=Host:git.kilian.io&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.port=3000&#34;</span>
 
-services:
-  app:
-    image: gitea/gitea:latest
-    restart: always
-    environment:
-      - USER_UID=1000
-      - USER_GID=1000
-    networks:
-      - web
-    volumes:
-      - ~/data/gitea:/data
-    ports:
-      - &quot;2221:22&quot;
-    labels:
-      - &quot;traefik.enable=true&quot;
-      - &quot;traefik.backend=gitea&quot;
-      - &quot;traefik.docker.network=web&quot;
-      - &quot;traefik.frontend.rule=Host:git.kilian.io&quot;
-      - &quot;traefik.port=3000&quot;
-
-networks:
-  web:
-    external: true
-</code></pre>
-
-<p>All we need to do is declare two env vars, the network this container will be added to, a volume for persisting data beyond container restarts and rebuilds, specifically for gitea a custom SSH port and most importantly a few labels.</p>
-
+<span style="color:#f92672">networks</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">external</span>: <span style="color:#66d9ef">true</span>
+</code></pre></div><p>All we need to do is declare two env vars, the network this container will be added to, a volume for persisting data beyond container restarts and rebuilds, specifically for gitea a custom SSH port and most importantly a few labels.</p>
 <p>These labels are what traefik uses to understand how to channel traffic to this container. The last two are the most important ones. First we tell traefik which host header to look for in requests to the server (here: git.kilian.io) and then which port this service wants to map to port 80 / 443 on that domain.</p>
-
 <p>That&rsquo;s it. A request to git.kilian.io (or directly to the server with a fitting host header field) will be forwarded to port 3000 of this service. All you have to do is start it up.</p>
-
-<pre><code class="language-bash">$ docker-compose up -d
-</code></pre>
-
-<p>TLS is configured automatically by traefik on the first request (which might therefore take a second longer). You should be seeing a valid certificate if everything is set up correctly.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose up -d
+</code></pre></div><p>TLS is configured automatically by traefik on the first request (which might therefore take a second longer). You should be seeing a valid certificate if everything is set up correctly.</p>
 <h2 id="huginn">Huginn</h2>
-
 <p>Huginn is slightly more complex since we&rsquo;re going to need two services. The application itself and a database.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
-<pre><code class="language-yaml">version: '3'
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">app</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">huginn/huginn</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">networks</span>:
+      - <span style="color:#ae81ff">web</span>
+      - <span style="color:#ae81ff">internal</span>
+    <span style="color:#f92672">environment</span>:
+      - <span style="color:#ae81ff">POSTGRES_PORT_5432_TCP_ADDR=db</span>
+      - <span style="color:#ae81ff">POSTGRES_PORT_5432_TCP_PORT=5432</span>
+      - <span style="color:#ae81ff">HUGINN_DATABASE_ADAPTER=postgresql</span>
+      - <span style="color:#ae81ff">HUGINN_DATABASE_USERNAME=huginn</span>
+      - <span style="color:#ae81ff">HUGINN_DATABASE_PASSWORD=...</span>
+      - <span style="color:#ae81ff">TIMEZONE=Berlin</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">~/data:/server/data</span>
+    <span style="color:#f92672">labels</span>:
+      - <span style="color:#e6db74">&#34;traefik.enable=true&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.backend=huginn&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.frontend.rule=Host:huginn.kilian.io&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.port=3000&#34;</span>
+      - <span style="color:#e6db74">&#34;traefik.docker.network=web&#34;</span>
 
-services:
-  app:
-    image: huginn/huginn
-    restart: always
-    networks:
-      - web
-      - internal
-    environment:
-      - POSTGRES_PORT_5432_TCP_ADDR=db
-      - POSTGRES_PORT_5432_TCP_PORT=5432
-      - HUGINN_DATABASE_ADAPTER=postgresql
-      - HUGINN_DATABASE_USERNAME=huginn
-      - HUGINN_DATABASE_PASSWORD=...
-      - TIMEZONE=Berlin
-    volumes:
-      - ~/data:/server/data
-    labels:
-      - &quot;traefik.enable=true&quot;
-      - &quot;traefik.backend=huginn&quot;
-      - &quot;traefik.frontend.rule=Host:huginn.kilian.io&quot;
-      - &quot;traefik.port=3000&quot;
-      - &quot;traefik.docker.network=web&quot;
+  <span style="color:#f92672">db</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgres</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">networks</span>:
+      - <span style="color:#ae81ff">internal</span>
+    <span style="color:#f92672">environment</span>:
+      - <span style="color:#ae81ff">POSTGRES_USER=huginn</span>
+      - <span style="color:#ae81ff">POSTGRES_PASSWORD=...</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">~/data/huginn/db:/var/lib/postgresql/data</span>
 
-  db:
-    image: postgres
-    restart: always
-    networks:
-      - internal
-    environment:
-      - POSTGRES_USER=huginn
-      - POSTGRES_PASSWORD=...
-    volumes:
-      - ~/data/huginn/db:/var/lib/postgresql/data
-
-networks:
-  internal:
-  web:
-    external: true
-</code></pre>
-
-<p>The key difference is that we obviously need to create both services, the main application and a postgres database. Since docker-compose doesn&rsquo;t place both of these containers in a new network of their own by default <strong>if</strong> there&rsquo;s already a network present (the <em>web</em> network), we also have to explicitly create a new network (I&rsquo;m calling it <em>internal</em>) so that these services can connect to each other. Notice however how the database is <em>not</em> a part of the web network, there&rsquo;s no reason for it to be accessible from the outside.</p>
-
+<span style="color:#f92672">networks</span>:
+  <span style="color:#f92672">internal</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">external</span>: <span style="color:#66d9ef">true</span>
+</code></pre></div><p>The key difference is that we obviously need to create both services, the main application and a postgres database. Since docker-compose doesn&rsquo;t place both of these containers in a new network of their own by default <strong>if</strong> there&rsquo;s already a network present (the <em>web</em> network), we also have to explicitly create a new network (I&rsquo;m calling it <em>internal</em>) so that these services can connect to each other. Notice however how the database is <em>not</em> a part of the web network, there&rsquo;s no reason for it to be accessible from the outside.</p>
 <p>And that&rsquo;s also already it for this case as well 👌</p>
-
 <h1 id="conclusion">Conclusion</h1>
-
 <p>Running applications including any other services they might depend on behind a reverse-proxy taking care of TLS and only exposing necessary stuff to the web should no longer be an issue. The main complexity for setting up new services lies in&hellip; well&hellip; setting them up correctly. Most <a href="https://www.12factor.net/config">well designed</a> applications allow this to be done by setting a few environment variables, making our setup via docker-compose extremely straight-forward and easy to replicate.</p>
-
 <p>Persistence is easily solved via <a href="https://docs.docker.com/storage/volumes/">docker volumes</a> or volume mounts. I prefer the latter, even though they lead to a few permission issues here and there and are not host-os-agnostic. I suggest having a look at volumes, there are quite a few advantages. It&rsquo;s just a tiny bit more effort to backup and transfer your persisted data.</p>
-
 <p>I also suggest storing your service&rsquo;s docker-compose files and other configs (like the traefik.toml) in a git repo (obviously not public), which makes setup on a new machine even easier.</p>
-
 <p>🖖</p>
 
     </div>

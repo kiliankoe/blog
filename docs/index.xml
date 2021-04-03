@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog.kilian.io</title>
@@ -6,11 +6,7 @@
     <description>Recent content on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Server Setup with traefik and docker-compose</title>
       <link>https://blog.kilian.io/server-setup/</link>
@@ -48,7 +44,7 @@ Since I probably don&amp;rsquo;t have any chats quite as active as the one with 
       
       <guid>https://blog.kilian.io/docker-swift-runtime/</guid>
       <description>I recently wrote a small Vapor web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.
-FROM swift:4 COPY . . EXPOSE 8080 RUN swift build --configuration release ENTRYPOINT [&amp;quot;.build/release/Run&amp;quot;] CMD [&amp;quot;serve&amp;quot;, &amp;quot;--env=production&amp;quot;]  Whilst this worked perfectly fine, the image size turned out to be a whopping 1.</description>
+FROM swift:4 COPY . . EXPOSE 8080 RUN swift build --configuration release ENTRYPOINT [&amp;#34;.build/release/Run&amp;#34;] CMD [&amp;#34;serve&amp;#34;, &amp;#34;--env=production&amp;#34;] Whilst this worked perfectly fine, the image size turned out to be a whopping 1.5GB. That didn&amp;rsquo;t quite feel right if for an app as small as mine.</description>
     </item>
     
     <item>
@@ -135,7 +131,8 @@ A few months back I chose to delete my personal timeline. Facebook started to sh
       <pubDate>Wed, 18 May 2016 02:21:05 +0200</pubDate>
       
       <guid>https://blog.kilian.io/wwdc-16-scholarship/</guid>
-      <description>Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away! The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.
+      <description>Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away!
+The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.
 Stay posted for more, especially once it’s June 😁</description>
     </item>
     
@@ -244,7 +241,8 @@ Note that this render is in 2400p, the native resolution of the new MacBook Pro.
       <pubDate>Mon, 21 Jul 2014 01:47:19 +0200</pubDate>
       
       <guid>https://blog.kilian.io/brew-cask/</guid>
-      <description>I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed xmind right through his package manager (or actually yaourt, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple. You download the disk image, double-click it to mount and drag the .</description>
+      <description>I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed xmind right through his package manager (or actually yaourt, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple.
+You download the disk image, double-click it to mount and drag the .app onto your linked Applications directory.</description>
     </item>
     
     <item>
@@ -271,8 +269,7 @@ Note that this render is in 2400p, the native resolution of the new MacBook Pro.
       <pubDate>Sat, 15 Feb 2014 20:55:12 +0200</pubDate>
       
       <guid>https://blog.kilian.io/anustart/</guid>
-      <description>(Making the Arrested Development reference in the title there was damn tempting, but nope, didn&amp;rsquo;t go for it.)
-I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing and running away from I guess around 10 to 20 blogs in the last few years (I can at least find one of the remnants to still be online, probably due to the fact that this is the only instance I didn&amp;rsquo;t host myself) and have had a lot more fun playing around with the software itself than writing, although I always aim to change that.</description>
+      <description>(Making the Arrested Development reference in the title there was damn tempting, but nope, didn&amp;rsquo;t go for it.)I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing and running away from I guess around 10 to 20 blogs in the last few years (I can at least find one of the remnants to still be online, probably due to the fact that this is the only instance I didn&amp;rsquo;t host myself) and have had a lot more fun playing around with the software itself than writing, although I always aim to change that.</description>
     </item>
     
     <item>
@@ -282,7 +279,7 @@ I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing an
       
       <guid>https://blog.kilian.io/valentina-kalashnikova/</guid>
       <description>Just got back from an awesome gig from a small local band a friend of mine plays in. They&amp;rsquo;re called the Last Dangerous Racoons and this title of theirs is definitely worth a listen!
- Also check out their site and bandcamp if you&amp;rsquo;re interested.</description>
+Also check out their site and bandcamp if you&amp;rsquo;re interested.</description>
     </item>
     
     <item>
@@ -291,7 +288,7 @@ I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing an
       <pubDate>Tue, 05 Nov 2013 20:50:33 +0200</pubDate>
       
       <guid>https://blog.kilian.io/alfred-caps-lock/</guid>
-      <description>In great contrast to Alfred being one of those apps I love more than anything on OS X, the caps lock key is something utterly useless nowadays (or ever for that matter). And if you do happen to find yourself in an argument on the internet, even Homer Simpson agrees that you put a lot more weight into your statement if you take your time to press the shift key.</description>
+      <description>In great contrast to Alfred being one of those apps I love more than anything on OS X, the caps lock key is something utterly useless nowadays (or ever for that matter). And if you do happen to find yourself in an argument on the internet, even Homer Simpson agrees that you put a lot more weight into your statement if you take your time to press the shift key. The already mentioned Alfred however is so immensely useful, that even two keys for its hotkey (the default alt + space) is too much.</description>
     </item>
     
     <item>

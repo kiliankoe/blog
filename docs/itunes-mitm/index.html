@@ -8,20 +8,7 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
 
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-   
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//analytics.kilian.io/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
+<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
 
 
 <section class="section">
@@ -64,64 +51,46 @@
     <div class="content">
       <p><strong>Update</strong> (2017-09-23):
 Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of <a href="https://itunes.apple.com/de/app/apple-configurator-2/id1037126344?l=en&amp;mt=12">Apple Configurator 2</a>.</p>
-
 <ol>
 <li>Buy and download the app via your iOS device</li>
 <li>Open Apple Configurator and login under &ldquo;Account&rdquo;</li>
 <li>Connect your device, then go to &ldquo;Add&rdquo; &gt; &ldquo;Application&rdquo; and choose the app in question from your purchase history</li>
 <li>A dialog will open asking you if you want to overwrite the app or continue in another fashion. As long as this dialog is open, the IPA file will be cached in <code>~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/</code>.</li>
 </ol>
-
 <p>This process at least helps with downloading current IPA files. The act of downloading older versions is left as an exercise to the reader. I have to add that I haven&rsquo;t checked if it&rsquo;s still possible, I&rsquo;m just guessing that it doesn&rsquo;t differ too much from the process outlined below.</p>
-
-<hr />
-
+<hr>
 <p>I recently held a talk about reverse engineering iOS apps at <a href="https://mobilecamp.de">Mobile Camp 2017</a>. There will be another post about said talk soon, since I&rsquo;ll be holding it again at our local Cocoaheads meetup in a few days, this time with a video recording 😊.</p>
-
-<p>One of my topics was taking a look into an app&rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. I remembered stumbling across this a little while ago and thought it&rsquo;d be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you&rsquo;re at least somewhat familiar with <em>man-in-the-middle</em> attacking yourself, something I also went over in my talk.</p>
-
+<p>One of my topics was taking a look into an app&rsquo;s bundle, for which I had an app in mind that bundled an interesting SQLite database<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. I remembered stumbling across this a little while ago and thought it&rsquo;d be something nice and small to show. On redownloading the current version of the app I noticed that the SQLite db was still there, but now encrypted 😿. Not wanting to look around for something else to demo I chose to force iTunes to just download an older version of the app instead. Doing so turned out to be rather easy if you&rsquo;re at least somewhat familiar with <em>man-in-the-middle</em> attacking yourself, something I also went over in my talk.</p>
 <p>I&rsquo;m using a tool called <a href="https://www.charlesproxy.com">Charles</a> for this. I can also recommend the very popular <a href="https://mitmproxy.org">mitmproxy</a>. The idea is the same for both of them, but I&rsquo;ll reference Charles here.</p>
-
-<p>Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don&rsquo;t want the current version you can cancel the download right after that. Now check Charles for a request to <code>*-buy.itunes.apple.com</code>. Since this request is TLS encrypted we&rsquo;re going to enable Charles&rsquo; SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in its unencrypted form.</p>
-
+<p>Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don&rsquo;t want the current version you can cancel the download right after that. Now check Charles for a request to <code>*-buy.itunes.apple.com</code>. Since this request is TLS encrypted we&rsquo;re going to enable Charles' SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in its unencrypted form.</p>
 <p>If you view the server&rsquo;s response you&rsquo;ll see a plist file (Apple&rsquo;s XML based &ldquo;property list&rdquo; file format). You&rsquo;re looking for a section that looks like the following.</p>
-
-<pre><code class="language-xml">&lt;key&gt;softwareVersionExternalIdentifiers&lt;/key&gt;
-&lt;array&gt;
-&lt;integer&gt;813164182&lt;/integer&gt;
-&lt;integer&gt;813305098&lt;/integer&gt;
-&lt;integer&gt;814184616&lt;/integer&gt;
-&lt;integer&gt;814214406&lt;/integer&gt;
-&lt;integer&gt;814369260&lt;/integer&gt;
-&lt;integer&gt;814850256&lt;/integer&gt;
-&lt;integer&gt;817722935&lt;/integer&gt;
-&lt;/array&gt;
-</code></pre>
-
-<p>This is a list of all versions of the app (or more precisely their IDs), starting with the oldest. Obviously your IDs will most likely differ.
-<!--Unfortunately these version IDs aren't directly convertible to the version string used by the app. You're going to have to guess. For my case this was fine, since I just needed *any* old version. Otherwise you can of course just try a few times and see if you can find a specific one you're looking for.-->
-Unfortunately there&rsquo;s no direct way to correlate all of these version identifiers with the app&rsquo;s actual version strings. Apple&rsquo;s servers only tell you the version string when requesting one of these specifically, but more on that in a pinch.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;key&gt;</span>softwareVersionExternalIdentifiers<span style="color:#f92672">&lt;/key&gt;</span>
+<span style="color:#f92672">&lt;array&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>813164182<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>813305098<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>814184616<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>814214406<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>814369260<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>814850256<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;integer&gt;</span>817722935<span style="color:#f92672">&lt;/integer&gt;</span>
+<span style="color:#f92672">&lt;/array&gt;</span>
+</code></pre></div><p>This is a list of all versions of the app (or more precisely their IDs), starting with the oldest. Obviously your IDs will most likely differ.</p>
+<!-- raw HTML omitted -->
+<p>Unfortunately there&rsquo;s no direct way to correlate all of these version identifiers with the app&rsquo;s actual version strings. Apple&rsquo;s servers only tell you the version string when requesting one of these specifically, but more on that in a pinch.</p>
 <p>Go ahead and copy an ID. Now check the request tab of that same request. You should be able to find a section that specifies which version iTunes wants to download.</p>
-
-<pre><code class="language-xml">&lt;key&gt;appExtVrsId&lt;/key&gt;
-&lt;string&gt;822037669&lt;/string&gt;
-</code></pre>
-
-<p>The easiest way in Charles is to now set a breakpoint on this request (right-click → Breakpoints). Restart the download in iTunes and Charles will pop up allowing you to edit the request iTunes sends to Apple before it goes through. This is where you can now insert your copied ID as the value for the just mentioned <code>appExtVrsId</code> field. After clicking &ldquo;Execute&rdquo; Charles will also stop the incoming response before allowing iTunes to read it. This includes a field named <code>bundleShortVersionString</code> which contains the human-readable ID. You can abort the response and try again if this wasn&rsquo;t the app version you&rsquo;re looking for.</p>
-
-<p><img style="display: block; margin: 0 auto;" src="https://cloud.githubusercontent.com/assets/2625584/25902476/e85fca08-3599-11e7-9643-78d41095f4c1.png" /></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;key&gt;</span>appExtVrsId<span style="color:#f92672">&lt;/key&gt;</span>
+<span style="color:#f92672">&lt;string&gt;</span>822037669<span style="color:#f92672">&lt;/string&gt;</span>
+</code></pre></div><p>The easiest way in Charles is to now set a breakpoint on this request (right-click → Breakpoints). Restart the download in iTunes and Charles will pop up allowing you to edit the request iTunes sends to Apple before it goes through. This is where you can now insert your copied ID as the value for the just mentioned <code>appExtVrsId</code> field. After clicking &ldquo;Execute&rdquo; Charles will also stop the incoming response before allowing iTunes to read it. This includes a field named <code>bundleShortVersionString</code> which contains the human-readable ID. You can abort the response and try again if this wasn&rsquo;t the app version you&rsquo;re looking for.</p>
+<p><!-- raw HTML omitted --></p>
 <p>If it is a version that works for you, great! That&rsquo;s it 🎉. iTunes is downloading the app as we speak and you can then do whatever you want with it. Be aware that any current versions of the app need to be removed from your device if you want to sync it to one.</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">I&rsquo;m referring to the app <a href="https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8">FahrInfo</a> for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, you know that I&rsquo;m a <a href="https://github.com/kiliankoe/vvo">sucker</a> for local public transport data.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>I&rsquo;m referring to the app <a href="https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8">FahrInfo</a> for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, you know that I&rsquo;m a <a href="https://github.com/kiliankoe/vvo">sucker</a> for local public transport data. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
     </div>
     <hr>

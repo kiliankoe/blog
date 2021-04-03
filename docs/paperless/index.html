@@ -8,20 +8,7 @@
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
 
-
-<script type="text/javascript">
-  var _paq = _paq || [];
-   
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//analytics.kilian.io/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
+<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
 
 
 <section class="section">
@@ -62,76 +49,57 @@
     <h2 class="subtitle is-6">July 20, 2018</h2>
     <h1 class="title">Paperless</h1>
     <div class="content">
-      
-
-<p>For the past few years I&rsquo;ve been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.</p>
-
+      <p>For the past few years I&rsquo;ve been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.</p>
 <p>Both of these issues are easily resolvable by having digital copies. They can be accessed remotely and are searchable. OCR software has gotten pretty fantastic as well, making it possible to search for certain keywords even in pretty bad scans.</p>
-
 <p>Having used Evernote as a backing store for this database for years now, I&rsquo;ve become rather dissatisfied with that platform. It&rsquo;s slow, it&rsquo;s primarily suited for different use cases and it&rsquo;s gotten expensive as well. So I decided to migrate to something else, using the very cool software <a href="https://github.com/danielquinn/paperless">paperless</a>. Here&rsquo;s a short overview of my workflow using paperless.</p>
-
 <h1 id="setup">Setup</h1>
-
 <p>I rent a VM to run most of the web-based application I use. Every application is managed via a docker-compose file. This makes it trivial to manage services with very different architectures, including paperless.</p>
-
 <p>The docker-compose file looks something like the following. Please note that I did leave out a few details that are very specific to my setup, this won&rsquo;t work <em>as is</em>. You&rsquo;re at least going to have to manage exposing port 8000 of the server service.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
-<pre><code class="language-yaml">version: '3'
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">server</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">danielquinn/paperless</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">/path/to/your/data:/usr/src/paperless/data</span>
+      - <span style="color:#ae81ff">/path/to/your/media:/usr/src/paperless/media</span>
+      - <span style="color:#ae81ff">/path/to/your/consume:/consume</span>
+    <span style="color:#f92672">environment</span>:
+      - <span style="color:#ae81ff">PAPERLESS_OCR_LANGUAGES=deu</span>
+    <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;runserver&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0:8000&#34;</span>]
 
-services:
-  server:
-    image: danielquinn/paperless
-    restart: always
-    volumes:
-      - /path/to/your/data:/usr/src/paperless/data
-      - /path/to/your/media:/usr/src/paperless/media
-      - /path/to/your/consume:/consume
-    environment:
-      - PAPERLESS_OCR_LANGUAGES=deu
-    command: [&quot;runserver&quot;, &quot;0.0.0.0:8000&quot;]
-
-  consumer:
-    image: danielquinn/paperless
-    restart: always
-    depends_on:
-      - server
-    volumes:
-      - /path/to/your/data:/usr/src/paperless/data
-      - /path/to/your/media:/usr/src/paperless/media
-      - /path/to/your/consume:/consume
-    command: [&quot;document_consumer&quot;]
-</code></pre>
-
-<p>Here I instantiate two services based on the same image, one running the paperless webserver, one running the paperless consumer service, which watches for new files in its consume directory. Paperless has three options of adding new files.</p>
-
+  <span style="color:#f92672">consumer</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">danielquinn/paperless</span>
+    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+    <span style="color:#f92672">depends_on</span>:
+      - <span style="color:#ae81ff">server</span>
+    <span style="color:#f92672">volumes</span>:
+      - <span style="color:#ae81ff">/path/to/your/data:/usr/src/paperless/data</span>
+      - <span style="color:#ae81ff">/path/to/your/media:/usr/src/paperless/media</span>
+      - <span style="color:#ae81ff">/path/to/your/consume:/consume</span>
+    <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;document_consumer&#34;</span>]
+</code></pre></div><p>Here I instantiate two services based on the same image, one running the paperless webserver, one running the paperless consumer service, which watches for new files in its consume directory. Paperless has three options of adding new files.</p>
 <ul>
 <li>The consumer watches a directory and adds new files from there, removing them afterwards.</li>
 <li>The consumer watches your mail account and adds files from specific emails.</li>
 <li>New files are added via a POST request to the HTTP API.</li>
 </ul>
-
 <p>I&rsquo;m also not a huge fan of docker volumes, although they might have a few advantages. Mounting directories is easier to manage imho 🙈</p>
-
 <h1 id="workflow">Workflow</h1>
-
-<p>So now we have paperless running and keeping watch over the consume directory, automatically adding new files when you add them. At this point you should take a moment and get acquainted with paperless itself. If you&rsquo;ve ever seen a Django admin interface, this will feel very familiar, because that&rsquo;s exactly what it is. That does feel a bit hacky, but it seems to work good enough. You might also want to have a look at <a href="https://github.com/thomasbrueggemann/paperless-desktop">this electron desktop app</a> which uses paperless&rsquo; API to show all scanned documents in a prettier fashion. <del>Unfortunately it seems to only run on macOS at the moment</del> <sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> and it is an alpha, but it&rsquo;s definitely a great start! It also allows drag and drop of PDF files to upload them.</p>
-
-<p><img src="https://camo.githubusercontent.com/faee244b57e1b91b7d613952faa3cc9923347ad1/687474703a2f2f692e696d6775722e636f6d2f467267417074452e706e67" alt="paperless desktop" /></p>
-
+<p>So now we have paperless running and keeping watch over the consume directory, automatically adding new files when you add them. At this point you should take a moment and get acquainted with paperless itself. If you&rsquo;ve ever seen a Django admin interface, this will feel very familiar, because that&rsquo;s exactly what it is. That does feel a bit hacky, but it seems to work good enough. You might also want to have a look at <a href="https://github.com/thomasbrueggemann/paperless-desktop">this electron desktop app</a> which uses paperless' API to show all scanned documents in a prettier fashion. <del>Unfortunately it seems to only run on macOS at the moment</del> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and it is an alpha, but it&rsquo;s definitely a great start! It also allows drag and drop of PDF files to upload them.</p>
+<p><img src="https://camo.githubusercontent.com/faee244b57e1b91b7d613952faa3cc9923347ad1/687474703a2f2f692e696d6775722e636f6d2f467267417074452e706e67" alt="paperless desktop"></p>
 <p>The current setup might now already work out great for you, depending on how you scan files and are able to upload files to the consume directory. I&rsquo;m very used to using a scanning app on my mobile device though, specifically <a href="https://scanbot.io/en/index.html">Scanbot</a>. Scanbot has the great feature of letting you upload finished scans to a service of your choice, including FTP and WebDAV shares. This seemed like a great choice to push scans directly to my server. I don&rsquo;t have an FTP server running (and don&rsquo;t want to), but WebDAV is a core feature of <a href="https://nextcloud.com">Nextcloud</a>. And I do have a Nextcloud instance on my server as well.</p>
-
 <p>What I ended up with is the Nextcloud docker container having the consume directory mounted. Then I enabled the fantastic Nextcloud app allowing external storage, added said directory directly to Nextcloud and then configured Scanbot to upload scans via WebDAV directly to the paperless consume directory. An added bonus is that the Nextcloud desktop client also syncs the consume directory to my computer, so I also have a directory there where I can drop PDF files to be added to paperless 👌</p>
-
 <p>Everything now works rather seamlessly and I have better control of my files than with Evernote. The only thing missing would be a dedicated mobile app to search for scans. Maybe I&rsquo;ll have a go at that 😊</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">I&rsquo;ve been told that this is no longer the case. Thanks Julius!
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>I&rsquo;ve been told that this is no longer the case. Thanks Julius! <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
     </div>
     <hr>
