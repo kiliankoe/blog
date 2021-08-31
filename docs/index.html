@@ -48,6 +48,23 @@
   <div class="container">
     
     <article>
+      <h2 class="subtitle is-6">August 31, 2021</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/decoding-unknown-data-with-codable/">Decoding Unknown Data with Codable</a></h1>
+      <div class="content">
+        A friend recently asked me how to decode the following JSON through Swift&rsquo;s Codable type.
+{ &#34;a&#34;: 1, &#34;b&#34;: &#34;foobar&#34;, &#34;option.extra&#34;: { &#34;a&#34;: 1 }, &#34;option.extra.more&#34;: 4 } The problem is that only the first two keys (a and b) are guaranteed to exist, anything aside from that (here everything prefixed with option) is extra and unknown at compile-time. Unknown keys should not be discarded however, they should be decoded into a dictionary for later use, we want a type like this.
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/decoding-unknown-data-with-codable/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
       <h2 class="subtitle is-6">July 26, 2018</h2>
       <h1 class="title"><a href="https://blog.kilian.io/server-setup/">Server Setup with traefik and docker-compose</a></h1>
       <div class="content">
@@ -189,23 +206,6 @@ With all the content I consume it only seems logical to produce something at som
         Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&rsquo;ve forgotten to increment the build number before trying to deploy a project. In my case the problem is usually iTunes Connect, which doesn&rsquo;t take your app&rsquo;s version (or CFBundleShortVersionString) into account, but only the build number (or CFBundleVersion). The former is the version we usually set (according to semver if you&rsquo;re a good person, although it really doesn&rsquo;t make much of a difference for user-facing versions) to identify the version internally.
         
         ...<a class="button is-link" href="https://blog.kilian.io/xcode-buildnumber/" style="height:28px">
-          Read more
-          <span class="icon is-small">
-            <i class="fa fa-angle-double-right"></i>
-          </span>
-        </a>
-        
-      </div>
-    </article>
-    
-    <article>
-      <h2 class="subtitle is-6">October 23, 2016</h2>
-      <h1 class="title"><a href="https://blog.kilian.io/alfred-workflows/">Writing Custom Alfred Worklows</a></h1>
-      <div class="content">
-        A friend of mine has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&rsquo;ve been using for years, but have never really thought about using for my own stuff before.
-Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called script filters.
-        
-        ...<a class="button is-link" href="https://blog.kilian.io/alfred-workflows/" style="height:28px">
           Read more
           <span class="icon is-small">
             <i class="fa fa-angle-double-right"></i>

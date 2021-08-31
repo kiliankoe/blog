@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.kilian.io/</loc>
-    <lastmod>2018-07-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-08-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.kilian.io/decoding-unknown-data-with-codable/</loc>
+    <lastmod>2021-08-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.kilian.io/post/</loc>
-    <lastmod>2018-07-26T00:00:00+00:00</lastmod>
+    <lastmod>2021-08-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.kilian.io/server-setup/</loc>
     <lastmod>2018-07-26T00:00:00+00:00</lastmod>

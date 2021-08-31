@@ -65,7 +65,7 @@ My experience has been that this can easily be changed to terminate the previous
 <p>To show a list of items in Alfred once you&rsquo;re done you have to do nothing more than output some JSON (or XML) to STDOUT.
 Alfred has <a href="https://www.alfredapp.com/help/workflows/inputs/script-filter/json/">pretty good documentation</a> on how your outputted data has to be formatted for Alfred to pick it up.</p>
 <p>The basic idea is having a list of items with their respective fields. Most of them are pretty self-explanatory or well explained in the docs linked above.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{<span style="color:#e6db74">&#34;items&#34;</span><span style="color:#f92672">:</span> [
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">{<span style="color:#e6db74">&#34;items&#34;</span><span style="color:#f92672">:</span> [
     {
         <span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;An item&#34;</span>,
         <span style="color:#e6db74">&#34;subtitle&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Some description &#34;</span>,
@@ -87,7 +87,7 @@ Both have a fantastic API making your life a lot easier by just passing along th
 <p>When hitting enter on an item I wanted to schedule a notification to be displayed several minutes before the departure. My first implementation included a small Swift app using system APIs to schedule that as it turns out you can&rsquo;t schedule future notifications via applescript 😕
 We later figured out how to implement the same functionality directly within the workflow getting rid of the rather cumbersome and awkward first implementation. Ben went ahead and built that directly into goalfred 🙂 A big recommendation goes out to that library.</p>
 <p>Using that we can easily throw together a small (albeit useless) workflow script in go greeting the name the user enters or no one if no input is given.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> (
     <span style="color:#e6db74">&#34;fmt&#34;</span>

@@ -59,9 +59,9 @@
 <li>It automatically handles registering TLS certificates with Let&rsquo;s Encrypt with literally <em>zero</em> overhead on my end.</li>
 </ul>
 <p>What we&rsquo;re going to do is configure a docker network - let&rsquo;s call it <em>web</em> - that every service will be placed into that&rsquo;s actually connected to the internet. Since this network will be service agnostic we&rsquo;ll create it as an external network directly with the docker cli.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker network create web
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker network create web
 </code></pre></div><p>Now we can create a new docker-compose file for traefik that looks something like this.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
 <span style="color:#f92672">services</span>:
   <span style="color:#f92672">app</span>:
@@ -84,7 +84,7 @@
 </code></pre></div><p>This describes a new service based on the official traefik image, which is restarted automatically if it stops, exposes ports 80 (HTTP), 443 (HTTPS) and 8080 (dashboard) directly, has a few mounted volumes and is part of the <em>web</em> network. For the network to be picked up by docker-compose we need to explicitly list it in a networks section below.</p>
 <p>Ports 80 and 443 are pretty self explanatory, but 8080 is where traefik hosts its own dashboard by default. You can also choose to go about that differently, but that&rsquo;s the traefik default. I actually configured the dashboard to be shown on port 443 of a subdomain of my choosing behind a basic auth challenge, so that it&rsquo;s not entirely open to the public, but you can do whatever you like.</p>
 <p>By mounting <code>/var/run/docker.sock:ro</code> into the container we give traefik access to information on all running containers on the host as I mentioned previously, read-only however. In <code>acme.json</code> traefik stores the Let&rsquo;s Encrypt certificate date. We also mount an additional config file, <code>traefik.toml</code>, the contents of which are also relatively simple.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">debug</span> = <span style="color:#66d9ef">false</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-toml" data-lang="toml"><span style="color:#a6e22e">debug</span> = <span style="color:#66d9ef">false</span>
 <span style="color:#a6e22e">logLevel</span> = <span style="color:#e6db74">&#34;ERROR&#34;</span>
 
 <span style="color:#a6e22e">defaultEntryPoints</span> = [<span style="color:#e6db74">&#34;http&#34;</span>, <span style="color:#e6db74">&#34;https&#34;</span>]
@@ -121,12 +121,12 @@
 </code></pre></div><p>There&rsquo;s not a lot to say about this. We configure the log level, the default entry points and a redirect to always use TLS. Additionally we tell traefik about the base domain and also about how to handle TLS and and which challenge to use.</p>
 <p>The only thing left to do now is to setup your domains DNS records to point to your server&rsquo;s IP address and ideally set up a wildcard subdomain, e.g. <code>*.kilian.io</code> in my case to point to the server as well. This allows you to specify any necessary subdomains directly (blog.kilian.io runs on GitHub pages for example, not my server) and let everything else fall back to the server and therefore into traefik&rsquo;s hands.</p>
 <p>Don&rsquo;t forget to boot up traefik via docker-compose from within it&rsquo;s directory and we&rsquo;re good to go ✨</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose up -d
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose up -d
 </code></pre></div><h1 id="running-other-services">Running Other Services</h1>
 <p>As examples we&rsquo;re going to configure two web-facing services. Instances of <a href="https://gitea.io">gitea</a> and <a href="https://github.com/huginn/huginn">huginn</a>.</p>
 <h2 id="gitea">Gitea</h2>
 <p>Gitea is rather easy to set up, since it requires no other services besides itself. Let&rsquo;s go straight for the docker-compose file.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
 <span style="color:#f92672">services</span>:
   <span style="color:#f92672">app</span>:
@@ -154,11 +154,11 @@
 </code></pre></div><p>All we need to do is declare two env vars, the network this container will be added to, a volume for persisting data beyond container restarts and rebuilds, specifically for gitea a custom SSH port and most importantly a few labels.</p>
 <p>These labels are what traefik uses to understand how to channel traffic to this container. The last two are the most important ones. First we tell traefik which host header to look for in requests to the server (here: git.kilian.io) and then which port this service wants to map to port 80 / 443 on that domain.</p>
 <p>That&rsquo;s it. A request to git.kilian.io (or directly to the server with a fitting host header field) will be forwarded to port 3000 of this service. All you have to do is start it up.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose up -d
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose up -d
 </code></pre></div><p>TLS is configured automatically by traefik on the first request (which might therefore take a second longer). You should be seeing a valid certificate if everything is set up correctly.</p>
 <h2 id="huginn">Huginn</h2>
 <p>Huginn is slightly more complex since we&rsquo;re going to need two services. The application itself and a database.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
 
 <span style="color:#f92672">services</span>:
   <span style="color:#f92672">app</span>:

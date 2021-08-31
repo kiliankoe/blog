@@ -50,7 +50,7 @@
     <h1 class="title">Docker Swift Runtime</h1>
     <div class="content">
       <p>I recently wrote a small <a href="https://vapor.codes">Vapor</a> web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4
 
 COPY . .
 
@@ -64,7 +64,7 @@ CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#
 <p>The problem is of course that the <code>swift</code> image contains the entire development environment that we don&rsquo;t actually need anymore after having built the app.</p>
 <p>After trying to go the route of automating the build process by using a container dedicated to building the app then extracting everything I needed from that container and building a new one from that I saw that docker actually had this functionality built in. It&rsquo;s called a multistage build and lets you use separate images to perform whatever it is you want to do. In this case use an image for compiling the app and a separate one to actually package up and run the app binary and configs.</p>
 <p>The Dockerfile for that case doesn&rsquo;t get a lot more complicated, we just set a second base image after we&rsquo;re done with the first one and copy over the necessary files.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4 as build
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4 as build
 
 COPY . .
 
@@ -93,7 +93,7 @@ CMD<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#3
 </code></pre></div><p>To properly set up the second image to run our app we just have to install a few dependencies and copy over the contents of <code>/usr/lib/swift/...</code>. The rest is the same as before.</p>
 <p>Since we now no longer store all dev dependencies in our image, we&rsquo;ve just made our image ~1.3GB smaller (around 200MB), that&rsquo;s quite the improvement!</p>
 <p>To wrap things up even nicer I published the runtime image as <a href="https://hub.docker.com/r/kiliankoe/swift-runtime/"><code>kiliankoe/swift-runtime</code></a> so that we can reduce our Dockerfile to the following.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4 as build
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4 as build
 
 COPY . .
 

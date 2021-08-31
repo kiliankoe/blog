@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decoding Unknown Data with Codable | blog.kilian.io</title>
+<link rel="stylesheet" href="https://blog.kilian.io//css/style.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+
+<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://blog.kilian.io/"><h1 class="title is-4">blog.kilian.io</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://twitter.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="subtitle is-6">August 31, 2021</h2>
+    <h1 class="title">Decoding Unknown Data with Codable</h1>
+    <div class="content">
+      <p>A friend recently asked me how to decode the following JSON through Swift&rsquo;s <code>Codable</code> type.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+  <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+  <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;foobar&#34;</span>,
+  <span style="color:#e6db74">&#34;option.extra&#34;</span><span style="color:#f92672">:</span> {
+    <span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>
+  },
+  <span style="color:#e6db74">&#34;option.extra.more&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span>
+}
+</code></pre></div><p>The problem is that only the first two keys (<code>a</code> and <code>b</code>) are guaranteed to exist, anything aside from that (here everything prefixed with <code>option</code>) is extra and unknown at compile-time. Unknown keys should not be discarded however, they should be decoded into a dictionary for later use, we want a type like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Json</span> {
+  <span style="color:#66d9ef">var</span> a: Int
+  <span style="color:#66d9ef">var</span> b: String
+  <span style="color:#66d9ef">var</span> extraOptions: [String: ?]
+}
+</code></pre></div><p>It&rsquo;s a bit unclear what type to use for <code>extraOptions</code>, since we don&rsquo;t really know what the values are. They can be anything, as long as it&rsquo;s decodable. The folks at <a href="https://flight.school">Flight School</a> have a fantastic package for us to facilitate that conveniently called <a href="https://github.com/flight-school/anycodable">AnyCodable</a>, which provides type-erased wrappers for <code>Encodable</code>, <code>Decodable</code>, and <code>Codable</code> values. We can use that to represent the requirement of having <em>anything</em>, as long as it&rsquo;s decodable, by defining the type as follows.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Json</span> {
+  <span style="color:#66d9ef">var</span> a: Int
+  <span style="color:#66d9ef">var</span> b: String
+  <span style="color:#66d9ef">var</span> extraOptions: [String: AnyDecodable]
+}
+</code></pre></div><p>As it stands we&rsquo;re getting the automatically synthesized implementation of <code>Json</code>&rsquo;s initializer, which will try to find a dictionary called <code>extraOptions</code> in the source JSON, which obviously isn&rsquo;t present. We&rsquo;ll have to implement the initializer ourselves. Doing so will also require us to define a type conforming to <code>CodingKey</code>, which we can use to specify the encoded keys in our source data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">Json</span>: Decodable {
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">CodingKeys</span>: CodingKey {
+    <span style="color:#66d9ef">case</span> a, b
+  }
+
+  <span style="color:#66d9ef">init</span>(from decoder: Decoder) <span style="color:#66d9ef">throws</span> {
+    <span style="color:#66d9ef">let</span> container = <span style="color:#66d9ef">try</span> decoder.container(keyedBy: CodingKeys.<span style="color:#66d9ef">self</span>)
+    <span style="color:#66d9ef">self</span>.a = <span style="color:#66d9ef">try</span> container.decode(Int.<span style="color:#66d9ef">self</span>, forKey: .a)
+    <span style="color:#66d9ef">self</span>.b = <span style="color:#66d9ef">try</span> container.decode(String.<span style="color:#66d9ef">self</span>, forKey: .b)
+    <span style="color:#66d9ef">self</span>.extraOptions = [:]
+  }
+}
+</code></pre></div><p>We&rsquo;ve now run into the problem of somehow having to specify all keys in our <code>CodingKeys</code> enum, which obviously doesn&rsquo;t help for unknown keys. What we can do though is to use the <code>CodingKey</code> protocol to create our own <em>dynamic</em> key handling type, which can handle any <code>String</code> as a key.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">DynamicCodingKeys</span>: CodingKey {
+  <span style="color:#66d9ef">var</span> stringValue: String
+  <span style="color:#66d9ef">init</span>?(stringValue: String) {
+    <span style="color:#66d9ef">self</span>.stringValue = stringValue
+  }
+
+  <span style="color:#75715e">// not used here, but a protocol requirement</span>
+  <span style="color:#66d9ef">var</span> intValue: Int?
+  <span style="color:#66d9ef">init</span>?(intValue: Int) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+  }
+}
+</code></pre></div><p>While we could use this entirely instead of our previous implementation, I personally find it quite a bit cleaner to keep the existing <code>CodingKeys</code> for known keys, but cover everything else with the <code>DynamicCodingKeys</code>. Creating a new container from our decoder keyed with <code>DynamicCodingKeys</code> however will give us a container containing <em>all</em> keys, not just the extra ones, so we&rsquo;ll have to filter out those we&rsquo;ve already taken care of, leaving us with something like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">extension</span> <span style="color:#a6e22e">Json</span>: Decodable {
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">KnownCodingKeys</span>: CodingKey, CaseIterable {
+    <span style="color:#66d9ef">case</span> a, b
+
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">doesNotContain</span>(<span style="color:#66d9ef">_</span> key: Json.DynamicCodingKeys) -&gt; Bool {
+      <span style="color:#f92672">!</span><span style="color:#66d9ef">Self</span>.allCases.map(<span style="color:#960050;background-color:#1e0010">\</span>.stringValue).contains(key.stringValue)
+    }
+  }
+
+  <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">DynamicCodingKeys</span>: CodingKey {
+    <span style="color:#66d9ef">var</span> stringValue: String
+    <span style="color:#66d9ef">init</span>?(stringValue: String) {
+      <span style="color:#66d9ef">self</span>.stringValue = stringValue
+    }
+
+    <span style="color:#75715e">// not used here, but a protocol requirement</span>
+    <span style="color:#66d9ef">var</span> intValue: Int?
+    <span style="color:#66d9ef">init</span>?(intValue: Int) {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+    }
+  }
+
+  <span style="color:#66d9ef">init</span>(from decoder: Decoder) <span style="color:#66d9ef">throws</span> {
+    <span style="color:#66d9ef">let</span> container = <span style="color:#66d9ef">try</span> decoder.container(keyedBy: KnownCodingKeys.<span style="color:#66d9ef">self</span>)
+    <span style="color:#66d9ef">self</span>.a = <span style="color:#66d9ef">try</span> container.decode(Int.<span style="color:#66d9ef">self</span>, forKey: .a)
+    <span style="color:#66d9ef">self</span>.b = <span style="color:#66d9ef">try</span> container.decode(String.<span style="color:#66d9ef">self</span>, forKey: .b)
+
+    <span style="color:#66d9ef">self</span>.extraOptions = [:]
+    <span style="color:#66d9ef">let</span> extraContainer = <span style="color:#66d9ef">try</span> decoder.container(keyedBy: DynamicCodingKeys.<span style="color:#66d9ef">self</span>)
+
+    <span style="color:#66d9ef">for</span> key <span style="color:#66d9ef">in</span> extraContainer.allKeys <span style="color:#66d9ef">where</span> KnownCodingKeys.doesNotContain(key) {
+      <span style="color:#66d9ef">let</span> decoded = <span style="color:#66d9ef">try</span> extraContainer.decode(AnyDecodable.<span style="color:#66d9ef">self</span>, forKey: DynamicCodingKey(stringValue: key.stringValue)<span style="color:#f92672">!</span>)
+      <span style="color:#66d9ef">self</span>.extraOptions[key.stringValue] = decoded
+    }
+  }
+}
+</code></pre></div><p>The static function <code>KnownCodingKeys.doesNotContain(_:)</code> is totally not necessary, but it makes the loop in the initializer nicer to read.</p>
+<p>When trying to run this, we see that it works as intended!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">let</span> json = <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">{
+</span><span style="color:#e6db74">  &#34;</span>a<span style="color:#e6db74">&#34;: 1,
+</span><span style="color:#e6db74">  &#34;</span>b<span style="color:#e6db74">&#34;: &#34;</span>foobar<span style="color:#e6db74">&#34;,
+</span><span style="color:#e6db74">  &#34;</span>option.extra<span style="color:#e6db74">&#34;: {
+</span><span style="color:#e6db74">    &#34;</span>a<span style="color:#e6db74">&#34;: 1
+</span><span style="color:#e6db74">  },
+</span><span style="color:#e6db74">  &#34;</span>option.extra.more<span style="color:#e6db74">&#34;: 4
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>.data(using: .utf8)<span style="color:#f92672">!</span>
+
+<span style="color:#66d9ef">let</span> decoded = <span style="color:#66d9ef">try</span> JSONDecoder().decode(Json.<span style="color:#66d9ef">self</span>, from: json)
+print(decoded)
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift">Json(
+  a: <span style="color:#ae81ff">1</span>,
+  b: <span style="color:#e6db74">&#34;foobar&#34;</span>,
+  extraOptions: [
+    <span style="color:#e6db74">&#34;option.extra&#34;</span>: AnyDecodable([<span style="color:#e6db74">&#34;a&#34;</span>: <span style="color:#ae81ff">1</span>]),
+    <span style="color:#e6db74">&#34;option.extra.more&#34;</span>: AnyDecodable(<span style="color:#ae81ff">4</span>)
+  ]
+)
+</code></pre></div><p>That&rsquo;s it, cya for the next blog post in - <em>check&rsquo;s watch</em> - three years 😅</p>
+
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="kiliankoe/blog"
+        issue-term="pathname"
+        async>
+    </script>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/ruby.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/swift.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/javascript.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/bash.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+

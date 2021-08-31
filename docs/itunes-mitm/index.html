@@ -64,7 +64,7 @@ Apple recently removed the App Store entirely from iTunes (a welcome move), whic
 <p>I&rsquo;m using a tool called <a href="https://www.charlesproxy.com">Charles</a> for this. I can also recommend the very popular <a href="https://mitmproxy.org">mitmproxy</a>. The idea is the same for both of them, but I&rsquo;ll reference Charles here.</p>
 <p>Run your tool of choice and start iTunes. Search for the app you want and click download. Since you don&rsquo;t want the current version you can cancel the download right after that. Now check Charles for a request to <code>*-buy.itunes.apple.com</code>. Since this request is TLS encrypted we&rsquo;re going to enable Charles' SSL Proxying (right-click the request and do so). Let iTunes re-send the request by starting the download again (we still just need it to start, not actually finish downloading). Charles should now show the request in its unencrypted form.</p>
 <p>If you view the server&rsquo;s response you&rsquo;ll see a plist file (Apple&rsquo;s XML based &ldquo;property list&rdquo; file format). You&rsquo;re looking for a section that looks like the following.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;key&gt;</span>softwareVersionExternalIdentifiers<span style="color:#f92672">&lt;/key&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;key&gt;</span>softwareVersionExternalIdentifiers<span style="color:#f92672">&lt;/key&gt;</span>
 <span style="color:#f92672">&lt;array&gt;</span>
 <span style="color:#f92672">&lt;integer&gt;</span>813164182<span style="color:#f92672">&lt;/integer&gt;</span>
 <span style="color:#f92672">&lt;integer&gt;</span>813305098<span style="color:#f92672">&lt;/integer&gt;</span>
@@ -78,7 +78,7 @@ Apple recently removed the App Store entirely from iTunes (a welcome move), whic
 <!-- raw HTML omitted -->
 <p>Unfortunately there&rsquo;s no direct way to correlate all of these version identifiers with the app&rsquo;s actual version strings. Apple&rsquo;s servers only tell you the version string when requesting one of these specifically, but more on that in a pinch.</p>
 <p>Go ahead and copy an ID. Now check the request tab of that same request. You should be able to find a section that specifies which version iTunes wants to download.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;key&gt;</span>appExtVrsId<span style="color:#f92672">&lt;/key&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;key&gt;</span>appExtVrsId<span style="color:#f92672">&lt;/key&gt;</span>
 <span style="color:#f92672">&lt;string&gt;</span>822037669<span style="color:#f92672">&lt;/string&gt;</span>
 </code></pre></div><p>The easiest way in Charles is to now set a breakpoint on this request (right-click → Breakpoints). Restart the download in iTunes and Charles will pop up allowing you to edit the request iTunes sends to Apple before it goes through. This is where you can now insert your copied ID as the value for the just mentioned <code>appExtVrsId</code> field. After clicking &ldquo;Execute&rdquo; Charles will also stop the incoming response before allowing iTunes to read it. This includes a field named <code>bundleShortVersionString</code> which contains the human-readable ID. You can abort the response and try again if this wasn&rsquo;t the app version you&rsquo;re looking for.</p>
 <p><!-- raw HTML omitted --></p>
@@ -87,7 +87,7 @@ Apple recently removed the App Store entirely from iTunes (a welcome move), whic
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>I&rsquo;m referring to the app <a href="https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8">FahrInfo</a> for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, you know that I&rsquo;m a <a href="https://github.com/kiliankoe/vvo">sucker</a> for local public transport data. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>I&rsquo;m referring to the app <a href="https://itunes.apple.com/us/app/fahrinfo-dresden/id314790387?mt=8">FahrInfo</a> for Dresden. The bundled SQLite db contains a list of all public transport stops including their coordinates, which was used by the app for autocompletion. And if you know me, you know that I&rsquo;m a <a href="https://github.com/kiliankoe/vvo">sucker</a> for local public transport data.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

@@ -6,7 +6,17 @@
     <description>Recent content on blog.kilian.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.kilian.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Decoding Unknown Data with Codable</title>
+      <link>https://blog.kilian.io/decoding-unknown-data-with-codable/</link>
+      <pubDate>Tue, 31 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.kilian.io/decoding-unknown-data-with-codable/</guid>
+      <description>A friend recently asked me how to decode the following JSON through Swift&amp;rsquo;s Codable type.
+{ &amp;#34;a&amp;#34;: 1, &amp;#34;b&amp;#34;: &amp;#34;foobar&amp;#34;, &amp;#34;option.extra&amp;#34;: { &amp;#34;a&amp;#34;: 1 }, &amp;#34;option.extra.more&amp;#34;: 4 } The problem is that only the first two keys (a and b) are guaranteed to exist, anything aside from that (here everything prefixed with option) is extra and unknown at compile-time. Unknown keys should not be discarded however, they should be decoded into a dictionary for later use, we want a type like this.</description>
+    </item>
+    
     <item>
       <title>Server Setup with traefik and docker-compose</title>
       <link>https://blog.kilian.io/server-setup/</link>

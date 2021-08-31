@@ -61,33 +61,33 @@ iMessage uses NTP timestamps, thanks to Johannes K. for telling me about that! �
 <p>I&rsquo;m not all too interested in sharing exact data on our relationship, so please regard that as being a side effect. Instead I wasn&rsquo;t able to find any fun writeups showing a bit of sample code as well, which is the main reason for this blog post. Unfortunately though the codesamples below are far from ideal, but the beauty of doing something like this in a Jupyter notebook is that the performance costs start to become negligible since you&rsquo;re only running the current cell. Everything else that&rsquo;s already been computed <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> just stays in memory. A seriously awesome feature.</p>
 <p>So, now that everything is cleaned up and structured nicely we can ask some questions.</p>
 <p><strong>Who wrote the most messages in total?</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">janine <span style="color:#f92672">=</span> [msg <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs <span style="color:#66d9ef">if</span> msg[<span style="color:#e6db74">&#39;author&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;janine&#39;</span>]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">janine <span style="color:#f92672">=</span> [msg <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs <span style="color:#66d9ef">if</span> msg[<span style="color:#e6db74">&#39;author&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;janine&#39;</span>]
 kilian <span style="color:#f92672">=</span> [msg <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs <span style="color:#66d9ef">if</span> msg[<span style="color:#e6db74">&#39;author&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;kilian&#39;</span>]
 
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;janine:&#39;</span>, len(janine), len(janine) <span style="color:#f92672">/</span> len(msgs) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;kilian:&#39;</span>, len(kilian), len(kilian) <span style="color:#f92672">/</span> len(msgs) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
+print(<span style="color:#e6db74">&#39;janine:&#39;</span>, len(janine), len(janine) <span style="color:#f92672">/</span> len(msgs) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
+print(<span style="color:#e6db74">&#39;kilian:&#39;</span>, len(kilian), len(kilian) <span style="color:#f92672">/</span> len(msgs) <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
 
 <span style="color:#75715e"># janine: 35152 56.588161432090025</span>
 <span style="color:#75715e"># kilian: 26967 43.411838567909975</span>
 </code></pre></div><p>Looks like my girlfriend (her name is Janine by the way in case you couldn&rsquo;t tell) takes the lead with an 8k message headstart, which accounts to 56% of all messages. Could that be due to me writing longer messages instead? 🤔</p>
 <p><strong>How&rsquo;s the average count of words per message per person?</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> re
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> re
 
 wordcount_janine <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> janine:
     count <span style="color:#f92672">=</span> len(re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\w+&#39;</span>, msg[<span style="color:#e6db74">&#39;text&#39;</span>]))
     wordcount_janine <span style="color:#f92672">+=</span> count
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;janine&#39;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;words total:&#39;</span>, wordcount_janine)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;avg words/msg:&#39;</span>, wordcount_janine <span style="color:#f92672">/</span> len(janine))
+print(<span style="color:#e6db74">&#39;janine&#39;</span>)
+print(<span style="color:#e6db74">&#39;words total:&#39;</span>, wordcount_janine)
+print(<span style="color:#e6db74">&#39;avg words/msg:&#39;</span>, wordcount_janine <span style="color:#f92672">/</span> len(janine))
 
 wordcount_kilian <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> kilian:
     count <span style="color:#f92672">=</span> len(re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\w+&#39;</span>, msg[<span style="color:#e6db74">&#39;text&#39;</span>]))
     wordcount_kilian <span style="color:#f92672">+=</span> count
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">kilian&#39;</span>)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;words total:&#39;</span>, wordcount_kilian)
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;avg words/msg:&#39;</span>, wordcount_kilian <span style="color:#f92672">/</span> len(kilian))
+print(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">kilian&#39;</span>)
+print(<span style="color:#e6db74">&#39;words total:&#39;</span>, wordcount_kilian)
+print(<span style="color:#e6db74">&#39;avg words/msg:&#39;</span>, wordcount_kilian <span style="color:#f92672">/</span> len(kilian))
 
 <span style="color:#75715e"># janine</span>
 <span style="color:#75715e"># words total: 216606</span>
@@ -98,16 +98,16 @@ wordcount_kilian <span style="color:#f92672">=</span> <span style="color:#ae81ff
 <span style="color:#75715e"># avg words/msg: 7.378610894797345</span>
 </code></pre></div><p>Aha! It might not be a huge difference, but it looks like my messages are bit longer on average. That evens things out 😄</p>
 <p><strong>What are our most used words?</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
 
 all_words <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: <span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs:
     <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\w+&#39;</span>, msg[<span style="color:#e6db74">&#39;text&#39;</span>]):
         all_words[word<span style="color:#f92672">.</span>lower()] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 
-<span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> sorted(all_words, key<span style="color:#f92672">=</span>all_words<span style="color:#f92672">.</span>get, reverse<span style="color:#f92672">=</span>True)[:<span style="color:#ae81ff">20</span>]:
+<span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> sorted(all_words, key<span style="color:#f92672">=</span>all_words<span style="color:#f92672">.</span>get, reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)[:<span style="color:#ae81ff">20</span>]:
     count <span style="color:#f92672">=</span> all_words[word]
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;{word}: {count}&#39;</span>)
+    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">{</span>word<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>count<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>)
 
 <span style="color:#75715e"># ich: 16674</span>
 <span style="color:#75715e"># das: 9469</span>
@@ -132,17 +132,17 @@ all_words <span style="color:#f92672">=</span> defaultdict(<span style="color:#6
 </code></pre></div><p>Not the most interesting of results to be honest. Interestingly enough though the distribution looks pretty much the same if you go by person, so I&rsquo;m willing to believe that this might be a relatively normal distribution for most German speakers. The &ldquo;d&rdquo; by the way is probably part of &ldquo;:D&rdquo; which the regex just found as being it&rsquo;s own word. Oh well ¯\_(ツ)_/¯</p>
 <p>A much better query here would probably be to see which words are specific (or at least <em>more</em> specific) to one person instead of the other. I&rsquo;m not quite sure how to go about doing that though 🙈</p>
 <p><strong>How many messages are sent per day and how many days are there without any messages at all?</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">all_days <span style="color:#f92672">=</span> set()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">all_days <span style="color:#f92672">=</span> set()
 <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs:
     date <span style="color:#f92672">=</span> msg[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%Y-%m-</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#39;</span>)
     all_days<span style="color:#f92672">.</span>add(date)
 
-<span style="color:#66d9ef">print</span>(len(all_days))
+print(len(all_days))
 
 current_day_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">997</span> <span style="color:#75715e"># days we&#39;ve been together as of today</span>
-<span style="color:#66d9ef">print</span>(len(all_days) <span style="color:#f92672">/</span> current_day_count <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
+print(len(all_days) <span style="color:#f92672">/</span> current_day_count <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
 
-<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;messages per day:&#39;</span>, len(msgs) <span style="color:#f92672">/</span> len(all_days))
+print(<span style="color:#e6db74">&#39;messages per day:&#39;</span>, len(msgs) <span style="color:#f92672">/</span> len(all_days))
 
 <span style="color:#75715e"># 959</span>
 <span style="color:#75715e"># 96.18856569709128</span>
@@ -150,7 +150,7 @@ current_day_count <span style="color:#f92672">=</span> <span style="color:#ae81f
 </code></pre></div><p>Looks like there&rsquo;s been 38 days without any messages, which comes to down to around 4% of all 997 days. On average there&rsquo;s 64.8 messages a day over the entire timespan. Splitting this up into a running average would probably make a lot of sense.</p>
 <p><strong>How many messages are sent per weekday?</strong></p>
 <p>This might actually be a good usecase to try and plot something instead. Visualizing these numbers helps put everything into a bit more perspective.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">day_of_week <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: <span style="color:#ae81ff">0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">day_of_week <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: <span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs:
     day <span style="color:#f92672">=</span> msg[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%A&#39;</span>)
     day_of_week[day] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
@@ -167,7 +167,7 @@ plt<span style="color:#f92672">.</span>show()
 </code></pre></div><p><img src="/img/chat-stats-weekday-distribution.png" alt="weekday distribution"></p>
 <p>Also not a surprise, since we usually spend a lot more time together on weekends making digital conversation obsolete.</p>
 <p><strong>What about hours of the day instead?</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">hour_of_day <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: <span style="color:#ae81ff">0</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">hour_of_day <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: <span style="color:#ae81ff">0</span>)
 <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> msgs:
     hour <span style="color:#f92672">=</span> msg[<span style="color:#e6db74">&#39;date&#39;</span>]<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;%H&#39;</span>)
     hour_of_day[hour] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
@@ -185,7 +185,7 @@ plt<span style="color:#f92672">.</span>show()
 <p><strong>What about overall activity?</strong></p>
 <p>I had no clue how to go about plotting this via matplotlib, so I decided to export the data as a CSV instead of use Apple&rsquo;s Numbers, please don&rsquo;t judge me 😅</p>
 <p>Different platforms have different colors and it&rsquo;s overall grouped by week, not single days, which was far too noisy.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">messages_per_date <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">messages_per_date <span style="color:#f92672">=</span> defaultdict(<span style="color:#66d9ef">lambda</span>: {
     <span style="color:#e6db74">&#39;whatsapp&#39;</span>: <span style="color:#ae81ff">0</span>,
     <span style="color:#e6db74">&#39;instagram&#39;</span>: <span style="color:#ae81ff">0</span>,
     <span style="color:#e6db74">&#39;telegram&#39;</span>: <span style="color:#ae81ff">0</span>,
@@ -214,16 +214,16 @@ plt<span style="color:#f92672">.</span>show()
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>The new lab mode is super awesome by the way! 😍 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>The new lab mode is super awesome by the way! 😍&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>This is probably a major headache if using Telegram whilst traveling, since you basically lose all time information. No clue how one would handle that correctly 🤔 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>This is probably a major headache if using Telegram whilst traveling, since you basically lose all time information. No clue how one would handle that correctly 🤔&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>Including reading in the CSV data which is the only thing here that actually takes a few seconds. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Including reading in the CSV data which is the only thing here that actually takes a few seconds.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p>Which would be the case for iMessage and WhatsApp (allegedly). Instagram offers no such thing and Telegram&rsquo;s secret chats are ridiculous, since they lock you to the client where the chat is initiated. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Which would be the case for iMessage and WhatsApp (allegedly). Instagram offers no such thing and Telegram&rsquo;s secret chats are ridiculous, since they lock you to the client where the chat is initiated.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
