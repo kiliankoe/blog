@@ -4,11 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cheap DynDNS Alternative | blog.kilian.io</title>
 <link rel="stylesheet" href="https://blog.kilian.io//css/style.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
-
-<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
 
 
 <section class="section">
@@ -22,13 +20,13 @@
           
           <a class="level-item" href="https://github.com/kiliankoe">
             <span class="icon">
-              <i class="fa fa-github"></i>
+              <i class="fa fa-brands fa-github"></i>
             </span>
           </a>
           
-          <a class="level-item" href="https://twitter.com/kiliankoe">
+          <a class="level-item" href="https://chaos.social/@kilian">
             <span class="icon">
-              <i class="fa fa-twitter"></i>
+              <i class="fa fa-brands fa-mastodon"></i>
             </span>
           </a>
           
@@ -52,49 +50,49 @@
       <p>Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.</p>
 <p>After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare. Why not just get my current IP every $TIME_INTERVAL or so and send that to CloudFlare via their API updating an existing DNS record.</p>
 <p>Here’s a simple ruby script for just that.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#75715e">#! /usr/bin/env ruby</span>
-
-require <span style="color:#e6db74">&#39;net/http&#39;</span>
-require <span style="color:#e6db74">&#39;cloudflare&#39;</span>
-
-<span style="color:#75715e"># Email used for login</span>
-<span style="color:#66d9ef">CLOUDFLARE_EMAIL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_EMAIL&#34;</span><span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># API Key, can be found here =&gt; https://www.cloudflare.com/a/account/my-account</span>
-<span style="color:#66d9ef">CLOUDFLARE_API_KEY</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_API_KEY&#34;</span><span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># The zone (aka domain) this is for, e.g. &#39;example.com&#39;</span>
-<span style="color:#66d9ef">CLOUDFLARE_ZONE</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_ZONE&#34;</span><span style="color:#f92672">]</span>
-
-<span style="color:#75715e"># The specific record name to edit, e.g. &#39;record.example.com&#39;</span>
-<span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_RECORD_NAME&#34;</span><span style="color:#f92672">]</span>
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_ip</span>
-  <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>get(<span style="color:#66d9ef">URI</span><span style="color:#f92672">.</span>parse(<span style="color:#e6db74">&#39;http://canihazip.com/s&#39;</span>))
-<span style="color:#66d9ef">end</span>
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_cloudflare</span>(ip)
-  cf <span style="color:#f92672">=</span> <span style="color:#66d9ef">CloudFlare</span><span style="color:#f92672">::</span>connection(<span style="color:#66d9ef">CLOUDFLARE_API_KEY</span>, <span style="color:#66d9ef">CLOUDFLARE_EMAIL</span>)
-  <span style="color:#66d9ef">begin</span>
-    rec_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
-    records <span style="color:#f92672">=</span> cf<span style="color:#f92672">.</span>rec_load_all(<span style="color:#66d9ef">CLOUDFLARE_ZONE</span>)
-    records<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;response&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;recs&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;objs&#39;</span><span style="color:#f92672">].</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>record<span style="color:#f92672">|</span>
-      <span style="color:#66d9ef">if</span> record<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span>
-        rec_id <span style="color:#f92672">=</span> record<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;rec_id&#39;</span><span style="color:#f92672">]</span>
-        <span style="color:#66d9ef">break</span>
-      <span style="color:#66d9ef">end</span>
-    <span style="color:#66d9ef">end</span>
-    <span style="color:#75715e"># Sending &#39;1&#39; for the TTL = &#39;automatic&#39; meaning approx. 300 (5 minutes)</span>
-    cf<span style="color:#f92672">.</span>rec_edit(<span style="color:#66d9ef">CLOUDFLARE_ZONE</span>, <span style="color:#e6db74">&#39;A&#39;</span>, rec_id, <span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span>, ip, <span style="color:#ae81ff">1</span>)
-  <span style="color:#66d9ef">rescue</span> <span style="color:#f92672">=&gt;</span> e
-    puts e<span style="color:#f92672">.</span>message
-  <span style="color:#66d9ef">else</span>
-    puts <span style="color:#e6db74">&#34;Successfully updated A record for </span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">#{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-  <span style="color:#66d9ef">end</span>
-<span style="color:#66d9ef">end</span>
-
-update_cloudflare(get_ip)
-</code></pre></div><p>The script relies on two things to work correctly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e">#! /usr/bin/env ruby</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;net/http&#39;</span>
+</span></span><span style="display:flex;"><span>require <span style="color:#e6db74">&#39;cloudflare&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Email used for login</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOUDFLARE_EMAIL</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_EMAIL&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># API Key, can be found here =&gt; https://www.cloudflare.com/a/account/my-account</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOUDFLARE_API_KEY</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_API_KEY&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The zone (aka domain) this is for, e.g. &#39;example.com&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOUDFLARE_ZONE</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_ZONE&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># The specific record name to edit, e.g. &#39;record.example.com&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ENV</span><span style="color:#f92672">[</span><span style="color:#e6db74">&#34;CLOUDFLARE_RECORD_NAME&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_ip</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">Net</span><span style="color:#f92672">::</span><span style="color:#66d9ef">HTTP</span><span style="color:#f92672">.</span>get(<span style="color:#66d9ef">URI</span><span style="color:#f92672">.</span>parse(<span style="color:#e6db74">&#39;http://canihazip.com/s&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_cloudflare</span>(ip)
+</span></span><span style="display:flex;"><span>  cf <span style="color:#f92672">=</span> <span style="color:#66d9ef">CloudFlare</span><span style="color:#f92672">::</span>connection(<span style="color:#66d9ef">CLOUDFLARE_API_KEY</span>, <span style="color:#66d9ef">CLOUDFLARE_EMAIL</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">begin</span>
+</span></span><span style="display:flex;"><span>    rec_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    records <span style="color:#f92672">=</span> cf<span style="color:#f92672">.</span>rec_load_all(<span style="color:#66d9ef">CLOUDFLARE_ZONE</span>)
+</span></span><span style="display:flex;"><span>    records<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;response&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;recs&#39;</span><span style="color:#f92672">][</span><span style="color:#e6db74">&#39;objs&#39;</span><span style="color:#f92672">].</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>record<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> record<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;name&#39;</span><span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span>
+</span></span><span style="display:flex;"><span>        rec_id <span style="color:#f92672">=</span> record<span style="color:#f92672">[</span><span style="color:#e6db74">&#39;rec_id&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Sending &#39;1&#39; for the TTL = &#39;automatic&#39; meaning approx. 300 (5 minutes)</span>
+</span></span><span style="display:flex;"><span>    cf<span style="color:#f92672">.</span>rec_edit(<span style="color:#66d9ef">CLOUDFLARE_ZONE</span>, <span style="color:#e6db74">&#39;A&#39;</span>, rec_id, <span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span>, ip, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">rescue</span> <span style="color:#f92672">=&gt;</span> e
+</span></span><span style="display:flex;"><span>    puts e<span style="color:#f92672">.</span>message
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    puts <span style="color:#e6db74">&#34;Successfully updated A record for </span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">CLOUDFLARE_RECORD_NAME</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> to </span><span style="color:#e6db74">#{</span>ip<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>update_cloudflare(get_ip)
+</span></span></code></pre></div><p>The script relies on two things to work correctly:</p>
 <ul>
 <li>Make sure to set the record to be updated beforehand, this script will look at all records and update the IP of the correct one.</li>
 <li>You need to pass a few environment variables as specified at the top of the script, namely <code>CLOUDFLARE_EMAIL</code>, <code>CLOUDFLARE_API_KEY</code>, <code>CLOUDFLARE_ZONE</code> and <code>CLOUDFLARE_RECORD_NAME</code>.</li>

@@ -4,11 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Docker Swift Runtime | blog.kilian.io</title>
 <link rel="stylesheet" href="https://blog.kilian.io//css/style.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
-
-<script async defer data-domain="blog.kilian.io" src="https://geiger.kernkraftwerk.lol/js/plausible.js"></script>
 
 
 <section class="section">
@@ -22,13 +20,13 @@
           
           <a class="level-item" href="https://github.com/kiliankoe">
             <span class="icon">
-              <i class="fa fa-github"></i>
+              <i class="fa fa-brands fa-github"></i>
             </span>
           </a>
           
-          <a class="level-item" href="https://twitter.com/kiliankoe">
+          <a class="level-item" href="https://chaos.social/@kilian">
             <span class="icon">
-              <i class="fa fa-twitter"></i>
+              <i class="fa fa-brands fa-mastodon"></i>
             </span>
           </a>
           
@@ -50,65 +48,65 @@
     <h1 class="title">Docker Swift Runtime</h1>
     <div class="content">
       <p>I recently wrote a small <a href="https://vapor.codes">Vapor</a> web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4
-
-COPY . .
-
-EXPOSE <span style="color:#ae81ff">8080</span>
-
-RUN swift build --configuration release
-
-ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;.build/release/Run&#34;</span><span style="color:#f92672">]</span>
-CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#34;</span>, <span style="color:#e6db74">&#34;--env=production&#34;</span><span style="color:#f92672">]</span>
-</code></pre></div><p>Whilst this worked perfectly fine, the image size turned out to be a whopping 1.5GB. That didn&rsquo;t quite feel right if for an app as small as mine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>FROM swift:4
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY . .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RUN swift build --configuration release
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENTRYPOINT <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;.build/release/Run&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>CMD <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#34;</span>, <span style="color:#e6db74">&#34;--env=production&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>Whilst this worked perfectly fine, the image size turned out to be a whopping 1.5GB. That didn&rsquo;t quite feel right if for an app as small as mine.</p>
 <p>The problem is of course that the <code>swift</code> image contains the entire development environment that we don&rsquo;t actually need anymore after having built the app.</p>
 <p>After trying to go the route of automating the build process by using a container dedicated to building the app then extracting everything I needed from that container and building a new one from that I saw that docker actually had this functionality built in. It&rsquo;s called a multistage build and lets you use separate images to perform whatever it is you want to do. In this case use an image for compiling the app and a separate one to actually package up and run the app binary and configs.</p>
 <p>The Dockerfile for that case doesn&rsquo;t get a lot more complicated, we just set a second base image after we&rsquo;re done with the first one and copy over the necessary files.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4 as build
-
-COPY . .
-
-RUN mkdir -p /build/lib <span style="color:#f92672">&amp;&amp;</span> cp -R /usr/lib/swift/linux/*.so /build/lib
-RUN swift build -c release <span style="color:#f92672">&amp;&amp;</span> mv <span style="color:#e6db74">`</span>swift build -c release --show-bin-path<span style="color:#e6db74">`</span> /build/bin
-
-FROM ubuntu:16.04
-
-RUN apt-get -q update <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    apt-get -q install -y <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    libatomic1 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    libbsd0 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    libcurl3 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    libicu55 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    libxml2 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -r /var/lib/apt/lists/*
-
-COPY --from<span style="color:#f92672">=</span>build /build/bin .
-COPY --from<span style="color:#f92672">=</span>build /build/lib/* /usr/lib
-COPY --from<span style="color:#f92672">=</span>build /Config ./Config
-
-EXPOSE <span style="color:#ae81ff">8080</span>
-
-ENTRYPOINT<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;./release/Run&#34;</span><span style="color:#f92672">]</span>
-CMD<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#34;</span>, <span style="color:#e6db74">&#34;--env=production&#34;</span><span style="color:#f92672">]</span>
-</code></pre></div><p>To properly set up the second image to run our app we just have to install a few dependencies and copy over the contents of <code>/usr/lib/swift/...</code>. The rest is the same as before.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>FROM swift:4 as build
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY . .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RUN mkdir -p /build/lib <span style="color:#f92672">&amp;&amp;</span> cp -R /usr/lib/swift/linux/*.so /build/lib
+</span></span><span style="display:flex;"><span>RUN swift build -c release <span style="color:#f92672">&amp;&amp;</span> mv <span style="color:#e6db74">`</span>swift build -c release --show-bin-path<span style="color:#e6db74">`</span> /build/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM ubuntu:16.04
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RUN apt-get -q update <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    apt-get -q install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libatomic1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libbsd0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libcurl3 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libicu55 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libxml2 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -r /var/lib/apt/lists/*
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /build/bin .
+</span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /build/lib/* /usr/lib
+</span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /Config ./Config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENTRYPOINT<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;./release/Run&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>CMD<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#34;</span>, <span style="color:#e6db74">&#34;--env=production&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>To properly set up the second image to run our app we just have to install a few dependencies and copy over the contents of <code>/usr/lib/swift/...</code>. The rest is the same as before.</p>
 <p>Since we now no longer store all dev dependencies in our image, we&rsquo;ve just made our image ~1.3GB smaller (around 200MB), that&rsquo;s quite the improvement!</p>
 <p>To wrap things up even nicer I published the runtime image as <a href="https://hub.docker.com/r/kiliankoe/swift-runtime/"><code>kiliankoe/swift-runtime</code></a> so that we can reduce our Dockerfile to the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">FROM swift:4 as build
-
-COPY . .
-
-RUN swift build -c release <span style="color:#f92672">&amp;&amp;</span> mv <span style="color:#e6db74">`</span>swift build -c release --show-bin-path<span style="color:#e6db74">`</span> /build/bin
-
-FROM kiliankoe/swift-runtime:latest
-
-COPY --from<span style="color:#f92672">=</span>build /build/bin .
-COPY --from<span style="color:#f92672">=</span>build /Config ./Config
-
-EXPOSE <span style="color:#ae81ff">8080</span>
-
-ENTRYPOINT<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;./release/Run&#34;</span><span style="color:#f92672">]</span>
-CMD<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#34;</span>, <span style="color:#e6db74">&#34;--env=production&#34;</span><span style="color:#f92672">]</span>
-</code></pre></div><p>My image above is still based on <code>ubuntu:16.04</code>, which definitely shouldn&rsquo;t be a necessity and accounts for most of the remaining 200MB. It would be nice to have far slimmer images in the future, based on alpine for example, but for time being the <a href="https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20151228/000653.html">efforts needed seem to be insurmountable</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>FROM swift:4 as build
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY . .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RUN swift build -c release <span style="color:#f92672">&amp;&amp;</span> mv <span style="color:#e6db74">`</span>swift build -c release --show-bin-path<span style="color:#e6db74">`</span> /build/bin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FROM kiliankoe/swift-runtime:latest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /build/bin .
+</span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /Config ./Config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>EXPOSE <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ENTRYPOINT<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;./release/Run&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>CMD<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;serve&#34;</span>, <span style="color:#e6db74">&#34;--env=production&#34;</span><span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>My image above is still based on <code>ubuntu:16.04</code>, which definitely shouldn&rsquo;t be a necessity and accounts for most of the remaining 200MB. It would be nice to have far slimmer images in the future, based on alpine for example, but for time being the <a href="https://lists.swift.org/pipermail/swift-users/Week-of-Mon-20151228/000653.html">efforts needed seem to be insurmountable</a>.</p>
 
     </div>
     <hr>
