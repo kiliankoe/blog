@@ -72,13 +72,13 @@
 </span></span><span style="display:flex;"><span>FROM ubuntu:16.04
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>RUN apt-get -q update <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    apt-get -q install -y <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libatomic1 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libbsd0 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libcurl3 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libicu55 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    libxml2 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -r /var/lib/apt/lists/*
+</span></span></span><span style="display:flex;"><span>    apt-get -q install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libatomic1 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libbsd0 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libcurl3 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libicu55 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    libxml2 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;&amp;</span> rm -r /var/lib/apt/lists/*
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /build/bin .
 </span></span><span style="display:flex;"><span>COPY --from<span style="color:#f92672">=</span>build /build/lib/* /usr/lib
@@ -118,7 +118,6 @@
   </div>
 </section>
 
-
 <section class="section">
   <div class="container has-text-centered">
     <p></p>
@@ -138,4 +137,9 @@
 
 <script>hljs.initHighlightingOnLoad();</script>
 
+<script async src="https://t.kilko.de/js/pa-F5a2mPcv1-mCZieKwBsdQ.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 
