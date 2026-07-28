@@ -1,229 +1,234 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on blog.kilian.io</title>
-    <link>https://blog.kilian.io/post/</link>
-    <description>Recent content in Posts on blog.kilian.io</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Tue, 31 Aug 2021 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Decoding Unknown Data with Codable</title>
-      <link>https://blog.kilian.io/decoding-unknown-data-with-codable/</link>
-      <pubDate>Tue, 31 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>https://blog.kilian.io/decoding-unknown-data-with-codable/</guid>
-      <description>&lt;p&gt;A friend recently asked me how to decode the following JSON through Swift&amp;rsquo;s &lt;code&gt;Codable&lt;/code&gt; type.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foobar&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;option.extra&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;option.extra.more&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem is that only the first two keys (&lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt;) are guaranteed to exist, anything aside from that (here everything prefixed with &lt;code&gt;option&lt;/code&gt;) is extra and unknown at compile-time. Unknown keys should not be discarded however, they should be decoded into a dictionary for later use, we want a type like this.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Server Setup with traefik and docker-compose</title>
-      <link>https://blog.kilian.io/server-setup/</link>
-      <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>https://blog.kilian.io/server-setup/</guid>
-      <description>&lt;p&gt;In the &lt;a href=&#34;https://blog.kilian.io/paperless&#34;&gt;last post&lt;/a&gt; I hinted towards how I used docker-compose to run all the services I need on my server. Since someone asked me to describe it in a little more detail I&amp;rsquo;ll do just that in this post. It would probably also make sense to document it a bit for myself as I know that I&amp;rsquo;m going to forget parts of it at some point 🙈&lt;/p&gt;&#xA;&lt;p&gt;The basic gist is that everything runs in a docker container and exposes only what&amp;rsquo;s necessary to the public web (and not directly by itself). Using docker to orchestrate everything has the benefit of not having to worry about dependencies or unsupported systems (to a certain degree at least) and leads to minimal overhead when trying out new stuff or updating existing services.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Paperless</title>
-      <link>https://blog.kilian.io/paperless/</link>
-      <pubDate>Fri, 20 Jul 2018 12:00:00 +0200</pubDate>
-      <guid>https://blog.kilian.io/paperless/</guid>
-      <description>&lt;p&gt;For the past few years I&amp;rsquo;ve been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.&lt;/p&gt;&#xA;&lt;p&gt;Both of these issues are easily resolvable by having digital copies. They can be accessed remotely and are searchable. OCR software has gotten pretty fantastic as well, making it possible to search for certain keywords even in pretty bad scans.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Chat Statistics</title>
-      <link>https://blog.kilian.io/chat-statistics/</link>
-      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>https://blog.kilian.io/chat-statistics/</guid>
-      <description>&lt;p&gt;I recently stumbled across yet another &lt;em&gt;statistics from my chat with my girlfriend&lt;/em&gt; post on &lt;a href=&#34;https://reddit.com/r/dataisbeautiful&#34;&gt;/r/dataisbeautiful&lt;/a&gt; so today I wanted to evaluate some simple data myself. Unfortunately I&amp;rsquo;m quite far from being an &lt;a href=&#34;https://lucaswoltmann.com/forecasting/2018/02/05/Where-do-you-go-to.html&#34;&gt;actual datascientist&lt;/a&gt; (below you&amp;rsquo;ll see some of the first matplotlib plots I&amp;rsquo;ve ever made), so I&amp;rsquo;m going to focus a bit more on data acquisition and some very simple findings and visualizations.&lt;/p&gt;&#xA;&lt;p&gt;Since I probably don&amp;rsquo;t have any chats quite as active as the one with my girlfriend that seemed to be the obvious choice to analyze as well. Unfortunately it&amp;rsquo;s not just &lt;em&gt;one&lt;/em&gt; chat, but split across four different messaging platforms since the inception of our relationship ~2.5 years ago. We started out using &lt;em&gt;WhatsApp&lt;/em&gt;, then switched to &lt;em&gt;Telegram&lt;/em&gt;, then to &lt;em&gt;iMessage&lt;/em&gt; and back to &lt;em&gt;Telegram&lt;/em&gt; interspersing everything with a bit of random images and answers to those on &lt;em&gt;Instagram&lt;/em&gt;. I&amp;rsquo;d love to turn this into a discussion on the pros and cons of various messaging platforms, but this is neiter the time nor the place. You can hit me up via Matrix (@kiliankoe:matrix.org) if you&amp;rsquo;re interested in going down that route with me.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Docker Swift Runtime</title>
-      <link>https://blog.kilian.io/docker-swift-runtime/</link>
-      <pubDate>Mon, 29 Jan 2018 12:25:00 +0100</pubDate>
-      <guid>https://blog.kilian.io/docker-swift-runtime/</guid>
-      <description>&lt;p&gt;I recently wrote a small &lt;a href=&#34;https://vapor.codes&#34;&gt;Vapor&lt;/a&gt; web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;FROM swift:4&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;COPY . .&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;EXPOSE &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RUN swift build --configuration release&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ENTRYPOINT &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.build/release/Run&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CMD &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;serve&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--env=production&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Whilst this worked perfectly fine, the image size turned out to be a whopping 1.5GB. That didn&amp;rsquo;t quite feel right if for an app as small as mine.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Reverse Engineering iOS Apps</title>
-      <link>https://blog.kilian.io/reverse-engineering-ios/</link>
-      <pubDate>Tue, 30 May 2017 12:30:38 +0200</pubDate>
-      <guid>https://blog.kilian.io/reverse-engineering-ios/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;As promised in my &lt;a href=&#34;https://blog.kilian.io/itunes-mitm&#34;&gt;last post&lt;/a&gt; I wanted to write a post about a talk I recently held at &lt;a href=&#34;https://mobilecamp.de&#34;&gt;Mobile Camp 2017&lt;/a&gt;. I also held the talk again at our local Cocoaheads Meetup on May 24th 2017, this time being recorded on video (Thanks, &lt;a href=&#34;https://twitter.com/benchr&#34;&gt;Ben&lt;/a&gt;!). But since the talk is in German, I promised to publish an English summary here as well, so here we go 😊&lt;/p&gt;&#xA;&lt;p&gt;The slides are online as well and can be found on &lt;a href=&#34;https://git.io/reverse-ios&#34;&gt;GitHub Pages&lt;/a&gt;. I&amp;rsquo;ve linked to most things as well, everything in orange is clickable 😉&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Downloading older iOS app versions with iTunes</title>
-      <link>https://blog.kilian.io/itunes-mitm/</link>
-      <pubDate>Wed, 10 May 2017 15:04:18 +0200</pubDate>
-      <guid>https://blog.kilian.io/itunes-mitm/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt; (2017-09-23):&#xA;Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of &lt;a href=&#34;https://itunes.apple.com/de/app/apple-configurator-2/id1037126344?l=en&amp;amp;mt=12&#34;&gt;Apple Configurator 2&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Buy and download the app via your iOS device&lt;/li&gt;&#xA;&lt;li&gt;Open Apple Configurator and login under &amp;ldquo;Account&amp;rdquo;&lt;/li&gt;&#xA;&lt;li&gt;Connect your device, then go to &amp;ldquo;Add&amp;rdquo; &amp;gt; &amp;ldquo;Application&amp;rdquo; and choose the app in question from your purchase history&lt;/li&gt;&#xA;&lt;li&gt;A dialog will open asking you if you want to overwrite the app or continue in another fashion. As long as this dialog is open, the IPA file will be cached in &lt;code&gt;~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;This process at least helps with downloading current IPA files. The act of downloading older versions is left as an exercise to the reader. I have to add that I haven&amp;rsquo;t checked if it&amp;rsquo;s still possible, I&amp;rsquo;m just guessing that it doesn&amp;rsquo;t differ too much from the process outlined below.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Keeping Static Images out of your GitHub Repo</title>
-      <link>https://blog.kilian.io/github-images/</link>
-      <pubDate>Mon, 10 Apr 2017 14:12:35 +0200</pubDate>
-      <guid>https://blog.kilian.io/github-images/</guid>
-      <description>&lt;p&gt;People love images &lt;em&gt;[citation needed]&lt;/em&gt;. Or at least I know I do. And I&amp;rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&amp;rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&amp;rsquo;s just a  screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&amp;rsquo;t mean you should skimp on man pages and/or good &lt;code&gt;--help&lt;/code&gt; documentation, but a link to a &amp;ldquo;&lt;em&gt;video&lt;/em&gt;&amp;rdquo; powered by &lt;a href=&#34;https://asciinema.org&#34;&gt;asciinema&lt;/a&gt; speaks volumes compared to a textual description of usage patterns!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Akronymisierbar</title>
-      <link>https://blog.kilian.io/akronymisierbar/</link>
-      <pubDate>Sat, 08 Apr 2017 22:06:26 +0200</pubDate>
-      <guid>https://blog.kilian.io/akronymisierbar/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m a podcast addict. I have been for a few years now and I can&amp;rsquo;t seem to stop. &lt;a href=&#34;https://podcastprofile.com/kiliankoe&#34;&gt;Podcastprofile&lt;/a&gt; has a not very current list of all the feeds I&amp;rsquo;m subscribed to.&lt;/p&gt;&#xA;&lt;p&gt;With all the content I consume it only seems logical to produce something at some point as well, or at least try. &lt;a href=&#34;https://twitter.com/hoodie_de&#34;&gt;Hendrik&lt;/a&gt; and me have had that plan for quite a while if I recall correctly, and two months ago we finally decided to do something about it. So we sat down and hit record. What came out of that is &lt;em&gt;Akronymisierbar&lt;/em&gt; (German for &lt;em&gt;acronyminizable&lt;/em&gt;, &amp;lsquo;cause all good podcast names are acronyminizable 😜), a podcast about everything that comes to our minds, from programming languages (there&amp;rsquo;s a lot about programming languages) to how frogs swallow by using their eyeballs to push food down, although it&amp;rsquo;s generally more technical as both of us have vested interests in all things computer science.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Automatically Increment Your Xcode Project&#39;s Build Number</title>
-      <link>https://blog.kilian.io/xcode-buildnumber/</link>
-      <pubDate>Wed, 09 Nov 2016 13:43:52 +0100</pubDate>
-      <guid>https://blog.kilian.io/xcode-buildnumber/</guid>
-      <description>&lt;p&gt;Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&amp;rsquo;ve forgotten to increment the build number before trying to deploy a project.&#xA;In my case the problem is usually iTunes Connect, which doesn&amp;rsquo;t take your app&amp;rsquo;s version (or &lt;code&gt;CFBundleShortVersionString&lt;/code&gt;) into account, but only the build number (or &lt;code&gt;CFBundleVersion&lt;/code&gt;). The former is the version we usually set (according to &lt;a href=&#34;http://semver.org&#34;&gt;semver&lt;/a&gt; if you&amp;rsquo;re a good person, although it really doesn&amp;rsquo;t make much of a difference for user-facing versions) to identify the version internally.&#xA;If you fail to increment the latter before uploading, iTunes Connect doesn&amp;rsquo;t see this as a new version, which stinks.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Writing Custom Alfred Worklows</title>
-      <link>https://blog.kilian.io/alfred-workflows/</link>
-      <pubDate>Sun, 23 Oct 2016 12:42:16 +0200</pubDate>
-      <guid>https://blog.kilian.io/alfred-workflows/</guid>
-      <description>&lt;p&gt;A &lt;a href=&#34;https://twitter.com/BenchR&#34;&gt;friend of mine&lt;/a&gt; has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&amp;rsquo;ve been using for years, but have never really thought about using for my own stuff before.&lt;/p&gt;&#xA;&lt;p&gt;Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&amp;rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called &lt;em&gt;script filters&lt;/em&gt;.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>WWDC 16</title>
-      <link>https://blog.kilian.io/wwdc-16/</link>
-      <pubDate>Sat, 02 Jul 2016 02:28:11 +0200</pubDate>
-      <guid>https://blog.kilian.io/wwdc-16/</guid>
-      <description>&lt;p&gt;Had a fantastic time about two weeks ago at dubdubdeesee in San Francisco. First time at the West Coast and I&amp;rsquo;m completely blown away by the amount of amazing people and great time we had. This post is going to be a quick recap of my experiences along the way.&lt;/p&gt;&#xA;&lt;p&gt;After not expecting to receive the scholarship by Apple at all, I unfortunately did not seem to qualify for Apple&amp;rsquo;s Travel Assistance, which meant I had to gather around ~1.5k€ for an unexpected and very sudden trip to San Francisco. Everything worked out though and I can&amp;rsquo;t say I&amp;rsquo;d regret even a moment of it all!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>On Quitting Facebook</title>
-      <link>https://blog.kilian.io/on-quitting-facebook/</link>
-      <pubDate>Thu, 30 Jun 2016 02:24:08 +0200</pubDate>
-      <guid>https://blog.kilian.io/on-quitting-facebook/</guid>
-      <description>&lt;p&gt;I’ve been seriously disliking the idea of maintaining a Facebook profile for quite a while now. It adds close to nothing to my life. After having loaded the page it seems I am always being presented with the same content over and over. The newsfeed is completely and utterly useless.&lt;/p&gt;&#xA;&lt;p&gt;A few months back I chose to delete my personal timeline. Facebook started to show me content from a few years back (from a much younger self) and I was presented with things that I really did not wish to display publicly online. It was nothing bad or deeply embarrassing, but I urge you to scroll all the way to the bottom of your FB profile and just start reading upwards. You&amp;rsquo;ll get what I mean 😉&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>WWDC 16 Scholarship</title>
-      <link>https://blog.kilian.io/wwdc-16-scholarship/</link>
-      <pubDate>Wed, 18 May 2016 02:21:05 +0200</pubDate>
-      <guid>https://blog.kilian.io/wwdc-16-scholarship/</guid>
-      <description>&lt;p&gt;Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away!&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.&lt;/p&gt;&#xA;&lt;p&gt;Stay posted for more, especially once it’s June 😁&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Cheap DynDNS Alternative</title>
-      <link>https://blog.kilian.io/cheap-dyndns-alternative/</link>
-      <pubDate>Mon, 07 Mar 2016 02:19:48 +0200</pubDate>
-      <guid>https://blog.kilian.io/cheap-dyndns-alternative/</guid>
-      <description>&lt;p&gt;Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.&lt;/p&gt;&#xA;&lt;p&gt;After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare. Why not just get my current IP every $TIME_INTERVAL or so and send that to CloudFlare via their API updating an existing DNS record.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Firewatch</title>
-      <link>https://blog.kilian.io/firewatch/</link>
-      <pubDate>Sat, 13 Feb 2016 02:17:52 +0200</pubDate>
-      <guid>https://blog.kilian.io/firewatch/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/firewatch_1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Finished it two days ago and was left in some emotional turmoil. I believed the ending to be spoiled for me after accidentally having read a sentence on Reddit, but it turns out that was bullshit. Unfortunately that made it even worse.&lt;/p&gt;&#xA;&lt;p&gt;It’s a gorgeous game, albeit relatively short (~4 hours). The gameplay mechanics work great (a bit unexpected at times) and the story is definitely captivating. Can’t say too much about it though without giving stuff away.&#xA;Definitely recommended! It’s &lt;strong&gt;not&lt;/strong&gt; a horror game either, just thrilling at times and beautiful at others. Give it a shot! 😊&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Black Mirror</title>
-      <link>https://blog.kilian.io/blackmirror/</link>
-      <pubDate>Wed, 13 Jan 2016 02:16:54 +0200</pubDate>
-      <guid>https://blog.kilian.io/blackmirror/</guid>
-      <description>&lt;p&gt;Blindly following a recommendation on Reddit I just finished watching the first season of &lt;a href=&#34;http://www.imdb.com/title/tt2085059&#34;&gt;Black Mirror&lt;/a&gt;. Not quite sure what I was expecting, only had the SciFi label in my head. Didn’t quite find that, more of a feeling of deep disgust with the different shown realities. Interesting nonetheless. And definitely a recommendation!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>32c3</title>
-      <link>https://blog.kilian.io/32c3/</link>
-      <pubDate>Fri, 01 Jan 2016 02:14:31 +0200</pubDate>
-      <guid>https://blog.kilian.io/32c3/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/32c3_1.jpg&#34; alt=&#34;CCH outside&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;That was seriously awesome! My first congress and I couldn’t be happier with it. Definitely coming back next year, for sure!&lt;/p&gt;&#xA;&lt;p&gt;There’s so much I could write about here, but I’m going to keep it to a minimum.&#xA;I kinda regret watching quite a few talks live and not using the time at CCH to have a look at most assemblies and workshops. Will improve on that @ 33c3. All talks have since been published online at &lt;a href=&#34;media.ccc.de&#34;&gt;https://media.ccc.de&lt;/a&gt;. Have a look, and come next year! 😊&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>HeartBattery</title>
-      <link>https://blog.kilian.io/heartbattery/</link>
-      <pubDate>Fri, 20 Nov 2015 02:07:50 +0200</pubDate>
-      <guid>https://blog.kilian.io/heartbattery/</guid>
-      <description>&lt;p&gt;A friend recently had the fun idea to write a small script for his machine running Arch displaying his current battery state as a series of hearts instead of the traditional boring percentage. He did so via a short python script and the magic of Font Awesome to integrate with Conky.&lt;/p&gt;&#xA;&lt;p&gt;I have to admit that writing a quick script in your language of choice makes customization like this a lot easier than on OS X, but I liked the idea and wanted to follow along with something native as well. So today I wrote a little app in Swift titled HeartBattery.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Why I&#39;ll be keeping my Apple Watch</title>
-      <link>https://blog.kilian.io/applewatch/</link>
-      <pubDate>Thu, 07 May 2015 02:04:26 +0200</pubDate>
-      <guid>https://blog.kilian.io/applewatch/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/applewatch.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;:&#xA;I changed the post title from &lt;em&gt;Why I won&amp;rsquo;t be keeping my Apple Watch&lt;/em&gt; to the current one. Let me explain why.&lt;/p&gt;&#xA;&lt;p&gt;My biggest gripe with the watch was the in my opinion &lt;em&gt;abysmal&lt;/em&gt; battery performance of my iPhone when connected to the watch. I&amp;rsquo;m not entirely sure what changed, but I believe the watch is actually affecting how I use my phone during the day. Specifically how often I do so. I&amp;rsquo;m currently ending ~16 hour days with around 70% of a charge left in the watch and my iPhone somewhere around 50%. That&amp;rsquo;s actually &lt;em&gt;better&lt;/em&gt; than what I&amp;rsquo;m used to without the watch!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>ParkenDD</title>
-      <link>https://blog.kilian.io/parkendd/</link>
-      <pubDate>Thu, 26 Feb 2015 02:01:49 +0200</pubDate>
-      <guid>https://blog.kilian.io/parkendd/</guid>
-      <description>&lt;p&gt;A few months ago &lt;a href=&#34;http://codefor.de&#34;&gt;Code for Germany&lt;/a&gt; launched. An &lt;em&gt;OK Lab&lt;/em&gt; (&lt;em&gt;Open Knowledge Lab&lt;/em&gt;) was founded in Dresden soon after, although similar projects (&lt;a href=&#34;http://offenesdresden.de&#34;&gt;offenesdresden.de&lt;/a&gt;) were already in place. Everything merged and Dresden has had quite an active community interested in bringing Open Data to the next level. It&amp;rsquo;s awesome.&lt;/p&gt;&#xA;&lt;p&gt;My first real contribution to this comes in form of an iPhone app using a &lt;a href=&#34;https://github.com/RobTranquillo/parkplaetzeDD&#34;&gt;PHP scraper backend&lt;/a&gt; scraping the data at &lt;a href=&#34;http://www.dresden.de/freie-parkplaetze/&#34;&gt;dresden.de/freie-parplaetze&lt;/a&gt;. An Android application for this purpose came to life fairly quickly (find it &lt;a href=&#34;http://jkliemann.de/parkendd/&#34;&gt;here&lt;/a&gt;), so a clone for iOS just had to follow!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Migrating to kilian.io</title>
-      <link>https://blog.kilian.io/kilian-io/</link>
-      <pubDate>Mon, 05 Jan 2015 01:59:59 +0200</pubDate>
-      <guid>https://blog.kilian.io/kilian-io/</guid>
-      <description>&lt;p&gt;I spent most of today moving around my e-mail &lt;em&gt;infrastructure&lt;/em&gt;. The way I had it configured would probably bring tears to most people&amp;rsquo;s eyes, so I&amp;rsquo;ll spare you the gruesome details. Let&amp;rsquo;s just say that nothing is forwarding to Google Mail any longer and I&amp;rsquo;ll be using a different address as my main contact address from here on out. Namely &lt;strong&gt;&lt;a href=&#34;mailto:me@kilian.io&#34;&gt;me@kilian.io&lt;/a&gt;&lt;/strong&gt;. The domain kilian.io has been pointing to my server at &lt;a href=&#34;https://uberspace.de&#34;&gt;Uberspace&lt;/a&gt; for a little while now, but it hasn&amp;rsquo;t been much more than a little gimmick, just like &lt;a href=&#34;http://kilian.sexy&#34;&gt;kilian.sexy&lt;/a&gt; ;)&#xA;I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as it carries more personality, more &lt;em&gt;me&lt;/em&gt; than just my last name. And since &lt;a href=&#34;mailto:kilian@kilian.io&#34;&gt;kilian@kilian.io&lt;/a&gt; just looks ridiculous I&amp;rsquo;m choosing to go with the very informal &lt;a href=&#34;mailto:me@kilian.io&#34;&gt;me@kilian.io&lt;/a&gt; instead.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Pycharm and Java 8</title>
-      <link>https://blog.kilian.io/pycharm-and-java8/</link>
-      <pubDate>Fri, 19 Dec 2014 01:57:50 +0200</pubDate>
-      <guid>https://blog.kilian.io/pycharm-and-java8/</guid>
-      <description>&lt;p&gt;There&amp;rsquo;s been a &lt;a href=&#34;https://youtrack.jetbrains.com/issue/IDEA-131632&#34;&gt;bug&lt;/a&gt; with current versions of Jetbrains products (not just Pycharm, but also IntelliJ IDEA, Android Studio, AppCode and surely the others as well) on OS X 10.10 Yosemite where the editor screen flickers uncontrollably when you scroll the view. It&amp;rsquo;s been making my workflow increasingly difficult and was generally unpleasing, but there is a way around this!&lt;/p&gt;&#xA;&lt;p&gt;Kudos goes to &lt;a href=&#34;http://justusadam.com&#34;&gt;Justus&lt;/a&gt; for pointing this one out.&lt;/p&gt;&#xA;&lt;p&gt;All you have to do is set your favorite Jetbrains IDE to use the JVM version 1.8 instead of the default 1.6. This is easily done on OS X by editing the &lt;code&gt;Info.plist&lt;/code&gt; found at &lt;code&gt;/Applications/&amp;lt;PyCharm.app or something else&amp;gt;/Contents/Info.plist&lt;/code&gt; like this.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Simple Robot</title>
-      <link>https://blog.kilian.io/simple-robot/</link>
-      <pubDate>Fri, 31 Oct 2014 01:53:35 +0200</pubDate>
-      <guid>https://blog.kilian.io/simple-robot/</guid>
-      <description>&lt;p&gt;It&amp;rsquo;s been a while since I&amp;rsquo;ve touched Blender. A lot has changed, everything is awesome. There&amp;rsquo;s not all too much to say, but I&amp;rsquo;m a real sucker for pretty clay renders, so here&amp;rsquo;s a simple little robot.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/clay_posed_2400p.png&#34; alt=&#34;clay render&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Note that this render is in 2400p, the native resolution of the new MacBook Pro. I didn&amp;rsquo;t want said device to go up in flames though, so a shoutout goes to &lt;a href=&#34;https://render.st&#34;&gt;render.st&lt;/a&gt; (and especially their signup bonus).&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Installing OS X applications through Homebrew</title>
-      <link>https://blog.kilian.io/brew-cask/</link>
-      <pubDate>Mon, 21 Jul 2014 01:47:19 +0200</pubDate>
-      <guid>https://blog.kilian.io/brew-cask/</guid>
-      <description>&lt;p&gt;I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed &lt;a href=&#34;http://www.xmind.net/de/&#34;&gt;xmind&lt;/a&gt; right through his package manager (or actually &lt;a href=&#34;https://wiki.archlinux.org/index.php/yaourt&#34;&gt;yaourt&lt;/a&gt;, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;You download the disk image, double-click it to mount and drag the .app onto your linked Applications directory. But it&amp;rsquo;s so graphical&amp;hellip; Any self-respecting &lt;em&gt;appleleptic&lt;/em&gt; nowadays already has the fantastic &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt; package manager installed on their system anyways, which is awesome stuff, without question. And there is one package I have to admit to not having heard of before a few days ago, even though it has a rather big following which helps us out here.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>This is getting ridiculous</title>
-      <link>https://blog.kilian.io/bike/</link>
-      <pubDate>Mon, 21 Apr 2014 01:43:52 +0200</pubDate>
-      <guid>https://blog.kilian.io/bike/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/bike.jpg&#34; alt=&#34;missing or broken bike parts&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;November 29th, 2012: Left a math lecture on a rainy day and wanted to get home as quick as possible. But it looked like I would be carrying my bike home seeing how some douche had stolen my front wheel on campus. Seeing how I moved to Dresden with &lt;em&gt;quick release skewers&lt;/em&gt; (if I can trust dict.leo.org) however, this happening was just a matter of time.&#xA;Instead of directly buying a new wheel (and new brakes, thank you, asshole! Oh, and a &lt;a href=&#34;http://www.pitlock.de/&#34;&gt;Pitlock&lt;/a&gt; system) I went with a completely new (as in old) and cheap bicycle. Fast forward to January and a few stitches on my face, and I wanted to go back to riding &lt;em&gt;my&lt;/em&gt; bike.&#xA;&lt;strong&gt;Total cost: ~200 €&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Optimizing my Life - Part One: Decluttering</title>
-      <link>https://blog.kilian.io/optimizing-part-one/</link>
-      <pubDate>Fri, 21 Feb 2014 20:56:22 +0200</pubDate>
-      <guid>https://blog.kilian.io/optimizing-part-one/</guid>
-      <description>&lt;p&gt;Optimizing every single aspect of my digital live is something I&amp;rsquo;ve been enjoying for years. It&amp;rsquo;s the little things, being able to define a new shortcut for a task that I do all day, streamlining a complex process that has had me looking up howtos everytime I had to do it, but the same has never really held true for my life away from the keyboard. I&amp;rsquo;m definitely not what you would call messy, but the organization of my desk, room or now my apartment has never been one of my strengths. I now aim to change all of that. And there&amp;rsquo;s several steps I&amp;rsquo;m taking to get there.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>A New Start</title>
-      <link>https://blog.kilian.io/anustart/</link>
-      <pubDate>Sat, 15 Feb 2014 20:55:12 +0200</pubDate>
-      <guid>https://blog.kilian.io/anustart/</guid>
-      <description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;(Making the &lt;em&gt;Arrested Development&lt;/em&gt; reference in the title there was damn tempting, but nope, didn&amp;rsquo;t go for it.)&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing and running away from I guess around 10 to 20 blogs in the last few years (I can at least find &lt;a href=&#34;http://completelyfocused.wordpress.com&#34;&gt;one&lt;/a&gt; of the remnants to still be online, probably due to the fact that this is the only instance I didn&amp;rsquo;t host myself) and have had a lot more fun playing around with the software itself than writing, although I always aim to change that.&#xA;I guess I could write a few sentences about why I think this time might be different, but I&amp;rsquo;ve written those over and over again as well. But what I do know is that at least the software is different this time. It&amp;rsquo;s not just another Wordpress installation, it&amp;rsquo;s &lt;a href=&#34;http://ghost.org&#34;&gt;Ghost&lt;/a&gt;.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Valentina Kalashnikova - Last Dangerous Racoons</title>
-      <link>https://blog.kilian.io/valentina-kalashnikova/</link>
-      <pubDate>Thu, 07 Nov 2013 20:53:48 +0200</pubDate>
-      <guid>https://blog.kilian.io/valentina-kalashnikova/</guid>
-      <description>&lt;p&gt;Just got back from an awesome gig from a small local band a friend of mine plays in. They&amp;rsquo;re called the &lt;strong&gt;Last Dangerous Racoons&lt;/strong&gt; and this title of theirs is definitely worth a listen!&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;Also check out their &lt;a href=&#34;http://lastdangerousracoons.de&#34;&gt;site&lt;/a&gt; and &lt;a href=&#34;http://lastdangerousracoons.bandcamp.com/&#34;&gt;bandcamp&lt;/a&gt; if you&amp;rsquo;re interested.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Launching Alfred with Caps Lock on OS X</title>
-      <link>https://blog.kilian.io/alfred-caps-lock/</link>
-      <pubDate>Tue, 05 Nov 2013 20:50:33 +0200</pubDate>
-      <guid>https://blog.kilian.io/alfred-caps-lock/</guid>
-      <description>&lt;p&gt;In great contrast to &lt;a href=&#34;http://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt; being one of those apps I love more than anything on OS X, the caps lock key is something utterly useless nowadays (or ever for that matter). And if you do happen to find yourself in an argument on the internet, even &lt;a href=&#34;http://www.youtube.com/watch?v=xznylVUyND0&#34;&gt;Homer Simpson agrees&lt;/a&gt; that you put a lot more weight into your statement if you take your time to press the shift key. The already mentioned Alfred however is so immensely useful, that even two keys for its hotkey (the default &lt;code&gt;alt&lt;/code&gt; + &lt;code&gt;space&lt;/code&gt;) is too much. So why not combine the two and have a dedicated &lt;em&gt;launch everything and search for stuff anywhere&lt;/em&gt; key on your keyboard?&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Autodesk being awesome</title>
-      <link>https://blog.kilian.io/awesome-autodesk/</link>
-      <pubDate>Sat, 09 Apr 2011 20:48:33 +0200</pubDate>
-      <guid>https://blog.kilian.io/awesome-autodesk/</guid>
-      <description>&lt;p&gt;I remember being severely dissapointed about two years ago when I wanted to download the free students version of Maya, the so called PLE (Personal Learning Edition), but since Maya had already been acquired by Autodesk (before: Alias), this was no longer offered. I also wasn’t able to find any mirrors for that online, but today that PLE would be a far outdated version, so it wouldn’t be that useful anyways.&lt;/p&gt;</description>
-    </item>
-  </channel>
+	<channel>
+		<title>Posts on blog.kilian.io</title>
+		<link>https://blog.kilian.io/post/</link>
+		<description>Recent content in Posts on blog.kilian.io</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 31 Aug 2021 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://blog.kilian.io/post/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Decoding Unknown Data with Codable</title>
+				<link>https://blog.kilian.io/decoding-unknown-data-with-codable/</link>
+				<pubDate>Tue, 31 Aug 2021 00:00:00 +0000</pubDate>
+				<guid>https://blog.kilian.io/decoding-unknown-data-with-codable/</guid>
+				<description>&lt;p&gt;A friend recently asked me how to decode the following JSON through Swift&amp;rsquo;s &lt;code&gt;Codable&lt;/code&gt; type.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foobar&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;option.extra&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  },&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;option.extra.more&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem is that only the first two keys (&lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt;) are guaranteed to exist, anything aside from that (here everything prefixed with &lt;code&gt;option&lt;/code&gt;) is extra and unknown at compile-time. Unknown keys should not be discarded however, they should be decoded into a dictionary for later use, we want a type like this.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Server Setup with traefik and docker-compose</title>
+				<link>https://blog.kilian.io/server-setup/</link>
+				<pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
+				<guid>https://blog.kilian.io/server-setup/</guid>
+				<description>&lt;p&gt;In the &lt;a href=&#34;https://blog.kilian.io/paperless&#34;&gt;last post&lt;/a&gt; I hinted towards how I used docker-compose to run all the services I need on my server. Since someone asked me to describe it in a little more detail I&amp;rsquo;ll do just that in this post. It would probably also make sense to document it a bit for myself as I know that I&amp;rsquo;m going to forget parts of it at some point 🙈&lt;/p&gt;&#xA;&lt;p&gt;The basic gist is that everything runs in a docker container and exposes only what&amp;rsquo;s necessary to the public web (and not directly by itself). Using docker to orchestrate everything has the benefit of not having to worry about dependencies or unsupported systems (to a certain degree at least) and leads to minimal overhead when trying out new stuff or updating existing services.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Paperless</title>
+				<link>https://blog.kilian.io/paperless/</link>
+				<pubDate>Fri, 20 Jul 2018 12:00:00 +0200</pubDate>
+				<guid>https://blog.kilian.io/paperless/</guid>
+				<description>&lt;p&gt;For the past few years I&amp;rsquo;ve been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.&lt;/p&gt;&#xA;&lt;p&gt;Both of these issues are easily resolvable by having digital copies. They can be accessed remotely and are searchable. OCR software has gotten pretty fantastic as well, making it possible to search for certain keywords even in pretty bad scans.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Chat Statistics</title>
+				<link>https://blog.kilian.io/chat-statistics/</link>
+				<pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
+				<guid>https://blog.kilian.io/chat-statistics/</guid>
+				<description>&lt;p&gt;I recently stumbled across yet another &lt;em&gt;statistics from my chat with my girlfriend&lt;/em&gt; post on &lt;a href=&#34;https://reddit.com/r/dataisbeautiful&#34;&gt;/r/dataisbeautiful&lt;/a&gt; so today I wanted to evaluate some simple data myself. Unfortunately I&amp;rsquo;m quite far from being an &lt;a href=&#34;https://lucaswoltmann.com/forecasting/2018/02/05/Where-do-you-go-to.html&#34;&gt;actual datascientist&lt;/a&gt; (below you&amp;rsquo;ll see some of the first matplotlib plots I&amp;rsquo;ve ever made), so I&amp;rsquo;m going to focus a bit more on data acquisition and some very simple findings and visualizations.&lt;/p&gt;&#xA;&lt;p&gt;Since I probably don&amp;rsquo;t have any chats quite as active as the one with my girlfriend that seemed to be the obvious choice to analyze as well. Unfortunately it&amp;rsquo;s not just &lt;em&gt;one&lt;/em&gt; chat, but split across four different messaging platforms since the inception of our relationship ~2.5 years ago. We started out using &lt;em&gt;WhatsApp&lt;/em&gt;, then switched to &lt;em&gt;Telegram&lt;/em&gt;, then to &lt;em&gt;iMessage&lt;/em&gt; and back to &lt;em&gt;Telegram&lt;/em&gt; interspersing everything with a bit of random images and answers to those on &lt;em&gt;Instagram&lt;/em&gt;. I&amp;rsquo;d love to turn this into a discussion on the pros and cons of various messaging platforms, but this is neiter the time nor the place. You can hit me up via Matrix (@kiliankoe:matrix.org) if you&amp;rsquo;re interested in going down that route with me.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Docker Swift Runtime</title>
+				<link>https://blog.kilian.io/docker-swift-runtime/</link>
+				<pubDate>Mon, 29 Jan 2018 12:25:00 +0100</pubDate>
+				<guid>https://blog.kilian.io/docker-swift-runtime/</guid>
+				<description>&lt;p&gt;I recently wrote a small &lt;a href=&#34;https://vapor.codes&#34;&gt;Vapor&lt;/a&gt; web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;FROM swift:4&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;COPY . .&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;EXPOSE &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;RUN swift build --configuration release&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ENTRYPOINT &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;.build/release/Run&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;CMD &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;serve&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;--env=production&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Whilst this worked perfectly fine, the image size turned out to be a whopping 1.5GB. That didn&amp;rsquo;t quite feel right if for an app as small as mine.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Reverse Engineering iOS Apps</title>
+				<link>https://blog.kilian.io/reverse-engineering-ios/</link>
+				<pubDate>Tue, 30 May 2017 12:30:38 +0200</pubDate>
+				<guid>https://blog.kilian.io/reverse-engineering-ios/</guid>
+				<description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;As promised in my &lt;a href=&#34;https://blog.kilian.io/itunes-mitm&#34;&gt;last post&lt;/a&gt; I wanted to write a post about a talk I recently held at &lt;a href=&#34;https://mobilecamp.de&#34;&gt;Mobile Camp 2017&lt;/a&gt;. I also held the talk again at our local Cocoaheads Meetup on May 24th 2017, this time being recorded on video (Thanks, &lt;a href=&#34;https://twitter.com/benchr&#34;&gt;Ben&lt;/a&gt;!). But since the talk is in German, I promised to publish an English summary here as well, so here we go 😊&lt;/p&gt;&#xA;&lt;p&gt;The slides are online as well and can be found on &lt;a href=&#34;https://git.io/reverse-ios&#34;&gt;GitHub Pages&lt;/a&gt;. I&amp;rsquo;ve linked to most things as well, everything in orange is clickable 😉&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Downloading older iOS app versions with iTunes</title>
+				<link>https://blog.kilian.io/itunes-mitm/</link>
+				<pubDate>Wed, 10 May 2017 15:04:18 +0200</pubDate>
+				<guid>https://blog.kilian.io/itunes-mitm/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt; (2017-09-23):&#xA;Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of &lt;a href=&#34;https://itunes.apple.com/de/app/apple-configurator-2/id1037126344?l=en&amp;amp;mt=12&#34;&gt;Apple Configurator 2&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Buy and download the app via your iOS device&lt;/li&gt;&#xA;&lt;li&gt;Open Apple Configurator and login under &amp;ldquo;Account&amp;rdquo;&lt;/li&gt;&#xA;&lt;li&gt;Connect your device, then go to &amp;ldquo;Add&amp;rdquo; &amp;gt; &amp;ldquo;Application&amp;rdquo; and choose the app in question from your purchase history&lt;/li&gt;&#xA;&lt;li&gt;A dialog will open asking you if you want to overwrite the app or continue in another fashion. As long as this dialog is open, the IPA file will be cached in &lt;code&gt;~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;This process at least helps with downloading current IPA files. The act of downloading older versions is left as an exercise to the reader. I have to add that I haven&amp;rsquo;t checked if it&amp;rsquo;s still possible, I&amp;rsquo;m just guessing that it doesn&amp;rsquo;t differ too much from the process outlined below.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Keeping Static Images out of your GitHub Repo</title>
+				<link>https://blog.kilian.io/github-images/</link>
+				<pubDate>Mon, 10 Apr 2017 14:12:35 +0200</pubDate>
+				<guid>https://blog.kilian.io/github-images/</guid>
+				<description>&lt;p&gt;People love images &lt;em&gt;[citation needed]&lt;/em&gt;. Or at least I know I do. And I&amp;rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&amp;rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&amp;rsquo;s just a  screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&amp;rsquo;t mean you should skimp on man pages and/or good &lt;code&gt;--help&lt;/code&gt; documentation, but a link to a &amp;ldquo;&lt;em&gt;video&lt;/em&gt;&amp;rdquo; powered by &lt;a href=&#34;https://asciinema.org&#34;&gt;asciinema&lt;/a&gt; speaks volumes compared to a textual description of usage patterns!&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Akronymisierbar</title>
+				<link>https://blog.kilian.io/akronymisierbar/</link>
+				<pubDate>Sat, 08 Apr 2017 22:06:26 +0200</pubDate>
+				<guid>https://blog.kilian.io/akronymisierbar/</guid>
+				<description>&lt;p&gt;I&amp;rsquo;m a podcast addict. I have been for a few years now and I can&amp;rsquo;t seem to stop. &lt;a href=&#34;https://podcastprofile.com/kiliankoe&#34;&gt;Podcastprofile&lt;/a&gt; has a not very current list of all the feeds I&amp;rsquo;m subscribed to.&lt;/p&gt;&#xA;&lt;p&gt;With all the content I consume it only seems logical to produce something at some point as well, or at least try. &lt;a href=&#34;https://twitter.com/hoodie_de&#34;&gt;Hendrik&lt;/a&gt; and me have had that plan for quite a while if I recall correctly, and two months ago we finally decided to do something about it. So we sat down and hit record. What came out of that is &lt;em&gt;Akronymisierbar&lt;/em&gt; (German for &lt;em&gt;acronyminizable&lt;/em&gt;, &amp;lsquo;cause all good podcast names are acronyminizable 😜), a podcast about everything that comes to our minds, from programming languages (there&amp;rsquo;s a lot about programming languages) to how frogs swallow by using their eyeballs to push food down, although it&amp;rsquo;s generally more technical as both of us have vested interests in all things computer science.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Automatically Increment Your Xcode Project&#39;s Build Number</title>
+				<link>https://blog.kilian.io/xcode-buildnumber/</link>
+				<pubDate>Wed, 09 Nov 2016 13:43:52 +0100</pubDate>
+				<guid>https://blog.kilian.io/xcode-buildnumber/</guid>
+				<description>&lt;p&gt;Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&amp;rsquo;ve forgotten to increment the build number before trying to deploy a project.&#xA;In my case the problem is usually iTunes Connect, which doesn&amp;rsquo;t take your app&amp;rsquo;s version (or &lt;code&gt;CFBundleShortVersionString&lt;/code&gt;) into account, but only the build number (or &lt;code&gt;CFBundleVersion&lt;/code&gt;). The former is the version we usually set (according to &lt;a href=&#34;http://semver.org&#34;&gt;semver&lt;/a&gt; if you&amp;rsquo;re a good person, although it really doesn&amp;rsquo;t make much of a difference for user-facing versions) to identify the version internally.&#xA;If you fail to increment the latter before uploading, iTunes Connect doesn&amp;rsquo;t see this as a new version, which stinks.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Writing Custom Alfred Worklows</title>
+				<link>https://blog.kilian.io/alfred-workflows/</link>
+				<pubDate>Sun, 23 Oct 2016 12:42:16 +0200</pubDate>
+				<guid>https://blog.kilian.io/alfred-workflows/</guid>
+				<description>&lt;p&gt;A &lt;a href=&#34;https://twitter.com/BenchR&#34;&gt;friend of mine&lt;/a&gt; has recently started automating some of his tasks using Alfred workflows, a feature of Alfred I&amp;rsquo;ve been using for years, but have never really thought about using for my own stuff before.&lt;/p&gt;&#xA;&lt;p&gt;Although they can sometimes come across rather gimicky, Alfred workflows are actually quite powerful. There&amp;rsquo;s a huge amount of possibilities built right in, but in this post I really only want to focus on a short introduction to so called &lt;em&gt;script filters&lt;/em&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>WWDC 16</title>
+				<link>https://blog.kilian.io/wwdc-16/</link>
+				<pubDate>Sat, 02 Jul 2016 02:28:11 +0200</pubDate>
+				<guid>https://blog.kilian.io/wwdc-16/</guid>
+				<description>&lt;p&gt;Had a fantastic time about two weeks ago at dubdubdeesee in San Francisco. First time at the West Coast and I&amp;rsquo;m completely blown away by the amount of amazing people and great time we had. This post is going to be a quick recap of my experiences along the way.&lt;/p&gt;&#xA;&lt;p&gt;After not expecting to receive the scholarship by Apple at all, I unfortunately did not seem to qualify for Apple&amp;rsquo;s Travel Assistance, which meant I had to gather around ~1.5k€ for an unexpected and very sudden trip to San Francisco. Everything worked out though and I can&amp;rsquo;t say I&amp;rsquo;d regret even a moment of it all!&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>On Quitting Facebook</title>
+				<link>https://blog.kilian.io/on-quitting-facebook/</link>
+				<pubDate>Thu, 30 Jun 2016 02:24:08 +0200</pubDate>
+				<guid>https://blog.kilian.io/on-quitting-facebook/</guid>
+				<description>&lt;p&gt;I’ve been seriously disliking the idea of maintaining a Facebook profile for quite a while now. It adds close to nothing to my life. After having loaded the page it seems I am always being presented with the same content over and over. The newsfeed is completely and utterly useless.&lt;/p&gt;&#xA;&lt;p&gt;A few months back I chose to delete my personal timeline. Facebook started to show me content from a few years back (from a much younger self) and I was presented with things that I really did not wish to display publicly online. It was nothing bad or deeply embarrassing, but I urge you to scroll all the way to the bottom of your FB profile and just start reading upwards. You&amp;rsquo;ll get what I mean 😉&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>WWDC 16 Scholarship</title>
+				<link>https://blog.kilian.io/wwdc-16-scholarship/</link>
+				<pubDate>Wed, 18 May 2016 02:21:05 +0200</pubDate>
+				<guid>https://blog.kilian.io/wwdc-16-scholarship/</guid>
+				<description>&lt;p&gt;Apple was gracious enough to grant me a WWDC scholarship this year. I’m still blown away!&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;The next challenge is obviously getting to SF. Unfortunately it’s not exactly cheap traveling all the way from Germany, but I’ll find a way. Definitely couldn’t justify missing this one-of-a-kind event.&lt;/p&gt;&#xA;&lt;p&gt;Stay posted for more, especially once it’s June 😁&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Cheap DynDNS Alternative</title>
+				<link>https://blog.kilian.io/cheap-dyndns-alternative/</link>
+				<pubDate>Mon, 07 Mar 2016 02:19:48 +0200</pubDate>
+				<guid>https://blog.kilian.io/cheap-dyndns-alternative/</guid>
+				<description>&lt;p&gt;Until recently I had the pleasure of living with a static IP. This made accessing my Raspberry PI from outside my home rather easy. I could just open the port on my router and hardcode the IP anywhere.&lt;/p&gt;&#xA;&lt;p&gt;After moving though easy access like that unfortunately fell away. I looked into some services like DynDNS but found them cumbersome and hard to work with. A simple solution to this “problem” presented itself via CloudFlare. Why not just get my current IP every $TIME_INTERVAL or so and send that to CloudFlare via their API updating an existing DNS record.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Firewatch</title>
+				<link>https://blog.kilian.io/firewatch/</link>
+				<pubDate>Sat, 13 Feb 2016 02:17:52 +0200</pubDate>
+				<guid>https://blog.kilian.io/firewatch/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/firewatch_1.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Finished it two days ago and was left in some emotional turmoil. I believed the ending to be spoiled for me after accidentally having read a sentence on Reddit, but it turns out that was bullshit. Unfortunately that made it even worse.&lt;/p&gt;&#xA;&lt;p&gt;It’s a gorgeous game, albeit relatively short (~4 hours). The gameplay mechanics work great (a bit unexpected at times) and the story is definitely captivating. Can’t say too much about it though without giving stuff away.&#xA;Definitely recommended! It’s &lt;strong&gt;not&lt;/strong&gt; a horror game either, just thrilling at times and beautiful at others. Give it a shot! 😊&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Black Mirror</title>
+				<link>https://blog.kilian.io/blackmirror/</link>
+				<pubDate>Wed, 13 Jan 2016 02:16:54 +0200</pubDate>
+				<guid>https://blog.kilian.io/blackmirror/</guid>
+				<description>&lt;p&gt;Blindly following a recommendation on Reddit I just finished watching the first season of &lt;a href=&#34;http://www.imdb.com/title/tt2085059&#34;&gt;Black Mirror&lt;/a&gt;. Not quite sure what I was expecting, only had the SciFi label in my head. Didn’t quite find that, more of a feeling of deep disgust with the different shown realities. Interesting nonetheless. And definitely a recommendation!&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>32c3</title>
+				<link>https://blog.kilian.io/32c3/</link>
+				<pubDate>Fri, 01 Jan 2016 02:14:31 +0200</pubDate>
+				<guid>https://blog.kilian.io/32c3/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/32c3_1.jpg&#34; alt=&#34;CCH outside&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;That was seriously awesome! My first congress and I couldn’t be happier with it. Definitely coming back next year, for sure!&lt;/p&gt;&#xA;&lt;p&gt;There’s so much I could write about here, but I’m going to keep it to a minimum.&#xA;I kinda regret watching quite a few talks live and not using the time at CCH to have a look at most assemblies and workshops. Will improve on that @ 33c3. All talks have since been published online at &lt;a href=&#34;media.ccc.de&#34;&gt;https://media.ccc.de&lt;/a&gt;. Have a look, and come next year! 😊&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>HeartBattery</title>
+				<link>https://blog.kilian.io/heartbattery/</link>
+				<pubDate>Fri, 20 Nov 2015 02:07:50 +0200</pubDate>
+				<guid>https://blog.kilian.io/heartbattery/</guid>
+				<description>&lt;p&gt;A friend recently had the fun idea to write a small script for his machine running Arch displaying his current battery state as a series of hearts instead of the traditional boring percentage. He did so via a short python script and the magic of Font Awesome to integrate with Conky.&lt;/p&gt;&#xA;&lt;p&gt;I have to admit that writing a quick script in your language of choice makes customization like this a lot easier than on OS X, but I liked the idea and wanted to follow along with something native as well. So today I wrote a little app in Swift titled HeartBattery.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Why I&#39;ll be keeping my Apple Watch</title>
+				<link>https://blog.kilian.io/applewatch/</link>
+				<pubDate>Thu, 07 May 2015 02:04:26 +0200</pubDate>
+				<guid>https://blog.kilian.io/applewatch/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/applewatch.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;:&#xA;I changed the post title from &lt;em&gt;Why I won&amp;rsquo;t be keeping my Apple Watch&lt;/em&gt; to the current one. Let me explain why.&lt;/p&gt;&#xA;&lt;p&gt;My biggest gripe with the watch was the in my opinion &lt;em&gt;abysmal&lt;/em&gt; battery performance of my iPhone when connected to the watch. I&amp;rsquo;m not entirely sure what changed, but I believe the watch is actually affecting how I use my phone during the day. Specifically how often I do so. I&amp;rsquo;m currently ending ~16 hour days with around 70% of a charge left in the watch and my iPhone somewhere around 50%. That&amp;rsquo;s actually &lt;em&gt;better&lt;/em&gt; than what I&amp;rsquo;m used to without the watch!&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>ParkenDD</title>
+				<link>https://blog.kilian.io/parkendd/</link>
+				<pubDate>Thu, 26 Feb 2015 02:01:49 +0200</pubDate>
+				<guid>https://blog.kilian.io/parkendd/</guid>
+				<description>&lt;p&gt;A few months ago &lt;a href=&#34;http://codefor.de&#34;&gt;Code for Germany&lt;/a&gt; launched. An &lt;em&gt;OK Lab&lt;/em&gt; (&lt;em&gt;Open Knowledge Lab&lt;/em&gt;) was founded in Dresden soon after, although similar projects (&lt;a href=&#34;http://offenesdresden.de&#34;&gt;offenesdresden.de&lt;/a&gt;) were already in place. Everything merged and Dresden has had quite an active community interested in bringing Open Data to the next level. It&amp;rsquo;s awesome.&lt;/p&gt;&#xA;&lt;p&gt;My first real contribution to this comes in form of an iPhone app using a &lt;a href=&#34;https://github.com/RobTranquillo/parkplaetzeDD&#34;&gt;PHP scraper backend&lt;/a&gt; scraping the data at &lt;a href=&#34;http://www.dresden.de/freie-parkplaetze/&#34;&gt;dresden.de/freie-parplaetze&lt;/a&gt;. An Android application for this purpose came to life fairly quickly (find it &lt;a href=&#34;http://jkliemann.de/parkendd/&#34;&gt;here&lt;/a&gt;), so a clone for iOS just had to follow!&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Migrating to kilian.io</title>
+				<link>https://blog.kilian.io/kilian-io/</link>
+				<pubDate>Mon, 05 Jan 2015 01:59:59 +0200</pubDate>
+				<guid>https://blog.kilian.io/kilian-io/</guid>
+				<description>&lt;p&gt;I spent most of today moving around my e-mail &lt;em&gt;infrastructure&lt;/em&gt;. The way I had it configured would probably bring tears to most people&amp;rsquo;s eyes, so I&amp;rsquo;ll spare you the gruesome details. Let&amp;rsquo;s just say that nothing is forwarding to Google Mail any longer and I&amp;rsquo;ll be using a different address as my main contact address from here on out. Namely &lt;strong&gt;&lt;a href=&#34;mailto:me@kilian.io&#34;&gt;me@kilian.io&lt;/a&gt;&lt;/strong&gt;. The domain kilian.io has been pointing to my server at &lt;a href=&#34;https://uberspace.de&#34;&gt;Uberspace&lt;/a&gt; for a little while now, but it hasn&amp;rsquo;t been much more than a little gimmick, just like &lt;a href=&#34;http://kilian.sexy&#34;&gt;kilian.sexy&lt;/a&gt; ;)&#xA;I&amp;rsquo;ve been starting to enjoy it a lot more than koeltzs.ch though, as it carries more personality, more &lt;em&gt;me&lt;/em&gt; than just my last name. And since &lt;a href=&#34;mailto:kilian@kilian.io&#34;&gt;kilian@kilian.io&lt;/a&gt; just looks ridiculous I&amp;rsquo;m choosing to go with the very informal &lt;a href=&#34;mailto:me@kilian.io&#34;&gt;me@kilian.io&lt;/a&gt; instead.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Pycharm and Java 8</title>
+				<link>https://blog.kilian.io/pycharm-and-java8/</link>
+				<pubDate>Fri, 19 Dec 2014 01:57:50 +0200</pubDate>
+				<guid>https://blog.kilian.io/pycharm-and-java8/</guid>
+				<description>&lt;p&gt;There&amp;rsquo;s been a &lt;a href=&#34;https://youtrack.jetbrains.com/issue/IDEA-131632&#34;&gt;bug&lt;/a&gt; with current versions of Jetbrains products (not just Pycharm, but also IntelliJ IDEA, Android Studio, AppCode and surely the others as well) on OS X 10.10 Yosemite where the editor screen flickers uncontrollably when you scroll the view. It&amp;rsquo;s been making my workflow increasingly difficult and was generally unpleasing, but there is a way around this!&lt;/p&gt;&#xA;&lt;p&gt;Kudos goes to &lt;a href=&#34;http://justusadam.com&#34;&gt;Justus&lt;/a&gt; for pointing this one out.&lt;/p&gt;&#xA;&lt;p&gt;All you have to do is set your favorite Jetbrains IDE to use the JVM version 1.8 instead of the default 1.6. This is easily done on OS X by editing the &lt;code&gt;Info.plist&lt;/code&gt; found at &lt;code&gt;/Applications/&amp;lt;PyCharm.app or something else&amp;gt;/Contents/Info.plist&lt;/code&gt; like this.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Simple Robot</title>
+				<link>https://blog.kilian.io/simple-robot/</link>
+				<pubDate>Fri, 31 Oct 2014 01:53:35 +0200</pubDate>
+				<guid>https://blog.kilian.io/simple-robot/</guid>
+				<description>&lt;p&gt;It&amp;rsquo;s been a while since I&amp;rsquo;ve touched Blender. A lot has changed, everything is awesome. There&amp;rsquo;s not all too much to say, but I&amp;rsquo;m a real sucker for pretty clay renders, so here&amp;rsquo;s a simple little robot.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/clay_posed_2400p.png&#34; alt=&#34;clay render&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Note that this render is in 2400p, the native resolution of the new MacBook Pro. I didn&amp;rsquo;t want said device to go up in flames though, so a shoutout goes to &lt;a href=&#34;https://render.st&#34;&gt;render.st&lt;/a&gt; (and especially their signup bonus).&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Installing OS X applications through Homebrew</title>
+				<link>https://blog.kilian.io/brew-cask/</link>
+				<pubDate>Mon, 21 Jul 2014 01:47:19 +0200</pubDate>
+				<guid>https://blog.kilian.io/brew-cask/</guid>
+				<description>&lt;p&gt;I have to admit to having been slightly jealous of a friend running Arch Linux on his laptop when he went ahead and installed &lt;a href=&#34;http://www.xmind.net/de/&#34;&gt;xmind&lt;/a&gt; right through his package manager (or actually &lt;a href=&#34;https://wiki.archlinux.org/index.php/yaourt&#34;&gt;yaourt&lt;/a&gt;, but I won&amp;rsquo;t make the distinction here). Now don&amp;rsquo;t get me wrong, there&amp;rsquo;s nothing wrong with installing applications on OS X. It&amp;rsquo;s dead simple.&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;You download the disk image, double-click it to mount and drag the .app onto your linked Applications directory. But it&amp;rsquo;s so graphical&amp;hellip; Any self-respecting &lt;em&gt;appleleptic&lt;/em&gt; nowadays already has the fantastic &lt;a href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt; package manager installed on their system anyways, which is awesome stuff, without question. And there is one package I have to admit to not having heard of before a few days ago, even though it has a rather big following which helps us out here.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>This is getting ridiculous</title>
+				<link>https://blog.kilian.io/bike/</link>
+				<pubDate>Mon, 21 Apr 2014 01:43:52 +0200</pubDate>
+				<guid>https://blog.kilian.io/bike/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;https://blog.kilian.io/img/bike.jpg&#34; alt=&#34;missing or broken bike parts&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;November 29th, 2012: Left a math lecture on a rainy day and wanted to get home as quick as possible. But it looked like I would be carrying my bike home seeing how some douche had stolen my front wheel on campus. Seeing how I moved to Dresden with &lt;em&gt;quick release skewers&lt;/em&gt; (if I can trust dict.leo.org) however, this happening was just a matter of time.&#xA;Instead of directly buying a new wheel (and new brakes, thank you, asshole! Oh, and a &lt;a href=&#34;http://www.pitlock.de/&#34;&gt;Pitlock&lt;/a&gt; system) I went with a completely new (as in old) and cheap bicycle. Fast forward to January and a few stitches on my face, and I wanted to go back to riding &lt;em&gt;my&lt;/em&gt; bike.&#xA;&lt;strong&gt;Total cost: ~200 €&lt;/strong&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Optimizing my Life - Part One: Decluttering</title>
+				<link>https://blog.kilian.io/optimizing-part-one/</link>
+				<pubDate>Fri, 21 Feb 2014 20:56:22 +0200</pubDate>
+				<guid>https://blog.kilian.io/optimizing-part-one/</guid>
+				<description>&lt;p&gt;Optimizing every single aspect of my digital live is something I&amp;rsquo;ve been enjoying for years. It&amp;rsquo;s the little things, being able to define a new shortcut for a task that I do all day, streamlining a complex process that has had me looking up howtos everytime I had to do it, but the same has never really held true for my life away from the keyboard. I&amp;rsquo;m definitely not what you would call messy, but the organization of my desk, room or now my apartment has never been one of my strengths. I now aim to change all of that. And there&amp;rsquo;s several steps I&amp;rsquo;m taking to get there.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>A New Start</title>
+				<link>https://blog.kilian.io/anustart/</link>
+				<pubDate>Sat, 15 Feb 2014 20:55:12 +0200</pubDate>
+				<guid>https://blog.kilian.io/anustart/</guid>
+				<description>&lt;p&gt;&lt;!-- raw HTML omitted --&gt;(Making the &lt;em&gt;Arrested Development&lt;/em&gt; reference in the title there was damn tempting, but nope, didn&amp;rsquo;t go for it.)&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;m not a huge blogger, I know that. I&amp;rsquo;ve been installing and running away from I guess around 10 to 20 blogs in the last few years (I can at least find &lt;a href=&#34;http://completelyfocused.wordpress.com&#34;&gt;one&lt;/a&gt; of the remnants to still be online, probably due to the fact that this is the only instance I didn&amp;rsquo;t host myself) and have had a lot more fun playing around with the software itself than writing, although I always aim to change that.&#xA;I guess I could write a few sentences about why I think this time might be different, but I&amp;rsquo;ve written those over and over again as well. But what I do know is that at least the software is different this time. It&amp;rsquo;s not just another Wordpress installation, it&amp;rsquo;s &lt;a href=&#34;http://ghost.org&#34;&gt;Ghost&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Valentina Kalashnikova - Last Dangerous Racoons</title>
+				<link>https://blog.kilian.io/valentina-kalashnikova/</link>
+				<pubDate>Thu, 07 Nov 2013 20:53:48 +0200</pubDate>
+				<guid>https://blog.kilian.io/valentina-kalashnikova/</guid>
+				<description>&lt;p&gt;Just got back from an awesome gig from a small local band a friend of mine plays in. They&amp;rsquo;re called the &lt;strong&gt;Last Dangerous Racoons&lt;/strong&gt; and this title of theirs is definitely worth a listen!&lt;/p&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;p&gt;Also check out their &lt;a href=&#34;http://lastdangerousracoons.de&#34;&gt;site&lt;/a&gt; and &lt;a href=&#34;http://lastdangerousracoons.bandcamp.com/&#34;&gt;bandcamp&lt;/a&gt; if you&amp;rsquo;re interested.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Launching Alfred with Caps Lock on OS X</title>
+				<link>https://blog.kilian.io/alfred-caps-lock/</link>
+				<pubDate>Tue, 05 Nov 2013 20:50:33 +0200</pubDate>
+				<guid>https://blog.kilian.io/alfred-caps-lock/</guid>
+				<description>&lt;p&gt;In great contrast to &lt;a href=&#34;http://www.alfredapp.com/&#34;&gt;Alfred&lt;/a&gt; being one of those apps I love more than anything on OS X, the caps lock key is something utterly useless nowadays (or ever for that matter). And if you do happen to find yourself in an argument on the internet, even &lt;a href=&#34;http://www.youtube.com/watch?v=xznylVUyND0&#34;&gt;Homer Simpson agrees&lt;/a&gt; that you put a lot more weight into your statement if you take your time to press the shift key. The already mentioned Alfred however is so immensely useful, that even two keys for its hotkey (the default &lt;code&gt;alt&lt;/code&gt; + &lt;code&gt;space&lt;/code&gt;) is too much. So why not combine the two and have a dedicated &lt;em&gt;launch everything and search for stuff anywhere&lt;/em&gt; key on your keyboard?&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Autodesk being awesome</title>
+				<link>https://blog.kilian.io/awesome-autodesk/</link>
+				<pubDate>Sat, 09 Apr 2011 20:48:33 +0200</pubDate>
+				<guid>https://blog.kilian.io/awesome-autodesk/</guid>
+				<description>&lt;p&gt;I remember being severely dissapointed about two years ago when I wanted to download the free students version of Maya, the so called PLE (Personal Learning Edition), but since Maya had already been acquired by Autodesk (before: Alias), this was no longer offered. I also wasn’t able to find any mirrors for that online, but today that PLE would be a far outdated version, so it wouldn’t be that useful anyways.&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

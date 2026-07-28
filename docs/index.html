@@ -1,12 +1,283 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=https://kilko.de/feed/" />
-    <link rel="canonical" href="https://kilko.de/feed/" />
-    <title>Moved to kilko.de</title>
-  </head>
-  <body>
-    <p>This post has moved to <a href="https://kilko.de/feed/">https://kilko.de/feed/</a>.</p>
-  </body>
-</html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>blog.kilian.io</title>
+<link rel="stylesheet" href="https://blog.kilian.io//css/style.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/github.min.css">
+
+
+<section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://blog.kilian.io/"><h1 class="title is-4">blog.kilian.io</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+          <a class="level-item" href="https://github.com/kiliankoe">
+            <span class="icon">
+              <i class="fa fa-brands fa-github"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="https://chaos.social/@kilian">
+            <span class="icon">
+              <i class="fa fa-brands fa-mastodon"></i>
+            </span>
+          </a>
+          
+          <a class="level-item" href="/index.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+          </a>
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    
+    <article>
+      <h2 class="subtitle is-6">August 31, 2021</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/decoding-unknown-data-with-codable/">Decoding Unknown Data with Codable</a></h1>
+      <div class="content">
+        A friend recently asked me how to decode the following JSON through Swift&rsquo;s Codable type.
+{ &#34;a&#34;: 1, &#34;b&#34;: &#34;foobar&#34;, &#34;option.extra&#34;: { &#34;a&#34;: 1 }, &#34;option.extra.more&#34;: 4 } The problem is that only the first two keys (a and b) are guaranteed to exist, anything aside from that (here everything prefixed with option) is extra and unknown at compile-time. Unknown keys should not be discarded however, they should be decoded into a dictionary for later use, we want a type like this.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/decoding-unknown-data-with-codable/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">July 26, 2018</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/server-setup/">Server Setup with traefik and docker-compose</a></h1>
+      <div class="content">
+        In the last post I hinted towards how I used docker-compose to run all the services I need on my server. Since someone asked me to describe it in a little more detail I&rsquo;ll do just that in this post. It would probably also make sense to document it a bit for myself as I know that I&rsquo;m going to forget parts of it at some point 🙈
+The basic gist is that everything runs in a docker container and exposes only what&rsquo;s necessary to the public web (and not directly by itself). Using docker to orchestrate everything has the benefit of not having to worry about dependencies or unsupported systems (to a certain degree at least) and leads to minimal overhead when trying out new stuff or updating existing services.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/server-setup/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">July 20, 2018</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/paperless/">Paperless</a></h1>
+      <div class="content">
+        For the past few years I&rsquo;ve been scanning all paper correspondence, be that something I receive via snail-mail, invoices, contracts or whatever else. This has been a huge improvement over not doing so. Before I had troubles finding documents when I needed them and usually had them lying around at home, not at hand when necessary.
+Both of these issues are easily resolvable by having digital copies. They can be accessed remotely and are searchable. OCR software has gotten pretty fantastic as well, making it possible to search for certain keywords even in pretty bad scans.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/paperless/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">July 2, 2018</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/chat-statistics/">Chat Statistics</a></h1>
+      <div class="content">
+        I recently stumbled across yet another statistics from my chat with my girlfriend post on /r/dataisbeautiful so today I wanted to evaluate some simple data myself. Unfortunately I&rsquo;m quite far from being an actual datascientist (below you&rsquo;ll see some of the first matplotlib plots I&rsquo;ve ever made), so I&rsquo;m going to focus a bit more on data acquisition and some very simple findings and visualizations.
+Since I probably don&rsquo;t have any chats quite as active as the one with my girlfriend that seemed to be the obvious choice to analyze as well. Unfortunately it&rsquo;s not just one chat, but split across four different messaging platforms since the inception of our relationship ~2.5 years ago. We started out using WhatsApp, then switched to Telegram, then to iMessage and back to Telegram interspersing everything with a bit of random images and answers to those on Instagram. I&rsquo;d love to turn this into a discussion on the pros and cons of various messaging platforms, but this is neiter the time nor the place. You can hit me up via Matrix (@kiliankoe:matrix.org) if you&rsquo;re interested in going down that route with me.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/chat-statistics/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">January 29, 2018</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/docker-swift-runtime/">Docker Swift Runtime</a></h1>
+      <div class="content">
+        I recently wrote a small Vapor web app in Swift which I then wanted to deploy on my server inside a docker container. Not having all too much experience with docker my simple Dockerfile looked something like this.
+FROM swift:4 COPY . . EXPOSE 8080 RUN swift build --configuration release ENTRYPOINT [&#34;.build/release/Run&#34;] CMD [&#34;serve&#34;, &#34;--env=production&#34;] Whilst this worked perfectly fine, the image size turned out to be a whopping 1.5GB. That didn&rsquo;t quite feel right if for an app as small as mine.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/docker-swift-runtime/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">May 30, 2017</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/reverse-engineering-ios/">Reverse Engineering iOS Apps</a></h1>
+      <div class="content">
+         As promised in my last post I wanted to write a post about a talk I recently held at Mobile Camp 2017. I also held the talk again at our local Cocoaheads Meetup on May 24th 2017, this time being recorded on video (Thanks, Ben!). But since the talk is in German, I promised to publish an English summary here as well, so here we go 😊
+The slides are online as well and can be found on GitHub Pages. I&rsquo;ve linked to most things as well, everything in orange is clickable 😉
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/reverse-engineering-ios/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">May 10, 2017</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/itunes-mitm/">Downloading older iOS app versions with iTunes</a></h1>
+      <div class="content">
+        Update (2017-09-23): Apple recently removed the App Store entirely from iTunes (a welcome move), which kinda broke the entire workflow here. It is however still possible to download IPA files to your Mac through the use of Apple Configurator 2.
+Buy and download the app via your iOS device Open Apple Configurator and login under &ldquo;Account&rdquo; Connect your device, then go to &ldquo;Add&rdquo; &gt; &ldquo;Application&rdquo; and choose the app in question from your purchase history A dialog will open asking you if you want to overwrite the app or continue in another fashion. As long as this dialog is open, the IPA file will be cached in ~/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches/Assets/TemporaryItems/MobileApps/. This process at least helps with downloading current IPA files. The act of downloading older versions is left as an exercise to the reader. I have to add that I haven&rsquo;t checked if it&rsquo;s still possible, I&rsquo;m just guessing that it doesn&rsquo;t differ too much from the process outlined below.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/itunes-mitm/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">April 10, 2017</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/github-images/">Keeping Static Images out of your GitHub Repo</a></h1>
+      <div class="content">
+        People love images [citation needed]. Or at least I know I do. And I&rsquo;ve previously stated elsewhere that I hate downloading or installing software that doesn&rsquo;t show me any obvious references to its visuals beforehand. I mean come on, it&rsquo;s just a screenshot, how hard can it be? GIFs or videos get bonus ✨ points. This obviously also goes for CLIs, which doesn&rsquo;t mean you should skimp on man pages and/or good --help documentation, but a link to a &ldquo;video&rdquo; powered by asciinema speaks volumes compared to a textual description of usage patterns!
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/github-images/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">April 8, 2017</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/akronymisierbar/">Akronymisierbar</a></h1>
+      <div class="content">
+        I&rsquo;m a podcast addict. I have been for a few years now and I can&rsquo;t seem to stop. Podcastprofile has a not very current list of all the feeds I&rsquo;m subscribed to.
+With all the content I consume it only seems logical to produce something at some point as well, or at least try. Hendrik and me have had that plan for quite a while if I recall correctly, and two months ago we finally decided to do something about it. So we sat down and hit record. What came out of that is Akronymisierbar (German for acronyminizable, &lsquo;cause all good podcast names are acronyminizable 😜), a podcast about everything that comes to our minds, from programming languages (there&rsquo;s a lot about programming languages) to how frogs swallow by using their eyeballs to push food down, although it&rsquo;s generally more technical as both of us have vested interests in all things computer science.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/akronymisierbar/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+    <article>
+      <h2 class="subtitle is-6">November 9, 2016</h2>
+      <h1 class="title"><a href="https://blog.kilian.io/xcode-buildnumber/">Automatically Increment Your Xcode Project&#39;s Build Number</a></h1>
+      <div class="content">
+        Those of us who use Xcode to build, run and deploy projects of ours have probably run into an issue where we&rsquo;ve forgotten to increment the build number before trying to deploy a project. In my case the problem is usually iTunes Connect, which doesn&rsquo;t take your app&rsquo;s version (or CFBundleShortVersionString) into account, but only the build number (or CFBundleVersion). The former is the version we usually set (according to semver if you&rsquo;re a good person, although it really doesn&rsquo;t make much of a difference for user-facing versions) to identify the version internally. If you fail to increment the latter before uploading, iTunes Connect doesn&rsquo;t see this as a new version, which stinks.
+
+        
+        ...<a class="button is-link" href="https://blog.kilian.io/xcode-buildnumber/" style="height:28px">
+          Read more
+          <span class="icon is-small">
+            <i class="fa fa-angle-double-right"></i>
+          </span>
+        </a>
+        
+      </div>
+    </article>
+    
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <div class="level-item">
+          
+          <a class="button is-disabled">
+            <span class="icon is-small is-marginless">
+              <i class="fa fa-angle-left"></i>
+            </span>
+            Newer
+          </a>
+          
+        </div>
+      </div>
+      <div class="level-right is-marginless">
+        <div class="level-item">
+          
+          <a class="button" href="/page/2/">
+            Older
+            <span class="icon is-small is-marginless">
+              <i class="fa fa-angle-right"></i>
+            </span>
+          </a>
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/go.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/ruby.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/swift.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/javascript.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/languages/bash.min.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script async src="https://t.kilko.de/js/pa-F5a2mPcv1-mCZieKwBsdQ.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
